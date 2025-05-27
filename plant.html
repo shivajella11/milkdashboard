@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="css/farm.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<style>
+  /* Banner Styles */
+  .plant-banner {
+    background: linear-gradient(135deg, #4a6fa5, #166088);
+    color: white;
+    padding: 6px 16px; /* Reduced vertical padding for less height */
+    border-radius: 12px; /* Adjusted rounded corners */
+    margin: 0 0 20px 0;
+    width: 100%;
+    height: 80px;
+    border-bottom: 4px solid #3a5f8a;
+  }
+
+  
+  .plant-banner-container {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .banner-icon {
+    color: rgba(255, 255, 255, 0.9);
+    min-width: 80px;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 2.8rem;
+  }
+  
+  .plant-banner-text h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    
+  }
+  
+  .plant-banner-text p {
+    margin: 10px 0 0;
+    font-size: 1.1rem;
+    opacity: 0.95;
+    font-weight: 400;
+    max-width: 700px;
+    line-height: 1.5;
+  }
+  
+  /* Header Styles */
+  .plant-header {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 0;
+    padding: 0 20px;
+  }
+  
+  .plant-controls {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .plant-btn {
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+  }
+  
+  .plant-btn-primary {
+    background-color: #3a6b8c;
+    color: white;
+  }
+  
+  .plant-btn-primary:hover {
+    background-color: #2c5a7a;
+  }
+  
+  .plant-btn-outline {
+    background-color: transparent;
+    border: 1px solid #3a6b8c;
+    color: #3a6b8c;
+  }
+  
+  .plant-btn-outline:hover {
+    background-color: #f0f5f9;
+  }
+  
+  /* Modal Styles */
+  .plant-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+  }
+  
+  .modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .close-modal {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  /* Form Styles */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="number"],
+  .form-group input[type="date"],
+  .form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .form-group select[multiple] {
+    height: 100px;
+  }
+  
+  .date-range {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .date-range span {
+    font-weight: normal;
+  }
+</style>
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+        <img src="img/logo.png" class="logo" alt="Logo" />
+        <div class="menu-title-group">
+            <i class="fas fa-bars menu-icon" id="menuToggle"></i> 
+        </div>
+    </div>
+    <div class="nav-center">
+        <div class="select-wrapper">
+            <i class="fas fa-globe"></i>
+            <select id="languageSelect" class="lang-dropdown">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+                <option value="te">తెలుగు</option>
+            </select>
+        </div>
+    </div>
+    <div class="nav-right">
+        <div class="nav-tools">
+            <div class="status-label">
+                <span id="statusDot" class="dot online"></span>
+                <span id="statusText">Active</span>
+            </div>
+            <button id="modeToggle" class="mode-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <div class="nav-search-profile">
+            <input type="text" placeholder="Search..." />
+            <div class="nav-icons">
+                <i class="fas fa-envelope"></i>
+                <i class="fas fa-bell"></i>
+            </div>
+            <div class="profile">
+                <img src="img/profile.jpg" alt="Profile" />
+                <span>SHIVAKUMAR JELLA</span>
+            </div>
+        </div>
+    </div>
+  </nav>
+  <aside id="sidebar">
+    <ul>
+      <li class="dashboard-nav"><a href="dashb.html"><i class="fas fa-home"></i> Dashboard</a></li>
+      <li class="farmer-nav"><a href="farmer.html"><i class="fas fa-user-friends"></i> Farmer Directory</a></li>
+      <li class="collection-nav"><a href="collection.html"><i class="fas fa-tractor"></i> Daily Milk Yields</a></li>
+      <li class="chilling-nav"><a href="chilling.html"><i class="fas fa-snowflake"></i> Cooling Stations</a></li>
+      <li class="processing-nav"><a href="plant.html"><i class="fas fa-industry"></i> Dairy Processing</a></li>
+      <li class="quality-nav"><a href="qualitydemo.html"><i class="fas fa-clipboard-check"></i> Milk Quality Tests</a></li>
+      <li class="inventory-nav"><a href="product.html"><i class="fas fa-boxes"></i> Dairy Stockroom</a></li>
+      <li class="logistics-nav"><a href="distubtion.html"><i class="fas fa-shipping-fast"></i> Farm-to-Market Routes</a></li>        
+      <li class="crm-nav"><a href="crmdemo.html"><i class="fas fa-users"></i> CRM System</a></li>
+    </ul>
+  </aside>
+  <main>
+    <div class="plant-container">
+     
+      <!-- Banner Section -->
+      <div class="plant-banner">
+        <div class="plant-banner-container">
+          <div class="banner-icon">
+            <i class="fas fa-industry"></i>
+          </div>
+          <div class="plant-banner-text">
+            <h1>Dairy Processing Plants</h1>
+          </div>
+        </div>
+      </div>
+      
+      <header class="plant-header">
+        <div class="plant-controls">
+          <button class="plant-btn plant-btn-primary" id="addPlantBtn">
+            <i class="fas fa-plus"></i> Add New Plant
+          </button>
+          <button class="plant-btn plant-btn-outline" id="exportDataBtn">
+            <i class="fas fa-file-export"></i> Export Data
+          </button>
+        </div>
+      </header>
+
+      <!-- Add Plant Modal Form -->
+      <div class="plant-modal" id="addPlantModal">
+        <div class="modal-content">
+          <span class="close-modal">&times;</span>
+          <h2><i class="fas fa-industry"></i> Add New Processing Plant</h2>
+          <form id="addPlantForm">
+            <div class="form-group">
+              <label for="plantName">Plant Name</label>
+              <input type="text" id="plantName" name="plantName" required>
+            </div>
+            <div class="form-group">
+              <label for="plantLocation">Location</label>
+              <input type="text" id="plantLocation" name="plantLocation" required>
+            </div>
+            <div class="form-group">
+              <label for="plantCapacity">Daily Capacity (liters)</label>
+              <input type="number" id="plantCapacity" name="plantCapacity" required>
+            </div>
+            <div class="form-group">
+              <label for="plantProducts">Main Products</label>
+              <select id="plantProducts" name="plantProducts" multiple>
+                <option value="milk">Milk</option>
+                <option value="cheese">Cheese</option>
+                <option value="yogurt">Yogurt</option>
+                <option value="butter">Butter</option>
+                <option value="cream">Cream</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="plantStatus">Status</label>
+              <select id="plantStatus" name="plantStatus">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+                <option value="maintenance">Under Maintenance</option>
+              </select>
+            </div>
+            <button type="submit" class="plant-btn plant-btn-primary">
+              <i class="fas fa-save"></i> Save Plant
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Export Data Modal Form -->
+      <div class="plant-modal" id="exportDataModal">
+        <div class="modal-content">
+          <span class="close-modal">&times;</span>
+          <h2><i class="fas fa-file-export"></i> Export Plant Data</h2>
+          <form id="exportDataForm">
+            <div class="form-group">
+              <label for="exportFormat">Format</label>
+              <select id="exportFormat" name="exportFormat">
+                <option value="csv">CSV</option>
+                <option value="excel">Excel</option>
+                <option value="json">JSON</option>
+                <option value="pdf">PDF</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="exportRange">Date Range</label>
+              <div class="date-range">
+                <input type="date" id="exportStartDate" name="exportStartDate">
+                <span>to</span>
+                <input type="date" id="exportEndDate" name="exportEndDate">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>
+                <input type="checkbox" name="includeInactive" id="includeInactive">
+                Include Inactive Plants
+              </label>
+            </div>
+            <button type="submit" class="plant-btn plant-btn-primary">
+              <i class="fas fa-download"></i> Export Data
+            </button>
+          </form>
+        </div>
+      </div>
+        
+        <div class="plant-stats-grid">
+          <div class="plant-stat-card">
+            <h3><i class="fas fa-factory"></i> Total Plants</h3>
+            <div class="plant-stat-value" id="total-plants">0</div>
+            <div class="plant-stat-subtext">Across all regions</div>
+          </div>
+          <div class="plant-stat-card">
+            <h3><i class="fas fa-tint"></i> Total Capacity</h3>
+            <div class="plant-stat-value" id="total-capacity">0 L</div>
+            <div class="plant-stat-subtext">Daily processing</div>
+          </div>
+          <div class="plant-stat-card">
+            <h3><i class="fas fa-bolt"></i> Active Plants</h3>
+            <div class="plant-stat-value" id="active-plants">0</div>
+            <div class="plant-stat-subtext">Currently operational</div>
+          </div>
+          <div class="plant-stat-card">
+            <h3><i class="fas fa-chart-line"></i> Utilization</h3>
+            <div class="plant-stat-value" id="avg-utilization">0%</div>
+            <div class="plant-stat-subtext">Average across plants</div>
+          </div>
+        </div>
+        
+        <div class="plant-search-filter">
+          <div class="plant-search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search plants..." id="search-input">
+          </div>
+          <select class="plant-filter-select" id="status-filter">
+            <option value="all">All Statuses</option>
+            <option value="active">Active</option>
+            <option value="maintenance">Maintenance</option>
+            <option value="offline">Offline</option>
+          </select>
+        </div>
+        
+        <table class="plant-table">
+          <thead>
+            <tr>
+              <th>Plant Name</th>
+              <th>Location</th>
+              <th>Daily Capacity (L)</th>
+              <th>Current Utilization</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="plant-table-body">
+            <!-- Data will be injected here -->
+          </tbody>
+        </table>
+
+          <!-- Add this section right after the plant-stats-grid div -->
+        <div class="plant-products-section">
+          <h2><i class="fas fa-cubes"></i> Manufacturing Products </h2>
+          
+          <div class="product-cards-container">
+            <!-- Milk Products -->
+            <div class="product-card">
+              <div class="product-icon" style="background-color: #e3f2fd;">
+                <i class="fas fa-wine-bottle" style="color: #1976d2;"></i>
+              </div>
+              <div class="product-info">
+                <h3>Pasteurized Milk</h3>
+                <div class="product-stats">
+                  <span class="product-volume">1,250,000 L/month</span>
+                  <span class="product-growth positive">
+                    <i class="fas fa-arrow-up"></i> 8.2%
+                  </span>
+                </div>
+                <div class="product-plants">Produced at 4 plants</div>
+              </div>
+            </div>
+            
+            <!-- Cheese Products -->
+            <div class="product-card">
+              <div class="product-icon" style="background-color: #fff8e1;">
+                <i class="fas fa-cheese" style="color: #ff8f00;"></i>
+              </div>
+              <div class="product-info">
+                <h3>Cheese Varieties</h3>
+                <div class="product-stats">
+                  <span class="product-volume">45,000 kg/month</span>
+                  <span class="product-growth positive">
+                    <i class="fas fa-arrow-up"></i> 12.5%
+                  </span>
+                </div>
+                <div class="product-plants">Produced at 2 plants</div>
+              </div>
+            </div>
+            
+            <!-- Yogurt Products -->
+            <div class="product-card">
+              <div class="product-icon" style="background-color: #f1f8e9;">
+                <i class="fas fa-blender" style="color: #689f38;"></i>
+              </div>
+              <div class="product-info">
+                <h3>Yogurt Products</h3>
+                <div class="product-stats">
+                  <span class="product-volume">320,000 units/month</span>
+                  <span class="product-growth positive">
+                    <i class="fas fa-arrow-up"></i> 5.7%
+                  </span>
+                </div>
+                <div class="product-plants">Produced at 3 plants</div>
+              </div>
+            </div>
+            
+            <!-- Butter Products -->
+            <div class="product-card">
+              <div class="product-icon" style="background-color: #fff3e0;">
+                <i class="fas fa-bread-slice" style="color: #fb8c00;"></i>
+              </div>
+              <div class="product-info">
+                <h3>Butter & Ghee</h3>
+                <div class="product-stats">
+                  <span class="product-volume">28,000 kg/month</span>
+                  <span class="product-growth negative">
+                    <i class="fas fa-arrow-down"></i> 2.3%
+                  </span>
+                </div>
+                <div class="product-plants">Produced at 2 plants</div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+      
+
+    <!-- Add this CSS to your style section -->
+    <style>
+      /* Products Section Styles */
+      .plant-products-section {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        margin: 0 0 30px 0;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      }
+      
+      .plant-products-section h2 {
+        margin: 0 0 20px 0;
+        font-size: 1.4rem;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .product-cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+      
+      .product-card {
+        background: #f8fafc;
+        border-radius: 10px;
+        padding: 20px;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        transition: all 0.3s ease;
+        border-left: 4px solid #3498db;
+      }
+      
+      .product-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      }
+      
+      .product-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+      }
+      
+      .product-info {
+        flex: 1;
+      }
+      
+      .product-info h3 {
+        margin: 0 0 5px 0;
+        font-size: 1.1rem;
+        color: #2c3e50;
+      }
+      
+      .product-stats {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+      }
+      
+      .product-volume {
+        font-weight: 500;
+        color: #34495e;
+        font-size: 0.95rem;
+      }
+      
+      .product-growth {
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+      
+      .product-growth.positive {
+        color: #27ae60;
+      }
+      
+      .product-growth.negative {
+        color: #e74c3c;
+      }
+      
+      .product-plants {
+        font-size: 0.8rem;
+        color: #7f8c8d;
+      }
+    </style>
+
+    <!-- Add this JavaScript to handle product interactions -->
+    <script>
+      // Sample product data
+      const milkProducts = [
+        {
+          id: 1,
+          name: "Pasteurized Milk",
+          type: "milk",
+          volume: 1250000,
+          growth: 8.2,
+          plants: [1, 2, 3, 5],
+          icon: "fa-wine-bottle",
+          color: "#1976d2"
+        },
+        {
+          id: 2,
+          name: "Cheese Varieties",
+          type: "cheese",
+          volume: 45000,
+          growth: 12.5,
+          plants: [1, 3],
+          icon: "fa-cheese",
+          color: "#ff8f00"
+        },
+        {
+          id: 3,
+          name: "Yogurt Products",
+          type: "yogurt",
+          volume: 320000,
+          growth: 5.7,
+          plants: [1, 2, 5],
+          icon: "fa-blender",
+          color: "#689f38"
+        },
+        {
+          id: 4,
+          name: "Butter & Ghee",
+          type: "butter",
+          volume: 28000,
+          growth: -2.3,
+          plants: [1, 5],
+          icon: "fa-bread-slice",
+          color: "#fb8c00"
+        }
+      ];
+
+      // Function to render product cards (optional - if you want dynamic rendering)
+      function renderProductCards() {
+        const container = document.querySelector('.product-cards-container');
+        container.innerHTML = '';
+        
+        milkProducts.forEach(product => {
+          const card = document.createElement('div');
+          card.className = 'product-card';
+          card.style.borderLeftColor = product.color;
+          card.innerHTML = `
+            <div class="product-icon" style="background-color: ${hexToRgba(product.color, 0.1)}">
+              <i class="fas ${product.icon}" style="color: ${product.color}"></i>
+            </div>
+            <div class="product-info">
+              <h3>${product.name}</h3>
+              <div class="product-stats">
+                <span class="product-volume">${formatVolume(product)}</span>
+                <span class="product-growth ${product.growth >= 0 ? 'positive' : 'negative'}">
+                  <i class="fas fa-arrow-${product.growth >= 0 ? 'up' : 'down'}"></i> ${Math.abs(product.growth)}%
+                </span>
+              </div>
+              <div class="product-plants">Produced at ${product.plants.length} plant${product.plants.length > 1 ? 's' : ''}</div>
+            </div>
+          `;
+          
+          // Add click event to show product details
+          card.addEventListener('click', () => showProductDetails(product));
+          container.appendChild(card);
+        });
+      }
+
+      // Helper functions
+      function hexToRgba(hex, alpha) {
+        const r = parseInt(hex.slice(1, 3), 16);
+        const g = parseInt(hex.slice(3, 5), 16);
+        const b = parseInt(hex.slice(5, 7), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+      }
+
+      function formatVolume(product) {
+        if (product.type === 'milk') {
+          return `${(product.volume / 1000).toLocaleString()} KL/month`;
+        } else if (product.type === 'cheese' || product.type === 'butter') {
+          return `${product.volume.toLocaleString()} kg/month`;
+        } else {
+          return `${product.volume.toLocaleString()} units/month`;
+        }
+      }
+
+      function showProductDetails(product) {
+        alert(`Showing details for: ${product.name}\n\n` +
+              `Monthly Production: ${formatVolume(product)}\n` +
+              `Growth Rate: ${product.growth}%\n` +
+              `Produced at Plant IDs: ${product.plants.join(', ')}`);
+      }
+
+      // Initialize product cards on load
+      document.addEventListener('DOMContentLoaded', renderProductCards);
+    </script>
+
+
+    <script>
+    // Sample data
+    const plants = [
+      {
+        id: 1,
+        name: "Central Processing Unit",
+        location: "Main Farm Complex",
+        capacity: 15000,
+        currentOutput: 14200,
+        status: "active",
+        lastInspection: "2023-05-15"
+      },
+      {
+        id: 2,
+        name: "Northern Dairy Plant",
+        location: "North Region",
+        capacity: 8000,
+        currentOutput: 7200,
+        status: "active",
+        lastInspection: "2023-04-28"
+      },
+      {
+        id: 3,
+        name: "Southern Creamery",
+        location: "South Valley",
+        capacity: 12000,
+        currentOutput: 6500,
+        status: "maintenance",
+        lastInspection: "2023-05-01"
+      },
+      {
+        id: 4,
+        name: "Eastern Milk Hub",
+        location: "East District",
+        capacity: 6000,
+        currentOutput: 0,
+        status: "offline",
+        lastInspection: "2023-03-10"
+      },
+      {
+        id: 5,
+        name: "Western Pasteurization",
+        location: "West Fields",
+        capacity: 10000,
+        currentOutput: 9800,
+        status: "active",
+        lastInspection: "2023-05-10"
+      }
+    ];
+    
+    // DOM elements
+    const tableBody = document.getElementById('plant-table-body');
+    const searchInput = document.getElementById('search-input');
+    const statusFilter = document.getElementById('status-filter');
+    const totalPlantsEl = document.getElementById('total-plants');
+    const totalCapacityEl = document.getElementById('total-capacity');
+    const activePlantsEl = document.getElementById('active-plants');
+    const avgUtilizationEl = document.getElementById('avg-utilization');
+    
+    // Calculate statistics
+    function updateStats() {
+      const totalCapacity = plants.reduce((sum, plant) => sum + plant.capacity, 0);
+      const activePlants = plants.filter(plant => plant.status === 'active').length;
+      const avgUtilization = plants.length > 0 ? 
+        Math.round(plants.reduce((sum, plant) => sum + (plant.currentOutput / plant.capacity * 100), 0) / plants.length) : 0;
+      
+      totalPlantsEl.textContent = plants.length;
+      totalCapacityEl.textContent = totalCapacity.toLocaleString() + ' L';
+      activePlantsEl.textContent = activePlants;
+      avgUtilizationEl.textContent = avgUtilization + '%';
+    }
+    
+    // Render table rows
+    function renderTable(data) {
+      tableBody.innerHTML = '';
+      
+      data.forEach(plant => {
+        const utilization = Math.round((plant.currentOutput / plant.capacity) * 100);
+        const row = document.createElement('tr');
+        
+        row.innerHTML = `
+          <td>
+            <strong>${plant.name}</strong>
+            <div class="plant-inspection-text">
+              Last inspected: ${plant.lastInspection}
+            </div>
+          </td>
+          <td>${plant.location}</td>
+          <td>${plant.capacity.toLocaleString()}</td>
+          <td>
+            <div class="plant-progress-container">
+              <div class="plant-progress-bar">
+                <div class="plant-progress-fill" style="width: ${utilization}%; background-color: ${
+                  utilization > 90 ? 'red' : 
+                  utilization > 70 ? ' rgb(165, 81, 16);' : 'green'
+                };"></div>
+              </div>
+              <div class="plant-progress-text">${plant.currentOutput.toLocaleString()} L (${utilization}%)</div>
+            </div>
+          </td>
+          <td>
+            <span class="plant-status plant-status-${plant.status}">
+              <i class="fas ${
+                plant.status === 'active' ? 'fa-check-circle' :
+                plant.status === 'maintenance' ? 'fa-tools' : 'fa-power-off'
+              }"></i>
+              ${plant.status.charAt(0).toUpperCase() + plant.status.slice(1)}
+            </span>
+          </td>
+          <td>
+            <div class="plant-actions">
+              <button class="plant-action-btn" title="View Details" onclick="viewPlant(${plant.id})">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="plant-action-btn" title="Edit Plant" onclick="editPlant(${plant.id})">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="plant-action-btn ${plant.status === 'offline' ? '' : 'plant-action-btn-danger'}" 
+                      title="${plant.status === 'offline' ? 'Activate' : 'Deactivate'}" 
+                      onclick="togglePlantStatus(${plant.id})">
+                <i class="fas ${plant.status === 'offline' ? 'fa-play' : 'fa-stop'}"></i>
+              </button>
+            </div>
+          </td>
+        `;
+        
+        tableBody.appendChild(row);
+      });
+    }
+    
+    // Filter plants based on search and status
+    function filterPlants() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const status = statusFilter.value;
+      
+      const filtered = plants.filter(plant => {
+        const matchesSearch = plant.name.toLowerCase().includes(searchTerm) || 
+                            plant.location.toLowerCase().includes(searchTerm);
+        const matchesStatus = status === 'all' || plant.status === status;
+        return matchesSearch && matchesStatus;
+      });
+      
+      renderTable(filtered);
+    }
+    
+    // Event listeners
+    searchInput.addEventListener('input', filterPlants);
+    statusFilter.addEventListener('change', filterPlants);
+    
+    // Mock functions for actions
+    function viewPlant(id) {
+      alert(`Viewing details for plant ID: ${id}`);
+    }
+    
+    function editPlant(id) {
+      alert(`Editing plant ID: ${id}`);
+    }
+    
+    function togglePlantStatus(id) {
+      const plant = plants.find(p => p.id === id);
+      if (plant) {
+        plant.status = plant.status === 'offline' ? 'active' : 'offline';
+        plant.currentOutput = plant.status === 'offline' ? 0 : Math.floor(plant.capacity * 0.85);
+        filterPlants();
+        updateStats();
+      }
+    }
+    
+    // Initial render
+    updateStats();
+    renderTable(plants);
+    </script>
+    
+    <script>
+      // Simple JavaScript to handle modal display
+      document.getElementById('addPlantBtn').addEventListener('click', function() {
+        document.getElementById('addPlantModal').style.display = 'block';
+      });
+      
+      document.getElementById('exportDataBtn').addEventListener('click', function() {
+        document.getElementById('exportDataModal').style.display = 'block';
+      });
+      
+      document.querySelectorAll('.close-modal').forEach(function(closeBtn) {
+        closeBtn.addEventListener('click', function() {
+          this.closest('.plant-modal').style.display = 'none';
+        });
+      });
+      
+      // Close modal when clicking outside
+      window.addEventListener('click', function(event) {
+        if (event.target.className === 'plant-modal') {
+          event.target.style.display = 'none';
+        }
+      });
+      
+      // Form submission handlers
+      document.getElementById('addPlantForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Plant added successfully!');
+        document.getElementById('addPlantModal').style.display = 'none';
+        // Here you would typically send the data to your backend
+      });
+      
+      document.getElementById('exportDataForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Export request received!');
+        document.getElementById('exportDataModal').style.display = 'none';
+        // Here you would typically initiate the export process
+      });
+    </script>
+  </main>
+  <script src="js/farm.js"></script>
+</body>
+</html>

@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milk Collection System</title>
+    <link rel="stylesheet" href="css/farm.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+</head>
+<style>
+    .milk-banner {
+    background: linear-gradient(90deg, #7d45ed, #2e9add);
+    color: white;
+    padding: 18px 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 8px;
+    border-radius: 20px;
+}
+
+.milk-banner h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.milk-banner p {
+    margin: 0.3rem 0 0;
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 5px;
+}
+
+/* Auto Collection System Styles */
+.auto-collection-header {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.auto-collection-header h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.auto-collection-header p {
+    margin: 5px 0 15px;
+    opacity: 0.9;
+}
+
+.auto-collection-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.auto-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ccc;
+}
+
+.status-indicator.active {
+    background-color: #2ecc71;
+    box-shadow: 0 0 8px #2ecc71;
+}
+
+.auto-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.mcs-collection-card.auto-card {
+    border-left: 4px solid #3498db;
+    transition: transform 0.2s;
+}
+
+.mcs-collection-card.auto-card:hover {
+    transform: translateY(-5px);
+}
+
+.auto-collection-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.auto-feature-section {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+
+.auto-feature-section h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.real-time-chart {
+    margin: 15px 0;
+}
+
+.chart-placeholder {
+    height: 120px;
+    background: #f9f9f9;
+    border-radius: 4px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.chart-bar {
+    width: 30px;
+    background: linear-gradient(to top, #3498db, #2980b9);
+    border-radius: 3px 3px 0 0;
+}
+
+.chart-bar.active {
+    background: linear-gradient(to top, #2ecc71, #27ae60);
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+}
+
+.chart-legend {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin-top: 5px;
+}
+
+.real-time-stats, .schedule-controls, .calculation-controls, .payment-summary {
+    margin-top: 15px;
+}
+
+.stat-item, .schedule-item, .summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.stat-label, .schedule-label, .summary-label {
+    color: #7f8c8d;
+}
+
+.stat-value, .schedule-time, .summary-value {
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.schedule-status {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    background: #f0f0f0;
+    color: #7f8c8d;
+}
+
+.schedule-status.active {
+    background: #e1f5fe;
+    color: #0288d1;
+}
+
+.schedule-select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.calculation-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.calc-option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.payment-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.payment-stat {
+    text-align: center;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    flex: 1;
+    margin: 0 5px;
+}
+
+.payment-stat .stat-value {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.payment-stat .stat-label {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.payment-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.battery-indicator, .signal-indicator {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.battery-indicator {
+    width: 40px;
+    height: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.battery-level {
+    height: 100%;
+    background-color: #2ecc71;
+}
+
+.battery-level.battery-low {
+    background-color: #e74c3c;
+}
+
+.signal-indicator {
+    display: inline-flex;
+    gap: 2px;
+}
+
+.signal-bar {
+    width: 3px;
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 1px;
+}
+
+.signal-bar:nth-child(1) { height: 4px; }
+.signal-bar:nth-child(2) { height: 6px; }
+.signal-bar:nth-child(3) { height: 8px; }
+.signal-bar:nth-child(4) { height: 10px; }
+.signal-bar:nth-child(5) { height: 12px; }
+
+.signal-bar.active {
+    background-color: #3498db;
+}
+
+.mcs-btn-small {
+    padding: 2px 8px;
+    font-size: 0.8rem;
+}
+
+.mcs-btn-success {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.mcs-status-warning {
+    background-color: #f39c12;
+}
+
+.mcs-status-error {
+    background-color: #e74c3c;
+}
+
+.iot-table td {
+    vertical-align: middle;
+}
+
+/* Enhanced Auto Collection System Styles */
+.auto-collection-dashboard {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.dashboard-title h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dashboard-status {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.system-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    gap: 5px;
+}
+
+.status-badge.online {
+    background-color: #e3fcef;
+    color: #2ecc71;
+}
+
+.status-uptime {
+    font-size: 0.8rem;
+    color: #7f8c8d;
+    margin-top: 5px;
+}
+
+</style>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="img/logo.png" class="logo" alt="Logo" />
+            <div class="menu-title-group">
+                <i class="fas fa-bars menu-icon" id="menuToggle"></i> 
+            </div>
+        </div>
+        <div class="nav-center">
+            <!-- Language Selector with Globe Icon -->
+            <div class="select-wrapper">
+                <i class="fas fa-globe"></i>
+                <select id="languageSelect" class="lang-dropdown">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="te">తెలుగు</option>
+                </select>
+            </div>
+            <!-- Can add navigation links here if needed -->
+        </div>
+        <div class="nav-right">
+            <div class="nav-tools">
+                <!-- Online Status Label -->
+                <div class="status-label">
+                    <span id="statusDot" class="dot online"></span>
+                    <span id="statusText">Active</span>
+                </div>
+                <!-- Mode Toggle -->
+                <button id="modeToggle" class="mode-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <div class="nav-search-profile">
+                <input type="text" placeholder="Search..." />
+                <div class="nav-icons">
+                    <i class="fas fa-envelope"></i>
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="profile">
+                    <img src="img/profile.jpg" alt="Profile" />
+                    <span>SHIVAKUMAR JELLA</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <aside id="sidebar">
+        <ul>
+            <li class="dashboard-nav"><a href="dashb.html"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li class="farmer-nav"><a href="farmer.html"><i class="fas fa-user-friends"></i> Farmer Directory</a></li>
+            <li class="collection-nav"><a href="collection.html"><i class="fas fa-tractor"></i> Daily Milk Yields</a></li>
+            <li class="chilling-nav"><a href="chilling.html"><i class="fas fa-snowflake"></i> Cooling Stations</a></li>
+            <li class="processing-nav"><a href="plant.html"><i class="fas fa-industry"></i> Dairy Processing</a></li>
+            <li class="quality-nav"><a href="qualitydemo.html"><i class="fas fa-clipboard-check"></i> Milk Quality Tests</a></li>
+            <li class="inventory-nav"><a href="product.html"><i class="fas fa-boxes"></i> Dairy Stockroom</a></li>
+            <li class="logistics-nav"><a href="distubtion.html"><i class="fas fa-shipping-fast"></i> Farm-to-Market Routes</a></li>        
+            <li class="crm-nav"><a href="crmdemo.html"><i class="fas fa-users"></i> CRM System</a></li>
+        </ul>
+    </aside>
+    <!-- Main Content -->
+    
+    <main class="mcs-main-content">
+            <div class="milk-banner">
+                <h2><i class="fas fa-glass-whiskey"></i> Milk Collection </h2>
+            </div>
+
+
+            <!-- Region Tabs -->
+            <div class="mcs-region-tabs">
+                <div class="mcs-region-tab active" data-region="north">North Region</div>
+                <div class="mcs-region-tab" data-region="south">South Region</div>
+                <div class="mcs-region-tab" data-region="east">East Region</div>
+                <div class="mcs-region-tab" data-region="west">West Region</div>
+                <div class="mcs-region-tab" data-region="auto"><i class="fas fa-robot"></i> Auto Collection</div>
+            </div>
+
+            <!-- North Region Content -->
+            <div id="north-region" class="mcs-region-content active">
+                <!-- Summary Cards -->
+                <div class="mcs-collection-cards">
+                    <div class="mcs-collection-card">
+                        <div class="mcs-card-header">
+                            <div class="mcs-card-title">Today's Collection</div>
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <div class="mcs-card-value">1,245 L</div>
+                        <div class="mcs-card-footer">From 8 divisions</div>
+                    </div>
+                    
+                    <div class="mcs-collection-card">
+                        <div class="mcs-card-header">
+                            <div class="mcs-card-title">Monthly Collection</div>
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="mcs-card-value">32,560 L</div>
+                        <div class="mcs-card-footer">Avg. 1,085 L/day</div>
+                    </div>
+                    
+                    <div class="mcs-collection-card">
+                        <div class="mcs-card-header">
+                            <div class="mcs-card-title">Active Farmers</div>
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="mcs-card-value">78</div>
+                        <div class="mcs-card-footer">In North Region</div>
+                    </div>
+                </div>
+
+                <!-- Division-wise Collection -->
+                <h2>Division-wise Collection (Today)</h2>
+                <div class="table-responsive">
+                    <table class="mcs-collection-table">
+                        <thead>
+                            <tr>
+                                <th>Division</th>
+                                <th>Morning (L)</th>
+                                <th>Evening (L)</th>
+                                <th>Total (L)</th>
+                                <th>Collection Centers</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Division A</td>
+                                <td>245</td>
+                                <td>210</td>
+                                <td>455</td>
+                                <td>3</td>
+                                <td><span class="mcs-status mcs-status-completed">Completed</span></td>
+                                <td>
+                                    <button class="mcs-btn mcs-btn-primary">View Details</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Division B</td>
+                                <td>180</td>
+                                <td>195</td>
+                                <td>375</td>
+                                <td>2</td>
+                                <td><span class="mcs-status mcs-status-completed">Completed</span></td>
+                                <td>
+                                    <button class="mcs-btn mcs-btn-primary">View Details</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Division C</td>
+                                <td>165</td>
+                                <td>-</td>
+                                <td>165</td>
+                                <td>1</td>
+                                <td><span class="mcs-status mcs-status-pending">Pending</span></td>
+                                <td>
+                                    <button class="mcs-btn mcs-btn-primary">View Details</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Division D</td>
+                                <td>210</td>
+                                <td>-</td>
+                                <td>210</td>
+                                <td>2</td>
+                                <td><span class="mcs-status mcs-status-pending">Pending</span></td>
+                                <td>
+                                    <button class="mcs-btn mcs-btn-primary">View Details</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- South Region Content -->
+            <div id="south-region" class="mcs-region-content">
+                <!-- Summary Cards -->
+                <div class="mcs-collection-cards">
+                    <div class="mcs-collection-card">
+                        <div class="mcs-card-header">
+                            <div class="mcs-card-title">Today's Collection</div>
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <div class="mcs-card-value">985 L</div>
+                        <div class="mcs-card-footer">From 6 divisions</div>
+                    </div>
+                    
+                    <div class="mcs-collection-card">
+                        <div class="mcs-card-header">
+                            <div class="mcs-card-title">Monthly Collection</div>
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="mcs-card-value">25,430 L</div>
+                        <div class="mcs-card-footer">Avg. 848 L/day</div>
+                    </div>
+                    
+                    <div class="mcs-collection-card">
+                        <div class="mcs-card-header">
+                            <div class="mcs-card-title">Active Farmers</div>
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="mcs-card-value">64</div>
+                        <div class="mcs-card-footer">In South Region</div>
+                    </div>
+                </div>
+
+                <!-- Division-wise Collection -->
+                <h2>Division-wise Collection (Today)</h2>
+                <div class="table-responsive">
+                    <table class="mcs-collection-table">
+                        <thead>
+                            <tr>
+                                <th>Division</th>
+                                <th>Morning (L)</th>
+                                <th>Evening (L)</th>
+                                <th>Total (L)</th>
+                                <th>Collection Centers</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Division X</td>
+                                <td>195</td>
+                                <td>175</td>
+                                <td>370</td>
+                                <td>2</td>
+                                <td><span class="mcs-status mcs-status-completed">Completed</span></td>
+                                <td>
+                                    <button class="mcs-btn mcs-btn-primary">View Details</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Division Y</td>
+                                <td>160</td>
+                                <td>-</td>
+                                <td>160</td>
+                                <td>1</td>
+                                <td><span class="mcs-status mcs-status-pending">Pending</span></td>
+                                <td>
+                                    <button class="mcs-btn mcs-btn-primary">View Details</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Division Z</td>
+                                <td>210</td>
+                                <td>185</td>
+                                <td>395</td>
+                                <td>3</td>
+                                <td><span class="mcs-status mcs-status-completed">Completed</span></td>
+                                <td>
+                                    <button class="mcs-btn mcs-btn-primary">View Details</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- East Region Content -->
+            <div id="east-region" class="mcs-region-content">
+                <div class="mcs-collection-cards">
+                    <div class="mcs-collection-card">
+                        <div class="mcs-card-header">
+                            <div class="mcs-card-title">Today's Collection</div>
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <div class="mcs-card-value">1,050 L</div>
+                        <div class="mcs-card-footer">From 7 divisions</div>
+                    </div>
+            
+                    <div class="mcs-collection-card">
+                        <div class="mcs-card-header">
+                            <div class="mcs-card-title">Monthly Collection</div>
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="mcs-card-value">29,300 L</div>
+                        <div class="mcs-card-footer">Avg. 976 L/day</div>
+                    </div>
+            
+                    <div class="mcs-collection-card">
+                        <div class="mcs-card-header">
+                            <div class="mcs-card-title">Active Farmers</div>
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="mcs-card-value">70</div>
+                        <div class="mcs-card-footer">In East Region</div>
+                    </div>
+                </div>
+            
+                <h2>Division-wise Collection (Today)</h2>
+                <div class="table-responsive">
+                    <table class="mcs-collection-table">
+                        <thead>
+                            <tr>
+                                <th>Division</th>
+                                <th>Morning (L)</th>
+                                <th>Evening (L)</th>
+                                <th>Total (L)</th>
+                                <th>Collection Centers</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Division E1</td>
+                                <td>220</td>
+                                <td>200</td>
+                                <td>420</td>
+                                <td>3</td>
+                                <td><span class="mcs-status mcs-status-completed">Completed</span></td>
+                                <td><button class="mcs-btn mcs-btn-primary">View Details</button></td>
+                            </tr>
+                            <tr>
+                                <td>Division E2</td>
+                                <td>180</td>
+                                <td>170</td>
+                                <td>350</td>
+                                <td>2</td>
+                                <td><span class="mcs-status mcs-status-completed">Completed</span></td>
+                                <td><button class="mcs-btn mcs-btn-primary">View Details</button></td>
+                            </tr>
+                            <tr>
+                                <td>Division E3</td>
+                                <td>150</td>
+                                <td>-</td>
+                                <td>150</td>
+                                <td>1</td>
+                                <td><span class="mcs-status mcs-status-pending">Pending</span></td>
+                                <td><button class="mcs-btn mcs-btn-primary">View Details</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        
+            <!-- West Region Content -->
+            <div id="west-region" class="mcs-region-content">
+                <div class="mcs-collection-cards">
+                    <div class="mcs-collection-card">
+                        <div class="mcs-card-header">
+                            <div class="mcs-card-title">Today's Collection</div>
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <div class="mcs-card-value">890 L</div>
+                        <div class="mcs-card-footer">From 5 divisions</div>
+                    </div>
+            
+                    <div class="mcs-collection-card">
+                        <div class="mcs-card-header">
+                            <div class="mcs-card-title">Monthly Collection</div>
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="mcs-card-value">21,700 L</div>
+                        <div class="mcs-card-footer">Avg. 723 L/day</div>
+                    </div>
+            
+                    <div class="mcs-collection-card">
+                        <div class="mcs-card-header">
+                            <div class="mcs-card-title">Active Farmers</div>
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="mcs-card-value">52</div>
+                        <div class="mcs-card-footer">In West Region</div>
+                    </div>
+                </div>
+            
+                <h2>Division-wise Collection (Today)</h2>
+                <div class="table-responsive">
+                    <table class="mcs-collection-table">
+                        <thead>
+                            <tr>
+                                <th>Division</th>
+                                <th>Morning (L)</th>
+                                <th>Evening (L)</th>
+                                <th>Total (L)</th>
+                                <th>Collection Centers</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Division W1</td>
+                                <td>190</td>
+                                <td>180</td>
+                                <td>370</td>
+                                <td>2</td>
+                                <td><span class="mcs-status mcs-status-completed">Completed</span></td>
+                                <td><button class="mcs-btn mcs-btn-primary">View Details</button></td>
+                            </tr>
+                            <tr>
+                                <td>Division W2</td>
+                                <td>140</td>
+                                <td>-</td>
+                                <td>140</td>
+                                <td>1</td>
+                                <td><span class="mcs-status mcs-status-pending">Pending</span></td>
+                                <td><button class="mcs-btn mcs-btn-primary">View Details</button></td>
+                            </tr>
+                            <tr>
+                                <td>Division W3</td>
+                                <td>160</td>
+                                <td>140</td>
+                                <td>300</td>
+                                <td>2</td>
+                                <td><span class="mcs-status mcs-status-completed">Completed</span></td>
+                                <td><button class="mcs-btn mcs-btn-primary">View Details</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Auto Collection System Content - Enhanced Version -->
+            <div id="auto-region" class="mcs-region-content">
+                <!-- System Status Dashboard -->
+                <div class="auto-collection-dashboard" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius: 15px; padding: 25px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.08);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <div>
+                            <h2 style="margin: 0; font-size: 2rem; color: #2c3e50; display: flex; align-items: center; gap: 12px;">
+                                <i class="fas fa-robot" style="color: #3498db; background: rgba(52, 152, 219, 0.1); padding: 10px; border-radius: 50%;"></i> 
+                                Smart Milk Collection System
+                            </h2>
+                           
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="text-align: right;">
+                                <div style="display: inline-flex; align-items: center; background-color: #e1f5fe; color: #0288d1; padding: 8px 15px; border-radius: 30px; font-weight: 500; gap: 8px;">
+                                    <i class="fas fa-check-circle" style="color: #0288d1;"></i> System Online
+                                </div>
+                                <div style="margin-top: 8px; font-size: 0.9rem; color: #7f8c8d;">
+                                    Uptime: <span id="systemUptime" style="font-weight: 500; color: #2c3e50;">99.8%</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Live System Metrics -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
+                        <div style="background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 4px solid #3498db;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                                <div>
+                                    <h3 style="margin: 0; font-size: 1.1rem; color: #7f8c8d;">Real-time Collection</h3>
+                                    <p style="margin: 5px 0 0; font-size: 1.8rem; font-weight: 600; color: #2c3e50;">1,876 L</p>
+                                </div>
+                                <div style="background: rgba(52, 152, 219, 0.1); padding: 10px; border-radius: 50%;">
+                                    <i class="fas fa-tachometer-alt" style="color: #3498db; font-size: 1.2rem;"></i>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.85rem; color: #7f8c8d;">Last updated: <span id="lastUpdateTime">Just now</span></span>
+                                <span style="font-size: 0.85rem; color: #2ecc71; display: flex; align-items: center; gap: 4px;">
+                                    <i class="fas fa-arrow-up"></i> 12%
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 4px solid #2ecc71;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                                <div>
+                                    <h3 style="margin: 0; font-size: 1.1rem; color: #7f8c8d;">IoT Devices</h3>
+                                    <p style="margin: 5px 0 0; font-size: 1.8rem; font-weight: 600; color: #2c3e50;">24/25</p>
+                                </div>
+                                <div style="background: rgba(46, 204, 113, 0.1); padding: 10px; border-radius: 50%;">
+                                    <i class="fas fa-microchip" style="color: #2ecc71; font-size: 1.2rem;"></i>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.85rem; color: #7f8c8d;">Online and reporting</span>
+                                <span style="font-size: 0.85rem; color: #2ecc71; display: flex; align-items: center; gap: 4px;">
+                                    <i class="fas fa-check-circle"></i> 96%
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 4px solid #f39c12;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                                <div>
+                                    <h3 style="margin: 0; font-size: 1.1rem; color: #7f8c8d;">Fat Content</h3>
+                                    <p style="margin: 5px 0 0; font-size: 1.8rem; font-weight: 600; color: #2c3e50;">3.8%</p>
+                                </div>
+                                <div style="background: rgba(243, 156, 18, 0.1); padding: 10px; border-radius: 50%;">
+                                    <i class="fas fa-oil-can" style="color: #f39c12; font-size: 1.2rem;"></i>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.85rem; color: #7f8c8d;">Min. range: 3.5-4.5%</span>
+                                <div style="width: 80px; height: 6px; background-color: #ecf0f1; border-radius: 3px;">
+                                    <div style="width: 60%; height: 100%; background-color: #f39c12; border-radius: 3px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 4px solid #9b59b6;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                                <div>
+                                    <h3 style="margin: 0; font-size: 1.1rem; color: #7f8c8d;">Farmer Payments</h3>
+                                    <p style="margin: 5px 0 0; font-size: 1.8rem; font-weight: 600; color: #2c3e50;">₹42,850</p>
+                                </div>
+                                <div style="background: rgba(155, 89, 182, 0.1); padding: 10px; border-radius: 50%;">
+                                    <i class="fas fa-money-bill-wave" style="color: #9b59b6; font-size: 1.2rem;"></i>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.85rem; color: #7f8c8d;">Ready for processing</span>
+                                <button style="background-color: #9b59b6; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">
+                                    Process
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Collection Schedule Cards -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                    <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <h3 style="margin: 0 0 20px 0; font-size: 1.3rem; color: #2c3e50;">
+                            <i class="fas fa-calendar-alt" style="color: #9b59b6; margin-right: 10px;"></i> Collection Schedule
+                        </h3>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #f8f9fa; border-radius: 10px; margin-bottom: 10px; border-left: 4px solid #2ecc71;">
+                                <div>
+                                    <h4 style="margin: 0; font-size: 1rem; color: #2c3e50;">Morning Collection</h4>
+                                    <p style="margin: 5px 0 0; font-size: 0.9rem; color: #7f8c8d;">06:00 - 09:00</p>
+                                </div>
+                                <div style="background: #e1f5fe; color: #0288d1; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 500;">
+                                    Active
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #f8f9fa; border-radius: 10px; margin-bottom: 10px; border-left: 4px solid #f39c12;">
+                                <div>
+                                    <h4 style="margin: 0; font-size: 1rem; color: #2c3e50;">Evening Collection</h4>
+                                    <p style="margin: 5px 0 0; font-size: 0.9rem; color: #7f8c8d;">16:00 - 19:00</p>
+                                </div>
+                                <div style="background: #fff3e0; color: #e65100; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 500;">
+                                    Scheduled
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <h3 style="margin: 0 0 20px 0; font-size: 1.3rem; color: #2c3e50;">
+                            <i class="fas fa-chart-pie" style="color: #3498db; margin-right: 10px;"></i> Collection Statistics
+                        </h3>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div style="background: #f8f9fa; border-radius: 10px; padding: 15px; text-align: center;">
+                                <h4 style="margin: 0 0 5px 0; font-size: 0.9rem; color: #7f8c8d;">Peak Time</h4>
+                                <p style="margin: 0; font-size: 1.2rem; font-weight: 600; color: #2c3e50;">8:00 - 9:00 AM</p>
+                            </div>
+                            <div style="background: #f8f9fa; border-radius: 10px; padding: 15px; text-align: center;">
+                                <h4 style="margin: 0 0 5px 0; font-size: 0.9rem; color: #7f8c8d;">Peak Volume</h4>
+                                <p style="margin: 0; font-size: 1.2rem; font-weight: 600; color: #2c3e50;">320 L/hour</p>
+                            </div>
+                            <div style="background: #f8f9fa; border-radius: 10px; padding: 15px; text-align: center;">
+                                <h4 style="margin: 0 0 5px 0; font-size: 0.9rem; color: #7f8c8d;">Avg. Fat</h4>
+                                <p style="margin: 0; font-size: 1.2rem; font-weight: 600; color: #2c3e50;">3.8%</p>
+                            </div>
+                            <div style="background: #f8f9fa; border-radius: 10px; padding: 15px; text-align: center;">
+                                <h4 style="margin: 0 0 5px 0; font-size: 0.9rem; color: #7f8c8d;">Avg. SNF</h4>
+                                <p style="margin: 0; font-size: 1.2rem; font-weight: 600; color: #2c3e50;">8.6%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IoT Device Status -->
+                <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 style="margin: 0; font-size: 1.3rem; color: #2c3e50;">
+                            <i class="fas fa-microchip" style="color: #e74c3c; margin-right: 10px;"></i> IoT Device Status
+                        </h3>
+                        <div style="display: flex; gap: 10px;">
+                            <button style="background: #3498db; color: white; border: none; padding: 8px 15px; border-radius: 6px; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                                <i class="fas fa-plus"></i> Add Device
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive" style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; border-radius: 10px; overflow: hidden;">
+                            <thead>
+                                <tr style="background: #f8f9fa; text-align: left;">
+                                    <th style="padding: 15px; color: #7f8c8d; font-weight: 500; font-size: 0.9rem;">Device ID</th>
+                                    <th style="padding: 15px; color: #7f8c8d; font-weight: 500; font-size: 0.9rem;">Location</th>
+                                    <th style="padding: 15px; color: #7f8c8d; font-weight: 500; font-size: 0.9rem;">Last Reading</th>
+                                    <th style="padding: 15px; color: #7f8c8d; font-weight: 500; font-size: 0.9rem;">Battery</th>
+                                    <th style="padding: 15px; color: #7f8c8d; font-weight: 500; font-size: 0.9rem;">Signal</th>
+                                    <th style="padding: 15px; color: #7f8c8d; font-weight: 500; font-size: 0.9rem;">Status</th>
+                                    <th style="padding: 15px; color: #7f8c8d; font-weight: 500; font-size: 0.9rem;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid #f1f2f6;">
+                                    <td style="padding: 15px; color: #2c3e50; font-weight: 500;">IOT-001</td>
+                                    <td style="padding: 15px; color: #2c3e50;">North Collection Center 1</td>
+                                    <td style="padding: 15px; color: #2c3e50;">10:15 AM</td>
+                                    <td style="padding: 15px; color: #2c3e50;">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div style="width: 50px; height: 10px; background: #ecf0f1; border-radius: 5px; overflow: hidden;">
+                                                <div style="width: 85%; height: 100%; background: #2ecc71;"></div>
+                                            </div>
+                                            <span>85%</span>
+                                        </div>
+                                    </td>
+                                    <td style="padding: 15px; color: #2c3e50;">
+                                        <div style="display: flex; gap: 2px;">
+                                            <div style="width: 4px; height: 10px; background: #3498db; border-radius: 1px;"></div>
+                                            <div style="width: 4px; height: 13px; background: #3498db; border-radius: 1px;"></div>
+                                            <div style="width: 4px; height: 16px; background: #3498db; border-radius: 1px;"></div>
+                                            <div style="width: 4px; height: 19px; background: #3498db; border-radius: 1px;"></div>
+                                            <div style="width: 4px; height: 22px; background: #ecf0f1; border-radius: 1px;"></div>
+                                        </div>
+                                    </td>
+                                    <td style="padding: 15px; text-align: center;">
+                                        <span style="display: inline-block; min-width: 120px; background: #e1f5fe; color: #0288d1; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; text-align: center;">
+                                            Online
+                                        </span>
+                                    </td>
+                                    <td style="padding: 15px;">
+                                        <div style="display: flex; gap: 5px;">
+                                            <button style="background: #f1f2f6; color: #7f8c8d; border: none; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                                                <i class="fas fa-sync"></i>
+                                            </button>
+                                            <button style="background: #f1f2f6; color: #7f8c8d; border: none; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                                                <i class="fas fa-cog"></i>
+                                            </button>
+                                            <button style="background: #f1f2f6; color: #7f8c8d; border: none; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                                                <i class="fas fa-chart-line"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #f1f2f6;">
+                                    <td style="padding: 15px; color: #2c3e50; font-weight: 500;">IOT-002</td>
+                                    <td style="padding: 15px; color: #2c3e50;">South Collection Center 2</td>
+                                    <td style="padding: 15px; color: #2c3e50;">10:12 AM</td>
+                                    <td style="padding: 15px; color: #2c3e50;">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div style="width: 50px; height: 10px; background: #ecf0f1; border-radius: 5px; overflow: hidden;">
+                                                <div style="width: 65%; height: 100%; background: #2ecc71;"></div>
+                                            </div>
+                                            <span>65%</span>
+                                        </div>
+                                    </td>
+                                    <td style="padding: 15px; color: #2c3e50;">
+                                        <div style="display: flex; gap: 2px;">
+                                            <div style="width: 4px; height: 10px; background: #3498db; border-radius: 1px;"></div>
+                                            <div style="width: 4px; height: 13px; background: #3498db; border-radius: 1px;"></div>
+                                            <div style="width: 4px; height: 16px; background: #3498db; border-radius: 1px;"></div>
+                                            <div style="width: 4px; height: 19px; background: #ecf0f1; border-radius: 1px;"></div>
+                                            <div style="width: 4px; height: 22px; background: #ecf0f1; border-radius: 1px;"></div>
+                                        </div>
+                                    </td>
+                                    <td style="padding: 15px; text-align: center;">
+                                        <span style="display: inline-block; min-width: 120px; background: #e1f5fe; color: #0288d1; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; text-align: center;">
+                                            Online
+                                        </span>
+                                    </td>
+                                    <td style="padding: 15px;">
+                                        <div style="display: flex; gap: 5px;">
+                                            <button style="background: #f1f2f6; color: #7f8c8d; border: none; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                                                <i class="fas fa-sync"></i>
+                                            </button>
+                                            <button style="background: #f1f2f6; color: #7f8c8d; border: none; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                                                <i class="fas fa-cog"></i>
+                                            </button>
+                                            <button style="background: #f1f2f6; color: #7f8c8d; border: none; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                                                <i class="fas fa-chart-line"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #f1f2f6;">
+                                    <td style="padding: 15px; color: #2c3e50; font-weight: 500;">IOT-003</td>
+                                    <td style="padding: 15px; color: #2c3e50;">East Collection Center 1</td>
+                                    <td style="padding: 15px; color: #2c3e50;">09:45 AM</td>
+                                    <td style="padding: 15px; color: #2c3e50;">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div style="width: 50px; height: 10px; background: #ecf0f1; border-radius: 5px; overflow: hidden;">
+                                                <div style="width: 15%; height: 100%; background: #e74c3c;"></div>
+                                            </div>
+                                            <span>15%</span>
+                                        </div>
+                                    </td>
+                                    <td style="padding: 15px; color: #2c3e50;">
+                                        <div style="display: flex; gap: 2px;">
+                                            <div style="width: 4px; height: 10px; background: #3498db; border-radius: 1px;"></div>
+                                            <div style="width: 4px; height: 13px; background: #ecf0f1; border-radius: 1px;"></div>
+                                            <div style="width: 4px; height: 16px; background: #ecf0f1; border-radius: 1px;"></div>
+                                            <div style="width: 4px; height: 19px; background: #ecf0f1; border-radius: 1px;"></div>
+                                            <div style="width: 4px; height: 22px; background: #ecf0f1; border-radius: 1px;"></div>
+                                        </div>
+                                    </td>
+                                    <td style="padding: 15px; text-align: center;">
+                                        <span style="display: inline-block; min-width: 120px; background: #fff3e0; color: #e65100; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; text-align: center;">
+                                            Low Battery
+                                        </span>
+                                    </td>
+                                    <td style="padding: 15px;">
+                                        <div style="display: flex; gap: 5px;">
+                                            <button style="background: #f1f2f6; color: #7f8c8d; border: none; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                                                <i class="fas fa-sync"></i>
+                                            </button>
+                                            <button style="background: #f1f2f6; color: #7f8c8d; border: none; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                                                <i class="fas fa-cog"></i>
+                                            </button>
+                                            <button style="background: #f1f2f6; color: #7f8c8d; border: none; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                                                <i class="fas fa-chart-line"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 15px; color: #2c3e50; font-weight: 500;">IOT-004</td>
+                                    <td style="padding: 15px; color: #2c3e50;">West Collection Center 3</td>
+                                    <td style="padding: 15px; color: #2c3e50;">N/A</td>
+                                    <td style="padding: 15px; color: #2c3e50;">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div style="width: 50px; height: 10px; background: #ecf0f1; border-radius: 5px; overflow: hidden;">
+                                                <div style="width: 0%; height: 100%; background: #e74c3c;"></div>
+                                            </div>
+                                            <span>N/A</span>
+                                        </div>
+                                    </td>
+                                    <td style="padding: 15px; color: #2c3e50;">
+                                        <div style="display: flex; gap: 2px;">
+                                            <div style="width: 4px; height: 10px; background: #ecf0f1; border-radius: 1px;"></div>
+                                            <div style="width: 4px; height: 13px; background: #ecf0f1; border-radius: 1px;"></div>
+                                            <div style="width: 4px; height: 16px; background: #ecf0f1; border-radius: 1px;"></div>
+                                            <div style="width: 4px; height: 19px; background: #ecf0f1; border-radius: 1px;"></div>
+                                            <div style="width: 4px; height: 22px; background: #ecf0f1; border-radius: 1px;"></div>
+                                        </div>
+                                    </td>
+                                    <td style="padding: 15px; text-align: center;">
+                                        <span style="display: inline-block; min-width: 120px; background: #ffebee; color: #d32f2f; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; text-align: center;">
+                                            Offline
+                                        </span>
+                                    </td>
+                                    <td style="padding: 15px;">
+                                        <div style="display: flex; gap: 5px;">
+                                            <button style="background: #f1f2f6; color: #7f8c8d; border: none; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                                                <i class="fas fa-sync"></i>
+                                            </button>
+                                            <button style="background: #f1f2f6; color: #7f8c8d; border: none; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                                                <i class="fas fa-cog"></i>
+                                            </button>
+                                            <button style="background: #f1f2f6; color: #7f8c8d; border: none; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                                                <i class="fas fa-chart-line"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+                <!--viewDetailsModal-->
+            <div id="viewDetailsModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('viewDetailsModal')">&times;</span>
+                    <h2>Division Details - <span id="modalDivisionName"></span></h2>
+                    <p><strong>Morning Collection:</strong> <span id="modalMorningCollection"></span> L</p>
+                    <p><strong>Evening Collection:</strong> <span id="modalEveningCollection"></span> L</p>
+                    <p><strong>Total Collection:</strong> <span id="modalTotalCollection"></span> L</p>
+                    <p><strong>Collection Centers:</strong> <span id="modalCollectionCenters"></span></p>
+                    <p><strong>Status:</strong> <span id="modalStatus"></span></p>
+                </div>
+            </div>
+
+
+            
+    </main>
+    
+
+    <script>
+        // Tab Switching Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.mcs-region-tab');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs and content
+                    document.querySelectorAll('.mcs-region-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.mcs-region-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    const region = this.getAttribute('data-region');
+                    document.getElementById(`${region}-region`).classList.add('active');
+                });
+            });
+            
+            // Collection Trend Chart Functionality
+            if (document.getElementById('trend-today')) {
+                // Get all trend buttons and data containers
+                const trendBtns = document.querySelectorAll('.trend-btn');
+                const trendData = document.querySelectorAll('.trend-data');
+                
+                // Add click event to trend buttons
+                trendBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        // Remove active class from all buttons and data
+                        trendBtns.forEach(b => {
+                            b.classList.remove('active');
+                            b.style.background = '#f1f2f6';
+                            b.style.color = '#7f8c8d';
+                        });
+                        trendData.forEach(d => d.style.display = 'none');
+                        
+                        // Add active class to clicked button and show corresponding data
+                        this.classList.add('active');
+                        this.style.background = '#3498db';
+                        this.style.color = 'white';
+                        
+                        const period = this.id.split('-')[1];
+                        const dataContainer = document.getElementById(`trend-${period}-data`);
+                        dataContainer.style.display = 'flex';
+                        
+                        // Animate the bars
+                        const bars = dataContainer.querySelectorAll('.chart-column > div');
+                        bars.forEach(bar => {
+                            const height = bar.style.height;
+                            bar.style.height = '0';
+                            setTimeout(() => {
+                                bar.style.height = height;
+                            }, 50);
+                        });
+                        
+                        // Update stats based on selected period
+                        updateStats(period);
+                    });
+                });
+                
+                // Add hover effects to chart columns
+                const chartColumns = document.querySelectorAll('.chart-column');
+                chartColumns.forEach(column => {
+                    column.addEventListener('mouseenter', function() {
+                        const tooltip = this.querySelector('.tooltip');
+                        tooltip.style.opacity = '1';
+                        
+                        // Highlight the bar
+                        const bar = this.querySelector('div');
+                        bar.style.boxShadow = '0 0 10px rgba(52, 152, 219, 0.5)';
+                    });
+                    
+                    column.addEventListener('mouseleave', function() {
+                        const tooltip = this.querySelector('.tooltip');
+                        tooltip.style.opacity = '0';
+                        
+                        // Remove highlight if not the active bar
+                        const bar = this.querySelector('div');
+                        if (!bar.classList.contains('active')) {
+                            bar.style.boxShadow = 'none';
+                        }
+                    });
+                });
+                
+                // Function to update stats based on selected period
+                function updateStats(period) {
+                    let peakTime, peakVolume, avgFat, avgSNF;
+                    
+                    switch(period) {
+                        case 'today':
+                            peakTime = '8:00 - 9:00 AM';
+                            peakVolume = '320 L/hour';
+                            avgFat = '3.8%';
+                            avgSNF = '8.6%';
+                            break;
+                        case 'week':
+                            peakTime = 'Saturday';
+                            peakVolume = '1,876 L/day';
+                            avgFat = '3.9%';
+                            avgSNF = '8.7%';
+                            break;
+                        case 'month':
+                            peakTime = 'Week 4';
+                            peakVolume = '9,326 L/week';
+                            avgFat = '4.0%';
+                            avgSNF = '8.8%';
+                            break;
+                    }
+                    
+                    // Update the stats display
+                    const statsContainer = document.querySelector('.chart-container').nextElementSibling;
+                    const statValues = statsContainer.querySelectorAll('p');
+                    
+                    statValues[0].textContent = peakTime;
+                    statValues[1].textContent = peakVolume;
+                    statValues[2].textContent = avgFat;
+                    statValues[3].textContent = avgSNF;
+                }
+            }
+            
+            // Auto Collection System Functionality
+            function updateLastUpdateTime() {
+                const now = new Date();
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const seconds = now.getSeconds().toString().padStart(2, '0');
+                document.getElementById('lastUpdateTime').textContent = `${hours}:${minutes}:${seconds}`;
+            }
+            
+            // Initial update
+            updateLastUpdateTime();
+            
+            // Update every 30 seconds
+            setInterval(updateLastUpdateTime, 30000);
+            
+            // Simulate real-time data updates
+            function simulateDataUpdates() {
+                // Random value between min and max
+                const randomValue = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+                
+                // Update collection rate
+                const collectionRate = randomValue(35, 50);
+                document.querySelector('.real-time-stats .stat-item:first-child .stat-value').textContent = `${collectionRate} L/min`;
+                
+                // Update chart bars
+                const chartBars = document.querySelectorAll('.chart-bar');
+                chartBars.forEach(bar => {
+                    const height = randomValue(50, 95);
+                    bar.style.height = `${height}%`;
+                });
+            }
+            
+            // Simulate data updates every 5 seconds
+            setInterval(simulateDataUpdates, 5000);
+            
+            // Auto-update functionality
+            function autoUpdate() {
+                updateLastUpdateTime();
+                simulateDataUpdates();
+            }
+            
+            // Auto-update every 30 seconds
+            setInterval(autoUpdate, 30000);
+        });
+    </script>
+    <!--viewDetailsModal-->
+    <script>
+    // Function to show details in a modal
+    function showDivisionDetails(divisionName) {
+        // Fetch the details based on divisionName
+        const details = getDivisionDetails(divisionName);
+
+        // Populate the modal with details
+        document.getElementById('modalDivisionName').innerText = divisionName;
+        document.getElementById('modalMorningCollection').innerText = details.morning;
+        document.getElementById('modalEveningCollection').innerText = details.evening;
+        document.getElementById('modalTotalCollection').innerText = details.total;
+        document.getElementById('modalCollectionCenters').innerText = details.centers;
+        document.getElementById('modalStatus').innerText = details.status;
+
+        // Show the modal
+        document.getElementById('viewDetailsModal').style.display = 'block';
+    }
+
+    // Function to get division details (mock data)
+    function getDivisionDetails(divisionName) {
+        const data = {
+            'Division A': { morning: 245, evening: 210, total: 455, centers: 3, status: 'Completed' },
+            'Division B': { morning: 180, evening: 195, total: 375, centers: 2, status: 'Completed' },
+            'Division C': { morning: 165, evening: 0, total: 165, centers: 1, status: 'Pending' },
+            'Division D': { morning: 210, evening: 0, total: 210, centers: 2, status: 'Pending' },
+            'Division X': { morning: 195, evening: 175, total: 370, centers: 2, status: 'Completed' },
+            'Division Y': { morning: 160, evening: 0, total: 160, centers: 1, status: 'Pending' },
+            'Division Z': { morning: 210, evening: 185, total: 395, centers: 3, status: 'Completed' },
+            'Division E1': { morning: 220, evening: 200, total: 420, centers: 3, status: 'Completed' },
+            'Division E2': { morning: 180, evening: 170, total: 350, centers: 2, status: 'Completed' },
+            'Division E3': { morning: 150, evening: 0, total: 150, centers: 1, status: 'Pending' },
+            'Division W1': { morning: 190, evening: 180, total: 370, centers: 2, status: 'Completed' },
+            'Division W2': { morning: 140, evening: 0, total: 140, centers: 1, status: 'Pending' },
+            'Division W3': { morning: 160, evening: 140, total: 300, centers: 2, status: 'Completed' }
+        };
+        return data[divisionName];
+    }
+
+    // Function to close the modal
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    // Add event listeners to view buttons
+    document.querySelectorAll('.mcs-btn-primary').forEach(button => {
+        button.addEventListener('click', function() {
+            const divisionName = this.closest('tr').children[0].innerText;
+            showDivisionDetails(divisionName);
+        });
+    });
+    </script>
+
+
+    <script src="js/farm.js"></script>
+</body>
+</html>

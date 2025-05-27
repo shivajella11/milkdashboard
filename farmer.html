@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/farm.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<style>
+    .modal-content {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+        }
+
+        .modal-body {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-row .form-group {
+            width: 48%;
+        }
+
+        /* Error styling */
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+        
+        /* Expanded details row styling */
+        .details-row {
+            background-color: #f9f9f9;
+        }
+        
+        .details-row.hidden {
+            display: none;
+        }
+        
+        .farmer-details-expanded {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .details-header h3 {
+            margin: 0;
+            color: #007bff;
+        }
+        
+        .close-details-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #555;
+        }
+        
+        .details-content {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .details-column {
+            width: 48%;
+        }
+        
+        .detail-item {
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            color: #555;
+            display: inline-block;
+            width: 140px;
+        }
+        
+        .detail-value {
+            color: #333;
+        }
+        
+        .details-notes {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .details-notes .detail-label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .details-notes .detail-value {
+            display: block;
+            white-space: pre-line;
+        }
+        
+        .details-footer {
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+        }
+        
+        .milk-collection-history h4 {
+            margin-top: 0;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .collection-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        .collection-table th, 
+        .collection-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        
+        .collection-table th {
+            background-color: #f2f2f2;
+        }
+        
+        /* Enhanced milk collection styling */
+        .milk-collection-section {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .milk-collection-header {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .milk-collection-header h3 {
+            margin: 0;
+            color: #007bff;
+        }
+        
+        .collection-summary {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .summary-item {
+            background-color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        .summary-label {
+            font-weight: bold;
+            color: #555;
+            margin-right: 5px;
+        }
+        
+        .summary-value {
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .quality-rating {
+            color: #28a745;
+        }
+        
+        .collection-controls {
+            padding: 10px 15px;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 0.9em;
+        }
+        
+        .collection-filter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .collection-filter select {
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        .milk-collection-table-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        /* Row styling for milk collection table */
+        .collection-table tr.recent-collection {
+            background-color: #f0f8ff;
+        }
+        
+        .collection-table td.high-yield {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .collection-table td.quality-high {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .collection-table td.quality-medium {
+            color: #fd7e14;
+            font-weight: bold;
+        }
+        
+        /* Farmer summary styling */
+        .farmer-summary {
+            background-color: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+        }
+        
+        .summary-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .summary-row .summary-item {
+            flex: 1 1 auto;
+            min-width: 150px;
+        }
+</style>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="img/logo.png" class="logo" alt="Logo" />
+            <div class="menu-title-group">
+                <i class="fas fa-bars menu-icon" id="menuToggle"></i> 
+            </div>
+        </div>
+        <div class="nav-center">
+            <!-- Language Selector with Globe Icon -->
+            <div class="select-wrapper">
+                <i class="fas fa-globe"></i>
+                <select id="languageSelect" class="lang-dropdown">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="te">తెలుగు</option>
+                </select>
+            </div>
+            <!-- Can add navigation links here if needed -->
+        </div>
+        <div class="nav-right">
+            <div class="nav-tools">
+                <!-- Online Status Label -->
+                <div class="status-label">
+                    <span id="statusDot" class="dot online"></span>
+                    <span id="statusText">Active</span>
+                </div>
+                <!-- Mode Toggle -->
+                <button id="modeToggle" class="mode-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <div class="nav-search-profile">
+                <input type="text" placeholder="Search..." />
+                <div class="nav-icons">
+                    <i class="fas fa-envelope"></i>
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="profile">
+                    <img src="img/profile.jpg" alt="Profile" />
+                    <span>SHIVAKUMAR JELLA</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <aside id="sidebar">
+    <ul>
+        <li class="dashboard-nav"><a href="dashb.html"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li class="farmer-nav"><a href="farmer.html"><i class="fas fa-user-friends"></i> Farmer Directory</a></li>
+        <li class="collection-nav"><a href="collection.html"><i class="fas fa-tractor"></i> Daily Milk Yields</a></li>
+        <li class="chilling-nav"><a href="chilling.html"><i class="fas fa-snowflake"></i> Cooling Stations</a></li>
+        <li class="processing-nav"><a href="plant.html"><i class="fas fa-industry"></i> Dairy Processing</a></li>
+        <li class="quality-nav"><a href="qualitydemo.html"><i class="fas fa-clipboard-check"></i> Milk Quality Tests</a></li>
+        <li class="inventory-nav"><a href="product.html"><i class="fas fa-boxes"></i> Dairy Stockroom</a></li>
+        <li class="logistics-nav"><a href="distubtion.html"><i class="fas fa-shipping-fast"></i> Farm-to-Market Routes</a></li>        
+        <li class="crm-nav"><a href="crmdemo.html"><i class="fas fa-users"></i> CRM System</a></li>
+    </ul>
+
+
+      
+    </aside>
+    <main>
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="farmer-banner">
+                <div class="farmer-banner-container">
+                    <i class="fas fa-tractor banner-icon"></i>
+                    <div class="farmer-banner-text">
+                        <h1>Farmer Management</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Cards -->
+            <div class="dashboard-cards">
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-value">142</div>
+                            <div class="card-title">Total Farmers</div>
+                        </div>
+                        <div class="card-icon farmers">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-value">856</div>
+                            <div class="card-title">Total Cattle</div>
+                        </div>
+                        <div class="card-icon cattle">
+                            <i class="fas fa-cow"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-value">2,450L</div>
+                            <div class="card-title">Daily Milk</div>
+                        </div>
+                        <div class="card-icon milk">
+                            <i class="fas fa-wine-bottle"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-value">$12,850</div>
+                            <div class="card-title">Monthly Payments</div>
+                        </div>
+                        <div class="card-icon payments">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Farmers List Section -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>Farmers List</h2>
+                    <button class="btn btn-primary" id="addFarmerBtn">
+                        <i class="fas fa-plus"></i> Add Farmer
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Contact</th>
+                                <th>Location</th>
+                                <th>Cattle Count</th>
+                                <th>Avg. Milk (L)</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>DF0001</td>
+                                <td>John Kamau</td>
+                                <td>0722123456</td>
+                                <td>Kiambu</td>
+                                <td>8</td>
+                                <td>24.5</td>
+                                <td><span class="status active">Active</span></td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="action-btn" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>DF0002</td>
+                                <td>Mary Wanjiku</td>
+                                <td>0733123456</td>
+                                <td>Murang'a</td>
+                                <td>12</td>
+                                <td>38.2</td>
+                                <td><span class="status active">Active</span></td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="action-btn" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>DF0003</td>
+                                <td>Peter Mwangi</td>
+                                <td>0711123456</td>
+                                <td>Nyeri</td>
+                                <td>5</td>
+                                <td>15.8</td>
+                                <td><span class="status active">Active</span></td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="action-btn" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>DF0004</td>
+                                <td>Grace Njeri</td>
+                                <td>0744123456</td>
+                                <td>Nakuru</td>
+                                <td>15</td>
+                                <td>42.6</td>
+                                <td><span class="status inactive">Inactive</span></td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="action-btn" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>DF0005</td>
+                                <td>James Mutua</td>
+                                <td>0755123456</td>
+                                <td>Machakos</td>
+                                <td>10</td>
+                                <td>32.1</td>
+                                <td><span class="status active">Active</span></td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="action-btn" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Recent Milk Collection Section -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>Recent Milk Collections</h2>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Farmer ID</th>
+                                <th>Farmer Name</th>
+                                <th>Morning (L)</th>
+                                <th>Evening (L)</th>
+                                <th>Total (L)</th>
+                                <th>Rate (per L)</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2023-06-15</td>
+                                <td>DF001</td>
+                                <td>John Kamau</td>
+                                <td>12.5</td>
+                                <td>12.0</td>
+                                <td>24.5</td>
+                                <td>35.00</td>
+                                <td>857.50</td>
+                            </tr>
+                            <tr>
+                                <td>2023-06-15</td>
+                                <td>DF002</td>
+                                <td>Mary Wanjiku</td>
+                                <td>19.2</td>
+                                <td>19.0</td>
+                                <td>38.2</td>
+                                <td>35.00</td>
+                                <td>1,337.00</td>
+                            </tr>
+                            <tr>
+                                <td>2023-06-15</td>
+                                <td>DF003</td>
+                                <td>Peter Mwangi</td>
+                                <td>8.0</td>
+                                <td>7.8</td>
+                                <td>15.8</td>
+                                <td>35.00</td>
+                                <td>553.00</td>
+                            </tr>
+                            <tr>
+                                <td>2023-06-14</td>
+                                <td>DF005</td>
+                                <td>James Mutua</td>
+                                <td>16.5</td>
+                                <td>15.6</td>
+                                <td>32.1</td>
+                                <td>35.00</td>
+                                <td>1,123.50</td>
+                            </tr>
+                            <tr>
+                                <td>2023-06-14</td>
+                                <td>DF004</td>
+                                <td>Grace Njeri</td>
+                                <td>21.3</td>
+                                <td>21.3</td>
+                                <td>42.6</td>
+                                <td>35.00</td>
+                                <td>1,491.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    
+
+    <!-- Add Farmer Modal -->
+    <div class="modal" id="addFarmerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Farmer</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="farmerForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="farmerId">Farmer ID</label>
+                            <input type="text" id="farmerId" placeholder="Auto-generated" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="registrationDate">Registration Date</label>
+                            <input type="date" id="registrationDate" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" placeholder="Letters only" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" placeholder="Letters only" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="idNumber">ID Number</label>
+                            <input type="text" id="idNumber" placeholder="5-12 digits" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number (with country code)</label>
+                            <input type="tel" id="phone" placeholder="+91XXXXXXXXXX" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nearestCenter">Nearest Collection Center</label>
+                            <input type="text" id="nearestCenter" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cattleCount">Number of Cattle</label>
+                            <input type="number" id="cattleCount" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select id="status" required>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes">Notes (letters only)</label>
+                        <textarea id="notes" rows="3" placeholder="Enter notes using letters only"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline close-modal">Cancel</button>
+                <button class="btn btn-primary" id="saveFarmer">Save Farmer</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form validation functions
+        function validateLettersOnly(text) {
+            // Only allow letters and spaces
+            const lettersRegex = /^[A-Za-z\s]+$/;
+            return lettersRegex.test(text) || text === '';
+        }
+        
+        function validatePhone(phone) {
+            // Must start with country code (+XX) and have exactly 10 digits after
+            const phoneRegex = /^\+\d{2,3}\d{10}$/;
+            return phoneRegex.test(phone);
+        }
+        
+        function validateIdNumber(id) {
+            // ID should be numeric and between 5-12 digits
+            const idRegex = /^\d{5,12}$/;
+            return idRegex.test(id);
+        }
+        
+        function validateNumber(num) {
+            // Must be a positive number
+            return !isNaN(num) && parseInt(num) > 0;
+        }
+        
+        function validateRequired(value) {
+            return value.trim() !== '';
+        }
+        
+        function showError(inputElement, message) {
+            // Remove any existing error message
+            const parent = inputElement.parentElement;
+            const existingError = parent.querySelector('.error');
+            if (existingError) {
+                parent.removeChild(existingError);
+            }
+            
+            // Add new error message
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error';
+            errorDiv.textContent = message;
+            parent.appendChild(errorDiv);
+            
+            // Highlight the input field
+            inputElement.style.borderColor = 'red';
+        }
+        
+        function clearError(inputElement) {
+            // Remove error message if exists
+            const parent = inputElement.parentElement;
+            const existingError = parent.querySelector('.error');
+            if (existingError) {
+                parent.removeChild(existingError);
+            }
+            
+            // Reset input style
+            inputElement.style.borderColor = '#ddd';
+        }
+        
+        // Function to reset form errors and styles
+        function resetFormErrors() {
+            // Clear all errors
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(el => el.remove());
+            
+            // Reset input styles
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.style.borderColor = '#ddd';
+            });
+        }
+        
+        // Validation rules configuration for easier maintenance
+        const validationRules = {
+            'firstName': {
+                required: true,
+                validator: validateLettersOnly,
+                errorMsg: 'First name should contain only letters and spaces'
+            },
+            'lastName': {
+                required: true,
+                validator: validateLettersOnly,
+                errorMsg: 'Last name should contain only letters and spaces'
+            },
+            'idNumber': {
+                required: true,
+                validator: validateIdNumber,
+                errorMsg: 'ID number should be 5-12 digits'
+            },
+            'phone': {
+                required: true,
+                validator: validatePhone,
+                errorMsg: 'Phone number must start with country code (+XX) followed by 10 digits'
+            },
+            'address': {
+                required: true
+            },
+            'location': {
+                required: true
+            },
+            'nearestCenter': {
+                required: true
+            },
+            'cattleCount': {
+                required: true,
+                validator: validateNumber,
+                errorMsg: 'Number of cattle must be a positive number'
+            },
+            'registrationDate': {
+                required: true
+            },
+            'notes': {
+                required: false,
+                validator: validateLettersOnly,
+                errorMsg: 'Notes should contain only letters and spaces'
+            }
+        };
+        
+        function validateForm() {
+            let isValid = true;
+            
+            // Validate each field according to its rules
+            for (const [fieldId, rules] of Object.entries(validationRules)) {
+                const field = document.getElementById(fieldId);
+                
+                // Skip if field doesn't exist
+                if (!field) continue;
+                
+                // Check required fields
+                if (rules.required && !validateRequired(field.value)) {
+                    showError(field, `${field.labels[0].textContent.replace('*', '').trim()} is required`);
+                    isValid = false;
+                } 
+                // Check custom validation if field has value
+                else if (rules.validator && field.value.trim() !== '' && !rules.validator(field.value)) {
+                    showError(field, rules.errorMsg);
+                    isValid = false;
+                } else {
+                    clearError(field);
+                }
+            }
+            
+            return isValid;
+        }
+        
+        // Set up real-time validation for all fields
+        for (const [fieldId, rules] of Object.entries(validationRules)) {
+            const field = document.getElementById(fieldId);
+            if (field && rules.validator) {
+                field.addEventListener('input', function() {
+                    if (!rules.validator(this.value) && this.value.trim() !== '') {
+                        showError(this, rules.errorMsg);
+                    } else {
+                        clearError(this);
+                    }
+                });
+            }
+        }
+        
+        // Modal functionality
+        const addFarmerBtn = document.getElementById('addFarmerBtn');
+        const addFarmerModal = document.getElementById('addFarmerModal');
+        const closeBtns = document.querySelectorAll('.close-btn, .close-modal');
+        
+        addFarmerBtn.addEventListener('click', () => {
+            addFarmerModal.style.display = 'flex';
+            // Set today's date as default
+            document.getElementById('registrationDate').valueAsDate = new Date();
+            // Generate a new farmer ID
+            document.getElementById('farmerId').value = generateFarmerId();
+        });
+        
+        // Function to close modal and reset form
+        function closeModal() {
+            addFarmerModal.style.display = 'none';
+            resetFormErrors();
+        }
+        
+        // Close button event listeners
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', closeModal);
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === addFarmerModal) {
+                closeModal();
+            }
+        });
+        
+        // Function to create a table cell
+        function createCell(content) {
+            const cell = document.createElement('td');
+            cell.textContent = content;
+            return cell;
+        }
+        
+        // Function to create an action button
+        function createActionButton(icon, title, clickHandler) {
+            const button = document.createElement('button');
+            button.className = 'action-btn';
+            button.title = title;
+            button.innerHTML = `<i class="fas fa-${icon}"></i>`;
+            button.addEventListener('click', clickHandler);
+            return button;
+        }
+        
+        // Function to add farmer to the table
+        function addFarmerToTable(farmerData) {
+            const tableBody = document.querySelector('table tbody');
+            const newRow = document.createElement('tr');
+            
+            // Store additional data as data attributes for view functionality
+            newRow.dataset.registrationDate = farmerData.registrationDate || '';
+            newRow.dataset.notes = farmerData.notes || '';
+            newRow.dataset.address = farmerData.address || '';
+            newRow.dataset.nearestCenter = farmerData.nearestCenter || '';
+            newRow.dataset.idNumber = farmerData.idNumber || '';
+            
+            // Add basic cells
+            newRow.appendChild(createCell(farmerData.id));
+            newRow.appendChild(createCell(farmerData.firstName + ' ' + farmerData.lastName));
+            newRow.appendChild(createCell(farmerData.phone));
+            newRow.appendChild(createCell(farmerData.location));
+            newRow.appendChild(createCell(farmerData.cattleCount));
+            
+            // Calculate milk yield
+            const avgMilkYield = (Math.random() * 2 + 3).toFixed(1);
+            const totalMilk = (avgMilkYield * farmerData.cattleCount).toFixed(1);
+            newRow.appendChild(createCell(totalMilk));
+            
+            // Status cell with span
+            const statusCell = document.createElement('td');
+            const statusSpan = document.createElement('span');
+            statusSpan.className = 'status ' + farmerData.status;
+            statusSpan.textContent = farmerData.status.charAt(0).toUpperCase() + farmerData.status.slice(1);
+            statusCell.appendChild(statusSpan);
+            newRow.appendChild(statusCell);
+            
+            // Actions cell
+            const actionsCell = document.createElement('td');
+            const actionBtnsDiv = document.createElement('div');
+            actionBtnsDiv.className = 'action-btns';
+            
+            // Add action buttons
+            const fullName = `${farmerData.firstName} ${farmerData.lastName}`;
+            
+            // Create view button that uses the global view function
+            const viewBtn = createActionButton('eye', 'View', () => {
+                viewFarmerDetails(viewBtn);
+            });
+            actionBtnsDiv.appendChild(viewBtn);
+            
+            actionBtnsDiv.appendChild(
+                createActionButton('edit', 'Edit', () => alert(`Edit ${fullName}`))
+            );
+            
+            // Create delete button that uses the global delete function
+            const deleteBtn = createActionButton('trash', 'Delete', () => {
+                deleteFarmer(deleteBtn);
+            });
+            actionBtnsDiv.appendChild(deleteBtn);
+            
+            actionsCell.appendChild(actionBtnsDiv);
+            newRow.appendChild(actionsCell);
+            
+            // Add the new row to the table
+            tableBody.appendChild(newRow);
+            
+            // Update all dashboard statistics
+            updateFarmerCount(true); // Increment farmer count
+            updateCattleCount(farmerData.cattleCount, true); // Increment cattle count
+            updateMilkVolume(totalMilk, true); // Increment milk volume
+        }
+        
+        // Function to update the farmer count in the dashboard card
+        function updateFarmerCount(increment = true) {
+            const farmerCountElement = document.querySelector('.dashboard-cards .card:first-child .card-value');
+            if (farmerCountElement) {
+                const currentCount = parseInt(farmerCountElement.textContent);
+                // If increment is true, add 1; otherwise subtract 1
+                farmerCountElement.textContent = increment ? currentCount + 1 : currentCount - 1;
+            }
+        }
+        
+        // Function to update cattle count in the dashboard card
+        function updateCattleCount(cattleChange, increment = true) {
+            const cattleCountElement = document.querySelector('.dashboard-cards .card:nth-child(2) .card-value');
+            if (cattleCountElement) {
+                const currentCount = parseInt(cattleCountElement.textContent);
+                // If increment is true, add cattle; otherwise subtract cattle
+                cattleCountElement.textContent = increment ? currentCount + parseInt(cattleChange) : currentCount - parseInt(cattleChange);
+            }
+        }
+        
+        // Function to update milk volume in the dashboard card
+        function updateMilkVolume(milkChange, increment = true) {
+            const milkVolumeElement = document.querySelector('.dashboard-cards .card:nth-child(3) .card-value');
+            if (milkVolumeElement) {
+                const currentVolume = parseFloat(milkVolumeElement.textContent.replace('L', '').replace(',', ''));
+                // If increment is true, add milk; otherwise subtract milk
+                const newVolume = increment ? currentVolume + parseFloat(milkChange) : currentVolume - parseFloat(milkChange);
+                milkVolumeElement.textContent = newVolume.toLocaleString() + 'L';
+            }
+        }
+        
+        // Form submission
+        document.getElementById('saveFarmer').addEventListener('click', () => {
+            // Validate form before submission
+            if (validateForm()) {
+                // Collect form data
+                const formData = {};
+                
+                // Get values from all fields that match the table columns
+                ['farmerId', 'firstName', 'lastName', 'phone', 'location', 'cattleCount', 'status'].forEach(field => {
+                    formData[field.replace('farmerId', 'id')] = document.getElementById(field).value;
+                });
+                
+                // Add additional data for view functionality
+                formData.registrationDate = document.getElementById('registrationDate').value;
+                formData.notes = document.getElementById('notes').value;
+                formData.address = document.getElementById('address').value;
+                formData.nearestCenter = document.getElementById('nearestCenter').value;
+                formData.idNumber = document.getElementById('idNumber').value;
+                
+                // Add farmer to table
+                addFarmerToTable(formData);
+                
+                // Show success message
+                alert('Farmer saved successfully!');
+                
+                // Close modal and reset form
+                closeModal();
+                document.getElementById('farmerForm').reset();
+                
+                // Generate new ID for next farmer
+                document.getElementById('farmerId').value = generateFarmerId();
+            }
+        });
+        
+        // Generate a farmer ID when the page loads
+        function generateFarmerId() {
+            // Generate a random number between 1-9999
+            const randomNum = Math.floor(1 + Math.random() * 9999);
+            // Format as DF followed by exactly 4 digits with leading zeros
+            return 'DF' + randomNum.toString().padStart(4, '0');
+        }
+        
+        // Function to view farmer details directly in the table
+        function viewFarmerDetails(button) {
+            // Get the row
+            const row = button.closest('tr');
+            
+            // Check if details row already exists
+            const nextRow = row.nextElementSibling;
+            if (nextRow && nextRow.classList.contains('details-row')) {
+                // If details row exists, toggle its visibility
+                nextRow.classList.toggle('hidden');
+                return;
+            }
+            
+            // Create a new row for details
+            const detailsRow = document.createElement('tr');
+            detailsRow.className = 'details-row';
+            
+            // Create a cell that spans all columns
+            const detailsCell = document.createElement('td');
+            detailsCell.setAttribute('colspan', '8'); // Span all columns in the table
+            
+            // Get data from the row and data attributes
+            const farmerId = row.cells[0].textContent;
+            const farmerName = row.cells[1].textContent;
+            const contact = row.cells[2].textContent;
+            const location = row.cells[3].textContent;
+            const cattleCount = row.cells[4].textContent;
+            const milkYield = row.cells[5].textContent;
+            const status = row.cells[6].querySelector('.status').textContent;
+            
+            // Get additional data from data attributes
+            const registrationDate = row.dataset.registrationDate || 'Not available';
+            const notes = row.dataset.notes || 'No notes available';
+            const address = row.dataset.address || 'Not available';
+            const idNumber = row.dataset.idNumber || 'Not available';
+            const nearestCenter = row.dataset.nearestCenter || 'Not available';
+            
+            // Create the details content - focusing primarily on milk collection data
+            detailsCell.innerHTML = `
+                <div class="farmer-details-expanded">
+                    <div class="details-header">
+                        <h3>Milk Collection Data for ${farmerName}</h3>
+                        <button class="close-details-btn" onclick="this.closest('.details-row').classList.add('hidden')">×</button>
+                    </div>
+                    
+                    <!-- Farmer Summary - Compact Version -->
+                    <div class="farmer-summary">
+                        <div class="summary-row">
+                            <div class="summary-item"><strong>ID:</strong> ${farmerId}</div>
+                            <div class="summary-item"><strong>Name:</strong> ${farmerName}</div>
+                            <div class="summary-item"><strong>Contact:</strong> ${contact}</div>
+                            <div class="summary-item"><strong>Location:</strong> ${location}</div>
+                            <div class="summary-item"><strong>Cattle:</strong> ${cattleCount}</div>
+                            <div class="summary-item"><strong>Status:</strong> ${status}</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Milk Collection Section - Main Focus -->
+                    <div class="milk-collection-section">
+                        <div class="milk-collection-header">
+                            <h3>Complete Milk Collection History</h3>
+                            <div class="collection-summary">
+                                <div class="summary-item">
+                                    <span class="summary-label">30-Day Total:</span>
+                                    <span class="summary-value">${(parseFloat(milkYield) * 30).toFixed(1)}L</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Daily Average:</span>
+                                    <span class="summary-value">${milkYield}L</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Quality Rating:</span>
+                                    <span class="summary-value quality-rating">A</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="collection-controls">
+                            <button class="btn btn-primary btn-sm" onclick="toggleRecentCollections(this)">Show Recent Only</button>
+                            <div class="collection-filter">
+                                <label for="quality-filter-${farmerId}">Filter by Quality:</label>
+                                <select id="quality-filter-${farmerId}" onchange="filterCollectionByQuality(this)">
+                                    <option value="all">All Qualities</option>
+                                    <option value="A+">A+ Only</option>
+                                    <option value="A">A Only</option>
+                                    <option value="B+">B+ Only</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="milk-collection-table-container">
+                            <table class="collection-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Morning (L)</th>
+                                        <th>Evening (L)</th>
+                                        <th>Total (L)</th>
+                                        <th>Quality</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${generateMilkCollectionHistory(farmerId)}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Add the details cell to the details row
+            detailsRow.appendChild(detailsCell);
+            
+            // Insert the details row after the current row
+            row.parentNode.insertBefore(detailsRow, row.nextSibling);
+        }
+        
+        // Function to generate milk collection history
+        function generateMilkCollectionHistory(farmerId) {
+            // Generate comprehensive milk collection data for demonstration
+            let historyHTML = '';
+            const today = new Date();
+            
+            // Generate data for the last 30 days
+            for (let i = 0; i < 30; i++) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toLocaleDateString();
+                
+                // Generate realistic milk yields based on cattle count
+                // Assuming the farmer ID contains a number we can use for seed
+                const farmerIdNum = parseInt(farmerId.replace(/\D/g, '')) || 1;
+                const seed = (farmerIdNum * (i + 1)) % 10;
+                
+                // Morning collection (5-15L per cow)
+                const morning = (Math.random() * 5 + 5 + seed * 0.5).toFixed(1);
+                
+                // Evening collection (4-12L per cow)
+                const evening = (Math.random() * 4 + 4 + seed * 0.3).toFixed(1);
+                
+                // Total collection
+                const total = (parseFloat(morning) + parseFloat(evening)).toFixed(1);
+                
+                // Quality rating with more variation
+                const qualities = ['A+', 'A', 'A', 'B+', 'A', 'A+', 'A', 'B+', 'A', 'A+'];
+                const quality = qualities[(i + seed) % qualities.length];
+                
+                // Add row with conditional formatting based on quality
+                const qualityClass = quality.includes('+') ? 'quality-high' : (quality === 'B+' ? 'quality-medium' : '');
+                
+                historyHTML += `
+                    <tr class="${i < 7 ? 'recent-collection' : ''}">
+                        <td>${dateStr}</td>
+                        <td>${morning}</td>
+                        <td>${evening}</td>
+                        <td class="${parseFloat(total) > 20 ? 'high-yield' : ''}">${total}</td>
+                        <td class="${qualityClass}">${quality}</td>
+                    </tr>
+                `;
+            }
+            
+            return historyHTML;
+        }
+        
+        // Function to delete a farmer from the list
+        function deleteFarmer(button) {
+            // Get the row
+            const row = button.closest('tr');
+            
+            // Get the farmer name from the second cell
+            const farmerName = row.cells[1].textContent;
+            
+            if (confirm(`Are you sure you want to delete ${farmerName}?`)) {
+                // Get the cattle count and milk volume before removing the row
+                const cattleCount = parseInt(row.cells[4].textContent);
+                const milkVolume = parseFloat(row.cells[5].textContent);
+                
+                // Remove the row
+                row.remove();
+                
+                // Update dashboard statistics
+                updateFarmerCount(false); // Decrement farmer count
+                updateCattleCount(cattleCount, false); // Decrement cattle count
+                updateMilkVolume(milkVolume, false); // Decrement milk volume
+                
+                alert(`${farmerName} deleted successfully`);
+            }
+        }
+        
+        // Set initial farmer ID
+        document.getElementById('farmerId').value = generateFarmerId();
+        
+        // Initialize action buttons functionality
+        function initializeActionButtons() {
+            const actionBtns = document.querySelectorAll('.action-btn');
+            actionBtns.forEach(btn => {
+                // Remove existing event listeners
+                const newBtn = btn.cloneNode(true);
+                btn.parentNode.replaceChild(newBtn, btn);
+                
+                // Add new event listener
+                newBtn.addEventListener('click', (e) => {
+                    const action = e.currentTarget.querySelector('i').className;
+                    const farmerName = e.currentTarget.closest('tr').querySelector('td:nth-child(2)').textContent;
+                    
+                    if (action.includes('eye')) {
+                        viewFarmerDetails(e.currentTarget);
+                    } else if (action.includes('edit')) {
+                        alert(`Edit ${farmerName}`);
+                    } else if (action.includes('trash')) {
+                        // Use our global delete function
+                        deleteFarmer(e.currentTarget);
+                    }
+                });
+            });
+        }
+        
+        // Initialize action buttons when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeActionButtons();
+            
+            // Add direct onclick handlers to all view buttons
+            document.querySelectorAll('.action-btn[title="View"]').forEach(btn => {
+                btn.onclick = function() { viewFarmerDetails(this); };
+            });
+            
+            // Add direct onclick handlers to all delete buttons
+            document.querySelectorAll('.action-btn[title="Delete"]').forEach(btn => {
+                btn.onclick = function() { deleteFarmer(this); };
+            });
+        });
+    </script>
+    
+    
+    <!-- Debug script to ensure view functionality works -->
+    <script>
+        console.log('Debug: Adding view functionality');
+        
+        // Make sure viewFarmerDetails is available globally
+        window.viewFarmerDetails = function(button) {
+            console.log('View button clicked', button);
+            
+            // Get the row
+            const row = button.closest('tr');
+            
+            // Check if details row already exists
+            const nextRow = row.nextElementSibling;
+            if (nextRow && nextRow.classList.contains('details-row')) {
+                // If details row exists, toggle its visibility
+                nextRow.classList.toggle('hidden');
+                return;
+            }
+            
+            // Create a new row for details
+            const detailsRow = document.createElement('tr');
+            detailsRow.className = 'details-row';
+            
+            // Create a cell that spans all columns
+            const detailsCell = document.createElement('td');
+            detailsCell.setAttribute('colspan', '8'); // Span all columns in the table
+            
+            // Get data from the row and data attributes
+            const farmerId = row.cells[0].textContent;
+            const farmerName = row.cells[1].textContent;
+            const contact = row.cells[2].textContent;
+            const location = row.cells[3].textContent;
+            const cattleCount = row.cells[4].textContent;
+            const milkYield = row.cells[5].textContent;
+            const status = row.cells[6].querySelector('.status').textContent;
+            
+            // Get additional data from data attributes
+            const registrationDate = row.dataset.registrationDate || 'Not available';
+            const notes = row.dataset.notes || 'No notes available';
+            const address = row.dataset.address || 'Not available';
+            const idNumber = row.dataset.idNumber || 'Not available';
+            const nearestCenter = row.dataset.nearestCenter || 'Not available';
+            
+            // Create the details content
+            detailsCell.innerHTML = `
+                <div class="farmer-details-expanded">
+                    <div class="details-header">
+                        <h3>Complete Farmer Information</h3>
+                        <button class="close-details-btn" onclick="this.closest('.details-row').classList.add('hidden')">×</button>
+                    </div>
+                    <div class="details-content">
+                        <div class="details-column">
+                            <div class="detail-item">
+                                <span class="detail-label">Farmer ID:</span>
+                                <span class="detail-value">${farmerId}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Full Name:</span>
+                                <span class="detail-value">${farmerName}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">ID Number:</span>
+                                <span class="detail-value">${idNumber}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Contact:</span>
+                                <span class="detail-value">${contact}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Registration Date:</span>
+                                <span class="detail-value">${registrationDate}</span>
+                            </div>
+                        </div>
+                        <div class="details-column">
+                            <div class="detail-item">
+                                <span class="detail-label">Location:</span>
+                                <span class="detail-value">${location}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Address:</span>
+                                <span class="detail-value">${address}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Nearest Center:</span>
+                                <span class="detail-value">${nearestCenter}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Cattle Count:</span>
+                                <span class="detail-value">${cattleCount}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Avg. Milk Yield:</span>
+                                <span class="detail-value">${milkYield} L</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="details-notes">
+                        <span class="detail-label">Notes:</span>
+                        <p class="detail-value">${notes}</p>
+                    </div>
+                    <div class="details-footer">
+                        <div class="milk-collection-history">
+                            <h4>Recent Milk Collection</h4>
+                            <table class="collection-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Morning (L)</th>
+                                        <th>Evening (L)</th>
+                                        <th>Total (L)</th>
+                                        <th>Quality</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${generateMilkCollectionHistory(farmerId)}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Add the details cell to the details row
+            detailsRow.appendChild(detailsCell);
+            
+            // Insert the details row after the current row
+            row.parentNode.insertBefore(detailsRow, row.nextSibling);
+        };
+        
+        // Make sure deleteFarmer is available globally
+        window.deleteFarmer = window.deleteFarmer || function(button) {
+            // Get the row
+            const row = button.closest('tr');
+            
+            // Get the farmer name from the second cell
+            const farmerName = row.cells[1].textContent;
+            
+            if (confirm(`Are you sure you want to delete ${farmerName}?`)) {
+                // Get the cattle count and milk volume before removing the row
+                const cattleCount = parseInt(row.cells[4].textContent);
+                const milkVolume = parseFloat(row.cells[5].textContent);
+                
+                // Remove the row
+                row.remove();
+                
+                // Update dashboard statistics
+                updateFarmerCount(false); // Decrement farmer count
+                updateCattleCount(cattleCount, false); // Decrement cattle count
+                updateMilkVolume(milkVolume, false); // Decrement milk volume
+                
+                alert(`${farmerName} deleted successfully`);
+            }
+        };
+        
+        // Function to toggle between showing all or recent collections only
+        window.toggleRecentCollections = function(button) {
+            const table = button.closest('.milk-collection-section').querySelector('.collection-table');
+            const rows = table.querySelectorAll('tbody tr');
+            
+            // Check if we're currently showing all rows
+            const showingAll = rows.length > 0 && !rows[7].classList.contains('hidden');
+            
+            // Toggle button text
+            button.textContent = showingAll ? 'Show All' : 'Show Recent Only';
+            
+            // Toggle visibility of non-recent rows
+            rows.forEach((row, index) => {
+                if (index >= 7) { // Show only the first 7 days when toggled
+                    row.classList.toggle('hidden', showingAll);
+                }
+            });
+        };
+        
+        // Function to filter collection by quality
+        window.filterCollectionByQuality = function(select) {
+            const table = select.closest('.milk-collection-section').querySelector('.collection-table');
+            const rows = table.querySelectorAll('tbody tr');
+            const quality = select.value;
+            
+            // Show all rows if "all" is selected, otherwise filter
+            if (quality === 'all') {
+                rows.forEach(row => {
+                    row.style.display = '';
+                });
+            } else {
+                rows.forEach(row => {
+                    const rowQuality = row.cells[4].textContent.trim();
+                    row.style.display = (rowQuality === quality) ? '' : 'none';
+                });
+            }
+        };
+        
+        // Add click handlers directly to all view buttons
+        setTimeout(function() {
+            console.log('Adding direct click handlers to view buttons');
+            document.querySelectorAll('.action-btn[title="View"]').forEach(btn => {
+                btn.onclick = function() { viewFarmerDetails(this); };
+            });
+        }, 500);
+    </script>
+    
+    <!-- Direct fix for view buttons -->
+    <script>
+        // Immediately add onclick handlers to all view buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all view buttons
+            const viewButtons = document.querySelectorAll('.action-btn[title="View"]');
+            
+            // Add onclick handler to each button
+            viewButtons.forEach(function(button) {
+                button.onclick = function() {
+                    // Call the viewFarmerDetails function directly
+                    viewFarmerDetails(this);
+                };
+            });
+            
+            console.log('Added onclick handlers to', viewButtons.length, 'view buttons');
+        });
+        
+        // Backup implementation of viewFarmerDetails
+        if (typeof viewFarmerDetails !== 'function') {
+            window.viewFarmerDetails = function(button) {
+                console.log('View button clicked', button);
+                
+                // Get the row
+                const row = button.closest('tr');
+                
+                // Check if details row already exists
+                const nextRow = row.nextElementSibling;
+                if (nextRow && nextRow.classList.contains('details-row')) {
+                    // If details row exists, toggle its visibility
+                    nextRow.classList.toggle('hidden');
+                    return;
+                }
+                
+                // Create a new row for details
+                const detailsRow = document.createElement('tr');
+                detailsRow.className = 'details-row';
+                
+                // Create a cell that spans all columns
+                const detailsCell = document.createElement('td');
+                detailsCell.setAttribute('colspan', '8'); // Span all columns in the table
+                
+                // Get data from the row
+                const farmerId = row.cells[0].textContent;
+                const farmerName = row.cells[1].textContent;
+                const contact = row.cells[2].textContent;
+                const location = row.cells[3].textContent;
+                const cattleCount = row.cells[4] ? row.cells[4].textContent : 'N/A';
+                const milkYield = row.cells[5] ? row.cells[5].textContent : 'N/A';
+                
+                // Create the details content
+                detailsCell.innerHTML = `
+                    <div class="farmer-details-expanded">
+                        <div class="details-header">
+                            <h3>Milk Collection Data for ${farmerName}</h3>
+                            <button class="close-details-btn" onclick="this.closest('.details-row').classList.add('hidden')">×</button>
+                        </div>
+                        
+                        <div class="farmer-summary">
+                            <div class="summary-row">
+                                <div class="summary-item"><strong>ID:</strong> ${farmerId}</div>
+                                <div class="summary-item"><strong>Name:</strong> ${farmerName}</div>
+                                <div class="summary-item"><strong>Contact:</strong> ${contact}</div>
+                                <div class="summary-item"><strong>Location:</strong> ${location}</div>
+                                <div class="summary-item"><strong>Cattle:</strong> ${cattleCount}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="milk-collection-section">
+                            <div class="milk-collection-header">
+                                <h3>Complete Milk Collection History</h3>
+                            </div>
+                            
+                            <div class="milk-collection-table-container">
+                                <table class="collection-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Morning (L)</th>
+                                            <th>Evening (L)</th>
+                                            <th>Total (L)</th>
+                                            <th>Quality</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${generateMilkCollectionData(farmerId)}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add the details cell to the details row
+                detailsRow.appendChild(detailsCell);
+                
+                // Insert the details row after the current row
+                row.parentNode.insertBefore(detailsRow, row.nextSibling);
+            };
+        }
+        
+        // Backup implementation of generateMilkCollectionData
+        function generateMilkCollectionData(farmerId) {
+            let html = '';
+            const today = new Date();
+            
+            for (let i = 0; i < 30; i++) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toLocaleDateString();
+                
+                const morning = (Math.random() * 10 + 5).toFixed(1);
+                const evening = (Math.random() * 8 + 4).toFixed(1);
+                const total = (parseFloat(morning) + parseFloat(evening)).toFixed(1);
+                
+                const qualities = ['A+', 'A', 'A', 'B+', 'A'];
+                const quality = qualities[i % qualities.length];
+                
+                html += `
+                    <tr>
+                        <td>${dateStr}</td>
+                        <td>${morning}</td>
+                        <td>${evening}</td>
+                        <td>${total}</td>
+                        <td>${quality}</td>
+                    </tr>
+                `;
+            }
+            
+            return html;
+        }
+    </script>
+    </main>
+    <script src="js/farm.js"></script>
+</body>
+</html>

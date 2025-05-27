@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="css/farm.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+ 
+</head>
+<style>
+  /* Product page banner styling */
+.df-container .farmer-banner {
+  background: linear-gradient(135deg, #4a6fa5, #166088);
+  color: white;
+  padding: 6px 16px; /* Reduced vertical padding for less height */
+  border-radius: 12px; /* Adjusted rounded corners */
+  margin: 0 0 20px 0;
+  width: 100%;
+  height: 80px;
+  border-left: 5px solid #166088;
+  border-bottom: 4px solid #166088;
+  position: relative;
+  overflow: hidden;
+}
+
+.df-container .farmer-banner-container {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.df-container .banner-icon {
+  font-size: 2.4rem;
+  color: rgba(255, 255, 255, 0.9);
+  min-width: 50px;
+  text-align: center;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.df-container .farmer-banner-text {
+  flex: 1;
+}
+
+.df-container .farmer-banner-text p {
+  margin: 0;
+  font-size: 1.8rem;
+  opacity: 0.95;
+  font-weight: 400;
+}
+
+/* Container styling for product page */
+.df-container {
+  padding-top: 0; /* No top padding */
+}
+
+/* Header styling for product page */
+.df-container .df-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 5px; /* Reduced bottom margin */
+  padding-top: 0; /* No padding at top */
+  margin-top: -15px; /* More negative margin to move buttons up */
+}
+
+/* Controls container styling */
+.df-container .df-controls {
+  display: flex;
+  gap: 10px;
+}
+
+/* Enhanced button styling for product page */
+.df-container .df-btn {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.df-container .df-btn-primary {
+  background: linear-gradient(to right, #6f4972, #d975a6);
+  color: white;
+  border: none;
+}
+
+.df-container .df-btn-primary:hover {
+  background: linear-gradient(to right, #5d3d60, #c76494);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.df-container .df-btn-outline {
+  border: 1px solid #d975a6;
+  color: #6f4972;
+  background: white;
+}
+
+.df-container .df-btn-outline:hover {
+  background: rgba(217, 117, 166, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+</style>
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+        <img src="img/logo.png" class="logo" alt="Logo" />
+        <div class="menu-title-group">
+            <i class="fas fa-bars menu-icon" id="menuToggle"></i> 
+        </div>
+    </div>
+    <div class="nav-center">
+        <div class="select-wrapper">
+            <i class="fas fa-globe"></i>
+            <select id="languageSelect" class="lang-dropdown">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+                <option value="te">తెలుగు</option>
+            </select>
+        </div>
+    </div>
+    <div class="nav-right">
+        <div class="nav-tools">
+            <div class="status-label">
+                <span id="statusDot" class="dot online"></span>
+                <span id="statusText">Active</span>
+            </div>
+            <button id="modeToggle" class="mode-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <div class="nav-search-profile">
+            <input type="text" placeholder="Search..." />
+            <div class="nav-icons">
+                <i class="fas fa-envelope"></i>
+                <i class="fas fa-bell"></i>
+            </div>
+            <div class="profile">
+                <img src="img/profile.jpg" alt="Profile" />
+                <span>SHIVAKUMAR JELLA</span>
+            </div>
+        </div>
+    </div>
+  </nav>
+  <aside id="sidebar">
+    <ul>
+      <li class="dashboard-nav"><a href="dashb.html"><i class="fas fa-home"></i> Dashboard</a></li>
+      <li class="farmer-nav"><a href="farmer.html"><i class="fas fa-user-friends"></i> Farmer Directory</a></li>
+      <li class="collection-nav"><a href="collection.html"><i class="fas fa-tractor"></i> Daily Milk Yields</a></li>
+      <li class="chilling-nav"><a href="chilling.html"><i class="fas fa-snowflake"></i> Cooling Stations</a></li>
+      <li class="processing-nav"><a href="plant.html"><i class="fas fa-industry"></i> Dairy Processing</a></li>
+      <li class="quality-nav"><a href="qualitydemo.html"><i class="fas fa-clipboard-check"></i> Milk Quality Tests</a></li>
+      <li class="inventory-nav"><a href="product.html"><i class="fas fa-boxes"></i> Dairy Stockroom</a></li>
+      <li class="logistics-nav"><a href="distubtion.html"><i class="fas fa-shipping-fast"></i> Farm-to-Market Routes</a></li>        
+      <li class="crm-nav"><a href="crmdemo.html"><i class="fas fa-users"></i> CRM System</a></li>
+    </ul>
+  </aside>
+  <main>
+    <div class="df-container">
+
+      <!-- Banner Section -->
+      <div class="farmer-banner">
+        <div class="farmer-banner-container">
+          <div class="banner-icon">
+            <i class="fas fa-cheese"></i>
+          </div>
+          <div class="farmer-banner-text">
+            <p>Dairy Farm Product Inventory</p>
+          </div>
+        </div>
+      </div>
+
+
+      <header class="df-header">
+        <div class="df-controls">
+          <button class="df-btn df-btn-primary" onclick="showAddProductModal()">
+            <i class="fas fa-plus"></i> Add Product
+          </button>
+          <button class="df-btn df-btn-outline">
+            <i class="fas fa-file-export"></i> Export
+          </button>
+        </div>
+      </header>
+    
+    <div class="df-stats-grid">
+      <div class="df-stat-card">
+        <h3><i class="fas fa-boxes"></i> Total Products</h3>
+        <div class="df-value" id="total-products">0</div>
+        <div class="df-subtext">Across all categories</div>
+      </div>
+      <div class="df-stat-card">
+        <h3><i class="fas fa-box-open"></i> In Stock</h3>
+        <div class="df-value" id="in-stock">0</div>
+        <div class="df-subtext">Available products</div>
+      </div>
+      <div class="df-stat-card">
+        <h3><i class="fas fa-exclamation-triangle"></i> Low Stock</h3>
+        <div class="df-value" id="low-stock">0</div>
+        <div class="df-subtext">Needs restocking</div>
+      </div>
+      <div class="df-stat-card">
+        <h3><i class="fas fa-rupee-sign"></i> Total Value</h3>
+        <div class="df-value" id="total-value">₹0</div>
+        <div class="df-subtext">Current inventory value</div>
+      </div>
+    </div>
+    
+    <div class="df-search-filter">
+      <div class="df-search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search products..." id="search-input">
+      </div>
+      <select class="df-filter-select" id="category-filter">
+        <option value="all">All Categories</option>
+        <option value="milk">Milk Products</option>
+        <option value="cheese">Cheese</option>
+        <option value="yogurt">Yogurt</option>
+        <option value="butter">Butter</option>
+        <option value="cream">Cream</option>
+      </select>
+      <select class="df-filter-select" id="status-filter">
+        <option value="all">All Statuses</option>
+        <option value="in-stock">In Stock</option>
+        <option value="low-stock">Low Stock</option>
+        <option value="out-of-stock">Out of Stock</option>
+      </select>
+    </div>
+    
+    <table class="df-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Category</th>
+          <th>Stock Level</th>
+          <th>Unit Price</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="inventory-body">
+        <!-- Populated by JS -->
+      </tbody>
+    </table>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div id="add-product-modal" class="df-modal-overlay">
+      <div class="df-modal-content">
+        <div class="df-modal-header">
+          <h2 style="color: var(--primary);">Add New Product</h2>
+          <button onclick="hideAddProductModal()" class="df-modal-close">&times;</button>
+        </div>
+        <form id="add-product-form">
+          <div class="df-form-group">
+            <label class="df-form-label">Product Name</label>
+            <input type="text" name="productName" required class="df-form-input">
+          </div>
+          <div class="df-form-group">
+            <label class="df-form-label">Category</label>
+            <select name="category" required class="df-form-input">
+              <option value="">Select Category</option>
+              <option value="milk">Milk Products</option>
+              <option value="cheese">Cheese</option>
+              <option value="yogurt">Yogurt</option>
+              <option value="butter">Butter</option>
+              <option value="cream">Cream</option>
+            </select>
+          </div>
+          <div class="df-form-grid">
+            <div class="df-form-group">
+              <label class="df-form-label">Current Stock</label>
+              <input type="number" name="stock" min="0" required class="df-form-input">
+            </div>
+            <div class="df-form-group">
+              <label class="df-form-label">Unit Price (₹)</label>
+              <input type="number" name="price" step="0.01" min="0" required class="df-form-input">
+            </div>
+          </div>
+          <div class="df-form-group">
+            <label class="df-form-label">SKU Code</label>
+            <input type="text" name="sku" required class="df-form-input">
+          </div>
+          <div class="df-form-group">
+            <label class="df-form-label">Threshold (Low Stock Warning)</label>
+            <input type="number" name="threshold" min="1" value="10" required class="df-form-input">
+          </div>
+          <button type="submit" class="df-form-submit">Add Product</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+    // Sample dairy product data
+    const products = [
+      {
+        id: 1,
+        name: "Whole Milk",
+        sku: "DF-MILK-001",
+        category: "milk",
+        stock: 125,
+        threshold: 30,
+        price: 50,
+        lastUpdated: "2023-05-20"
+      },
+      {
+        id: 2,
+        name: "Cheddar Cheese",
+        sku: "DF-CHS-012",
+        category: "cheese",
+        stock: 42,
+        threshold: 15,
+        price: 320,
+        lastUpdated: "2023-05-18"
+      },
+      {
+        id: 3,
+        name: "Greek Yogurt",
+        sku: "DF-YGT-005",
+        category: "yogurt",
+        stock: 68,
+        threshold: 20,
+        price: 80,
+        lastUpdated: "2023-05-19"
+      },
+      {
+        id: 4,
+        name: "Salted Butter",
+        sku: "DF-BTR-008",
+        category: "butter",
+        stock: 25,
+        threshold: 10,
+        price: 120,
+        lastUpdated: "2023-05-17"
+      },
+      {
+        id: 5,
+        name: "Fresh Cream",
+        sku: "DF-CRM-003",
+        category: "cream",
+        stock: 15,
+        threshold: 5,
+        price: 65,
+        lastUpdated: "2023-05-20"
+      },
+      {
+        id: 6,
+        name: "Skimmed Milk",
+        sku: "DF-MILK-002",
+        category: "milk",
+        stock: 92,
+        threshold: 30,
+        price: 45,
+        lastUpdated: "2023-05-19"
+      },
+      {
+        id: 7,
+        name: "Mozzarella",
+        sku: "DF-CHS-015",
+        category: "cheese",
+        stock: 8,
+        threshold: 15,
+        price: 280,
+        lastUpdated: "2023-05-16"
+      },
+      {
+        id: 8,
+        name: "Sweet Cream Butter",
+        sku: "DF-BTR-009",
+        category: "butter",
+        stock: 0,
+        threshold: 10,
+        price: 135,
+        lastUpdated: "2023-05-15"
+      }
+    ];
+    
+    // DOM elements
+    const inventoryBody = document.getElementById('inventory-body');
+    const searchInput = document.getElementById('search-input');
+    const categoryFilter = document.getElementById('category-filter');
+    const statusFilter = document.getElementById('status-filter');
+    const totalProductsEl = document.getElementById('total-products');
+    const inStockEl = document.getElementById('in-stock');
+    const lowStockEl = document.getElementById('low-stock');
+    const totalValueEl = document.getElementById('total-value');
+    const addProductModal = document.getElementById('add-product-modal');
+    const addProductForm = document.getElementById('add-product-form');
+    
+    // Category icons mapping
+    const categoryIcons = {
+      milk: "fa-wine-bottle",
+      cheese: "fa-cheese",
+      yogurt: "fa-blender",
+      butter: "fa-bread-slice",
+      cream: "fa-whipped-cream"
+    };
+    
+    // Category names mapping
+    const categoryNames = {
+      milk: "Milk Products",
+      cheese: "Cheese",
+      yogurt: "Yogurt",
+      butter: "Butter",
+      cream: "Cream"
+    };
+    
+    // Calculate inventory statistics
+    function updateStats() {
+      totalProductsEl.textContent = products.length;
+      
+      const inStock = products.filter(p => p.stock > p.threshold).length;
+      const lowStock = products.filter(p => p.stock > 0 && p.stock <= p.threshold).length;
+      const totalValue = products.reduce((sum, p) => sum + (p.stock * p.price), 0);
+      
+      inStockEl.textContent = inStock;
+      lowStockEl.textContent = lowStock;
+      totalValueEl.textContent = `₹${totalValue.toLocaleString()}`;
+    }
+    
+    // Determine product status
+    function getProductStatus(product) {
+      if (product.stock === 0) return "out-of-stock";
+      if (product.stock <= product.threshold) return "low-stock";
+      return "in-stock";
+    }
+    
+    // Render inventory table
+    function renderInventory(data) {
+      inventoryBody.innerHTML = '';
+      
+      data.forEach(product => {
+        const status = getProductStatus(product);
+        const stockPercentage = Math.min(100, (product.stock / (product.threshold * 3)) * 100);
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>
+            <div class="df-product-info">
+              <div class="df-product-icon ${product.category}">
+                <i class="fas ${categoryIcons[product.category]}"></i>
+              </div>
+              <div class="df-product-details">
+                <div class="df-product-name">${product.name}</div>
+                <div class="df-product-sku">${product.sku}</div>
+              </div>
+            </div>
+          </td>
+          <td>${categoryNames[product.category]}</td>
+          <td>
+            <div class="df-stock-indicator">
+              <div class="df-stock-bar">
+                <div class="df-stock-fill" style="width: ${stockPercentage}%; background-color: ${
+                  status === 'out-of-stock' ? 'var(--danger)' : 
+                  status === 'low-stock' ? 'var(--warning)' : 'var(--success)'
+                };"></div>
+              </div>
+              ${product.stock} units
+            </div>
+          </td>
+          <td>₹${product.price.toLocaleString()}</td>
+          <td>
+            <span class="df-status df-status-${status}">
+              <i class="fas ${
+                status === 'in-stock' ? 'fa-check-circle' :
+                status === 'low-stock' ? 'fa-exclamation-circle' : 'fa-times-circle'
+              }"></i>
+              ${
+                status === 'in-stock' ? 'In Stock' :
+                status === 'low-stock' ? 'Low Stock' : 'Out of Stock'
+              }
+            </span>
+          </td>
+          <td>
+            <div class="df-actions">
+              <button class="df-action-btn" title="Edit" onclick="editProduct(${product.id})">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="df-action-btn df-action-btn-success" title="Stock Up" onclick="increaseStock(${product.id})">
+                <i class="fas fa-arrow-up"></i>
+              </button>
+              <button class="df-action-btn df-action-btn-warning" title="Stock Down" onclick="decreaseStock(${product.id})">
+                <i class="fas fa-arrow-down"></i>
+              </button>
+              <button class="df-action-btn df-action-btn-danger" title="Remove" onclick="removeProduct(${product.id})">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </td>
+        `;
+        
+        inventoryBody.appendChild(row);
+      });
+    }
+    
+    // Filter products
+    function filterProducts() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const category = categoryFilter.value;
+      const status = statusFilter.value;
+      
+      const filtered = products.filter(product => {
+        const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
+                            product.sku.toLowerCase().includes(searchTerm);
+        const matchesCategory = category === 'all' || product.category === category;
+        const matchesStatus = status === 'all' || getProductStatus(product) === status;
+        
+        return matchesSearch && matchesCategory && matchesStatus;
+      });
+      
+      renderInventory(filtered);
+    }
+    
+    // Modal functions
+    function showAddProductModal() {
+      addProductModal.style.display = 'flex';
+    }
+    
+    function hideAddProductModal() {
+      addProductModal.style.display = 'none';
+      addProductForm.reset();
+    }
+    
+    // Form submission
+    addProductForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const form = addProductForm;
+      const newProduct = {
+        id: products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1,
+        name: form.productName.value,
+        category: form.category.value,
+        stock: parseInt(form.stock.value),
+        price: parseFloat(form.price.value),
+        sku: form.sku.value,
+        threshold: parseInt(form.threshold.value),
+        lastUpdated: new Date().toISOString().split('T')[0]
+      };
+      
+      // Add to products array
+      products.push(newProduct);
+      
+      // Update UI
+      updateStats();
+      filterProducts();
+      
+      // Show success message
+      alert(`Product "${newProduct.name}" added successfully!`);
+      hideAddProductModal();
+    });
+    
+    // Mock functions for actions
+    function editProduct(id) {
+      alert(`Editing product ID: ${id}`);
+    }
+    
+    function increaseStock(id) {
+      const product = products.find(p => p.id === id);
+      if (product) {
+        // Prompt for custom amount to increase
+        const amount = prompt(`Enter amount to add (current stock: ${product.stock}):`, "1");
+        const increaseAmount = parseInt(amount);
+        
+        if (!isNaN(increaseAmount) && increaseAmount > 0) {
+          product.stock += increaseAmount;
+          filterProducts();
+          updateStats();
+          alert(`${increaseAmount} units added to ${product.name} stock.`);
+        }
+      }
+    }
+    
+    function decreaseStock(id) {
+      const product = products.find(p => p.id === id);
+      if (product) {
+        if (product.stock > 0) {
+          // Decrease by 1 unit or prompt for custom amount
+          const amount = prompt(`Enter amount to decrease (current stock: ${product.stock}):`, "1");
+          const decreaseAmount = parseInt(amount);
+          
+          if (!isNaN(decreaseAmount) && decreaseAmount > 0) {
+            // Ensure stock doesn't go below 0
+            product.stock = Math.max(0, product.stock - decreaseAmount);
+            filterProducts();
+            updateStats();
+            alert(`${decreaseAmount} units removed from ${product.name} stock.`);
+          }
+        } else {
+          alert(`${product.name} is already out of stock!`);
+        }
+      }
+    }
+    
+    function removeProduct(id) {
+      if (confirm('Are you sure you want to remove this product?')) {
+        const index = products.findIndex(p => p.id === id);
+        if (index !== -1) {
+          products.splice(index, 1);
+          filterProducts();
+          updateStats();
+        }
+      }
+    }
+    
+    // Event listeners
+    searchInput.addEventListener('input', filterProducts);
+    categoryFilter.addEventListener('change', filterProducts);
+    statusFilter.addEventListener('change', filterProducts);
+    
+    // Initial render
+    updateStats();
+    renderInventory(products);
+    </script>
+  </main>
+  <script src="js/farm.js"></script>
+</body>
+</html>

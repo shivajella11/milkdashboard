@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/farm.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<style>
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 60%;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: black;
+    }
+
+    .order-details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .order-section {
+      margin-bottom: 15px;
+    }
+
+    .order-section h3 {
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+    }
+
+    .order-item {
+      border: 1px solid #eee;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      background-color: #f9f9f9;
+    }
+
+    .order-total {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 2px solid #eee;
+      grid-column: span 2;
+    }
+
+    /* Status badges in modal */
+    .status-badge {
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.8em;
+      font-weight: bold;
+    }
+
+    .status-delivered {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .status-transit {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .status-scheduled {
+      background-color: #cce5ff;
+      color: #004085;
+    }
+
+    /* Invoice specific styles */
+    .invoice-header {
+      text-align: center;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+    }
+
+    .invoice-logo {
+      max-width: 150px;
+      margin-bottom: 10px;
+    }
+
+    .invoice-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .invoice-items {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .invoice-items th {
+      background-color: #f5f5f5;
+      padding: 10px;
+      text-align: left;
+    }
+
+    .invoice-items td {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .invoice-totals {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .invoice-totals td {
+      padding: 8px 10px;
+    }
+
+    .invoice-totals tr:last-child td {
+      font-weight: bold;
+      font-size: 1.1em;
+      border-top: 2px solid #eee;
+    }
+
+    .invoice-footer {
+      margin-top: 30px;
+      padding-top: 10px;
+      border-top: 1px solid #eee;
+      font-size: 0.9em;
+      text-align: center;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .btn {
+      padding: 8px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+      font-weight: bold;
+    }
+
+    .btn-print {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .btn-download {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    .btn-close {
+      background-color: #f44336;
+      color: white;
+    }
+
+    /* New styles for address sections */
+    .invoice-address-section {
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 5px;
+    }
+    
+    .invoice-billing-address {
+      background-color: #f8f9fa;
+      border: 1px solid #d1e7dd;
+    }
+    
+    .invoice-shipping-address {
+      background-color: #fff3cd;
+      border: 1px solid #ffeeba;
+    }
+    
+    .invoice-address-title {
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #495057;
+      font-size: 1.1em;
+    }
+    
+    .invoice-address-content {
+      line-height: 1.6;
+    }
+    
+    .invoice-address-content p {
+      margin: 5px 0;
+    }
+    
+    /* Highlight different addresses */
+    .invoice-address-different {
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+    }
+    
+    /* Invoice Details Grid */
+    .invoice-details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    
+    /* Status badges in modal */
+    .invoice-status-badge {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.85em;
+      font-weight: bold;
+      display: inline-block;
+    }
+    
+    .invoice-status-delivered {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    
+    .invoice-status-transit {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+    
+    .invoice-status-scheduled {
+      background-color: #cce5ff;
+      color: #004085;
+    }
+    
+    .invoice-shipping-info {
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #e2e3e5;
+      border-radius: 4px;
+    }
+    
+    .invoice-shipping-info p {
+      margin: 5px 0;
+    }
+    
+    .invoice-status {
+      margin: 15px 0;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-radius: 4px;
+    }
+    
+    .invoice-status p {
+      margin: 5px 0;
+    }
+
+
+      /*-- view and edit functionality css */
+    .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+/*end of view form*/
+
+</style>
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+        <img src="img/logo.png" class="logo" alt="Logo" />
+        <div class="menu-title-group">
+            <i class="fas fa-bars menu-icon" id="menuToggle"></i> 
+        </div>
+    </div>
+    <div class="nav-center">
+        <!-- Language Selector with Globe Icon -->
+        <div class="select-wrapper">
+            <i class="fas fa-globe"></i>
+            <select id="languageSelect" class="lang-dropdown">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+                <option value="te">తెలుగు</option>
+            </select>
+        </div>
+        <!-- Can add navigation links here if needed -->
+    </div>
+    <div class="nav-right">
+        <div class="nav-tools">
+            <!-- Online Status Label -->
+            <div class="status-label">
+                <span id="statusDot" class="dot online"></span>
+                <span id="statusText">Active</span>
+            </div>
+            <!-- Mode Toggle -->
+            <button id="modeToggle" class="mode-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <div class="nav-search-profile">
+            <input type="text" placeholder="Search..." />
+            <div class="nav-icons">
+                <i class="fas fa-envelope"></i>
+                <i class="fas fa-bell"></i>
+            </div>
+            <div class="profile">
+                <img src="img/profile.jpg" alt="Profile" />
+                <span>SHIVAKUMAR JELLA</span>
+            </div>
+        </div>
+    </div>
+  </nav>
+  <aside id="sidebar">
+    <ul>
+      <li class="dashboard-nav"><a href="dashb.html"><i class="fas fa-home"></i> Dashboard</a></li>
+      <li class="farmer-nav"><a href="farmer.html"><i class="fas fa-user-friends"></i> Farmer Directory</a></li>
+      <li class="collection-nav"><a href="collection.html"><i class="fas fa-tractor"></i> Daily Milk Yields</a></li>
+      <li class="chilling-nav"><a href="chilling.html"><i class="fas fa-snowflake"></i> Cooling Stations</a></li>
+      <li class="processing-nav"><a href="plant.html"><i class="fas fa-industry"></i> Dairy Processing</a></li>
+      <li class="quality-nav"><a href="qualitydemo.html"><i class="fas fa-clipboard-check"></i> Milk Quality Tests</a></li>
+      <li class="inventory-nav"><a href="product.html"><i class="fas fa-boxes"></i> Dairy Stockroom</a></li>
+      <li class="logistics-nav"><a href="distubtion.html"><i class="fas fa-shipping-fast"></i> Farm-to-Market Routes</a></li>        
+      <li class="crm-nav"><a href="crmdemo.html"><i class="fas fa-users"></i> CRM System</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main>
+    <div class="distribution-main-content">
+      
+      <!-- Page Header -->
+      <!-- Banner Header -->
+      <section class="distribution-banner">
+        <div class="distribution-banner-content">
+          <i class="fas fa-truck-loading distribution-banner-icon"></i>
+          <div>
+            <h1>Distribution Logistics</h1>
+            <p>Manage and track all dairy product distribution efficiently</p>
+          </div>
+        </div>
+      </section>
+
+  
+      <!-- Logistics Table -->
+      <section class="distribution-logistics-section">
+        <h2 class="distribution-section-title">Delivery Routes & Status</h2>
+        <table class="distribution-styled-table">
+          <thead>
+            <tr>
+              <th>Vehicle ID</th>
+              <th>Driver Name</th>
+              <th>Route</th>
+              <th>Departure Time</th>
+              <th>Estimated Arrival</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>V-101</td>
+              <td>Ravi Kumar</td>
+              <td>Village A → Town X</td>
+              <td>06:00 AM</td>
+              <td>08:30 AM</td>
+              <td>
+                <span class="distribution-status distribution-status-on-time">On Time</span>
+              </td>
+              <td>
+                <button class="distribution-action-btn distribution-view-btn">View</button>
+                <button class="distribution-action-btn distribution-edit-btn">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>V-102</td>
+              <td>Suresh Yadav</td>
+              <td>Village B → Town Y</td>
+              <td>07:30 AM</td>
+              <td>10:45 AM</td>
+              <td>
+                <span class="distribution-status distribution-status-delayed">Delayed</span>
+              </td>
+              <td>
+                <button class="distribution-action-btn distribution-view-btn">View</button>
+                <button class="distribution-action-btn distribution-edit-btn">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>V-103</td>
+              <td>Anil Sharma</td>
+              <td>Village C → Town Z</td>
+              <td>08:15 AM</td>
+              <td>11:00 AM</td>
+              <td>
+                <span class="distribution-status distribution-status-on-time">On Time</span>
+              </td>
+              <td>
+                <button class="distribution-action-btn distribution-view-btn">View</button>
+                <button class="distribution-action-btn distribution-edit-btn">Edit</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+  
+      <!-- Milk Item Distribution -->
+      <section class="distribution-items">
+        <h2 class="distribution-section-title">Milk Product Distribution</h2>
+        <table class="distribution-styled-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Product</th>
+              <th>Type</th>
+              <th>Quantity</th>
+              <th>Unit Price</th>
+              <th>Total Value</th>
+              <th>Destination</th>
+              <th>Dispatched Time</th>
+              <th>Invoice</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Product Row 1 -->
+            <tr>
+              <td>
+                <a href="#" class="distribution-order-id" onclick="showOrderDetails('ORD-2023-001')">ORD-2023-001</a>
+              </td>
+              <td>
+                <div class="distribution-product-cell">
+                  <img src="img/cream milk.png" alt="Full Cream Milk" class="distribution-product-image">
+                  <div class="distribution-product-info">
+                    <span class="distribution-product-name">Full Cream Milk</span>
+                    <span class="distribution-product-type">Pasteurized</span>
+                  </div>
+                </div>
+              </td>
+              <td><span class="distribution-badge distribution-badge-standard">Standard</span></td>
+              <td>500 Liters</td>
+              <td class="distribution-price-tag">₹50/L</td>
+              <td class="distribution-price-tag">₹25,000</td>
+              <td>Retailer A</td>
+              <td>06:15 AM</td>
+              <td>
+                <button class="distribution-invoice-btn" onclick="viewInvoice('INV-2023-001')">
+                  <i class="fas fa-file-invoice"></i> INV-2023-001
+                </button>
+              </td>
+              <td><span class="distribution-status distribution-status-on-time">Delivered</span></td>
+            </tr>
+  
+            <!-- Product Row 2 -->
+            <tr>
+              <td>
+                <a href="#" class="distribution-order-id" onclick="showOrderDetails('ORD-2023-002')">ORD-2023-002</a>
+              </td>
+              <td>
+                <div class="distribution-product-cell">
+                  <img src="img/curd.png" alt="Curd" class="distribution-product-image">
+                  <div class="distribution-product-info">
+                    <span class="distribution-product-name">Curd Packets</span>
+                    <span class="distribution-product-type">Probiotic</span>
+                  </div>
+                </div>
+              </td>
+              <td><span class="distribution-badge distribution-badge-organic">Organic</span></td>
+              <td>200 Packets</td>
+              <td class="distribution-price-tag">₹25/pkt</td>
+              <td class="distribution-price-tag">₹5,000</td>
+              <td>Supermarket B</td>
+              <td>07:00 AM</td>
+              <td>
+                <button class="distribution-invoice-btn" onclick="viewInvoice('INV-2023-002')">
+                  <i class="fas fa-file-invoice"></i> INV-2023-002
+                </button>
+              </td>
+              <td><span class="distribution-status distribution-status-delayed">In Transit</span></td>
+            </tr>
+  
+            <!-- Product Row 3 -->
+            <tr>
+              <td>
+                <a href="#" class="distribution-order-id" onclick="showOrderDetails('ORD-2023-003')">ORD-2023-003</a>
+              </td>
+              <td>
+                <div class="distribution-product-cell">
+                  <img src="img/butter.png" alt="Butter" class="distribution-product-image">
+                  <div class="distribution-product-info">
+                    <span class="distribution-product-name">Butter</span>
+                    <span class="distribution-product-type">250g Packs</span>
+                  </div>
+                </div>
+              </td>
+              <td><span class="distribution-badge distribution-badge-premium">Premium</span></td>
+              <td>150 Packs</td>
+              <td class="distribution-price-tag">₹120/pack</td>
+              <td class="distribution-price-tag">₹18,000</td>
+              <td>Wholesaler C</td>
+              <td>07:20 AM</td>
+              <td>
+                <button class="distribution-invoice-btn" onclick="viewInvoice('INV-2023-003')">
+                  <i class="fas fa-file-invoice"></i> INV-2023-003
+                </button>
+              </td>
+              <td><span class="distribution-status distribution-status-on-time">Dispatched</span></td>
+            </tr>
+  
+            <!-- Product Row 4 -->
+            <tr>
+              <td>
+                <a href="#" class="distribution-order-id" onclick="showOrderDetails('ORD-2023-004')">ORD-2023-004</a>
+              </td>
+              <td>
+                <div class="distribution-product-cell">
+                  <img src="img/paneer.webp" alt="Paneer" class="distribution-product-image">
+                  <div class="distribution-product-info">
+                    <span class="distribution-product-name">Paneer</span>
+                    <span class="distribution-product-type">Cottage Cheese</span>
+                  </div>
+                </div>
+              </td>
+              <td><span class="distribution-badge distribution-badge-organic">Organic</span></td>
+              <td>80 Kg</td>
+              <td class="distribution-price-tag">₹300/kg</td>
+              <td class="distribution-price-tag">₹24,000</td>
+              <td>Restaurant D</td>
+              <td>08:00 AM</td>
+              <td>
+                <button class="distribution-invoice-btn" onclick="viewInvoice('INV-2023-004')">
+                  <i class="fas fa-file-invoice"></i> INV-2023-004
+                </button>
+              </td>
+              <td><span class="distribution-status distribution-status-on-time">Dispatched</span></td>
+            </tr>
+  
+            <!-- Product Row 5 -->
+            <tr>
+              <td>
+                <a href="#" class="distribution-order-id" onclick="showOrderDetails('ORD-2023-005')">ORD-2023-005</a>
+              </td>
+              <td>
+                <div class="distribution-product-cell">
+                  <img src="img/cowghee.jpeg" alt="Ghee" class="distribution-product-image">
+                  <div class="distribution-product-info">
+                    <span class="distribution-product-name">Cow Ghee</span>
+                    <span class="distribution-product-type">500ml Jars</span>
+                  </div>
+                </div>
+              </td>
+              <td><span class="distribution-badge distribution-badge-premium">Premium</span></td>
+              <td>100 Jars</td>
+              <td class="distribution-price-tag">₹350/jar</td>
+              <td class="distribution-price-tag">₹35,000</td>
+              <td>Supermarket E</td>
+              <td>08:30 AM</td>
+              <td>
+                <button class="distribution-invoice-btn" onclick="viewInvoice('INV-2023-005')">
+                  <i class="fas fa-file-invoice"></i> INV-2023-005
+                </button>
+              </td>
+              <td><span class="distribution-status distribution-status-on-time">Scheduled</span></td>
+            </tr>
+  
+            <!-- Product Row 6 -->
+            <tr>
+              <td>
+                <a href="#" class="distribution-order-id" onclick="showOrderDetails('ORD-2023-006')">ORD-2023-006</a>
+              </td>
+              <td>
+                <div class="distribution-product-cell">
+                  <img src="img/tonned milk.jpeg" alt="Toned Milk" class="distribution-product-image">
+                  <div class="distribution-product-info">
+                    <span class="distribution-product-name">Toned Milk</span>
+                    <span class="distribution-product-type">Low Fat</span>
+                  </div>
+                </div>
+              </td>
+              <td><span class="distribution-badge distribution-badge-standard">Standard</span></td>
+              <td>400 Liters</td>
+              <td class="distribution-price-tag">₹40/L</td>
+              <td class="distribution-price-tag">₹16,000</td>
+              <td>Retailer F</td>
+              <td>09:00 AM</td>
+              <td>
+                <button class="distribution-invoice-btn" onclick="viewInvoice('INV-2023-006')">
+                  <i class="fas fa-file-invoice"></i> INV-2023-006
+                </button>
+              </td>
+              <td><span class="distribution-status distribution-status-on-time">Scheduled</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <div id="orderDetailsModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal('orderDetailsModal')">&times;</span>
+          <h2>Order Details - <span id="modalOrderId"></span></h2>
+          <div class="order-details-grid">
+            <div class="order-section">
+              <h3>Customer Information</h3>
+              <p><strong>Customer:</strong> <span id="customerName"></span></p>
+              <p><strong>Contact:</strong> <span id="customerContact"></span></p>
+              <p><strong>Order Date:</strong> <span id="orderDate"></span></p>
+              <p><strong>Billing Address:</strong> <span id="billingAddress"></span></p>
+            </div>
+            
+            <div class="order-section">
+              <h3>Shipping Address</h3>
+              <p id="shippingAddress"></p>
+              <p id="shippingContact"></p>
+            </div>
+            
+            <div class="order-section" style="grid-column: span 2;">
+              <h3>Order Items</h3>
+              <div id="orderItems"></div>
+            </div>
+            
+            <div class="order-section">
+              <h3>Shipping Information</h3>
+              <p><strong>Method:</strong> <span id="shippingMethod"></span></p>
+              <p><strong>Vehicle:</strong> <span id="shippingVehicle"></span></p>
+              <p><strong>Driver:</strong> <span id="shippingDriver"></span></p>
+            </div>
+            
+            <div class="order-section">
+              <h3>Order Status</h3>
+              <p><strong>Status:</strong> <span id="orderStatus"></span></p>
+              <p><strong>Invoice:</strong> <span id="orderInvoice"></span></p>
+              <p><strong>Payment:</strong> <span id="paymentStatus"></span></p>
+            </div>
+            
+            <div class="order-total">
+              <p>Subtotal: <span id="orderSubtotal"></span></p>
+              <p>Shipping: <span id="orderShipping"></span></p>
+              <p>Total Amount: <span id="orderTotal"></span></p>
+            </div>
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-print" onclick="printInvoice()"><i class="fas fa-print"></i> Print Invoice</button>
+            <button class="btn btn-download" onclick="downloadInvoice()"><i class="fas fa-download"></i> Download PDF</button>
+            <button class="btn btn-close" onclick="closeModal('orderDetailsModal')"><i class="fas fa-times"></i> Close</button>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Invoice Popup -->
+      <div id="invoiceModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal('invoiceModal')">&times;</span>
+          <div id="invoiceContent">
+            <!-- Invoice content will be generated here -->
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-print" onclick="printInvoice()"><i class="fas fa-print"></i> Print</button>
+            <button class="btn btn-download" onclick="downloadInvoice()"><i class="fas fa-download"></i> Download PDF</button>
+            <button class="btn btn-close" onclick="closeModal('invoiceModal')"><i class="fas fa-times"></i> Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- view  functionality -->
+      <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('detailsModal')">&times;</span>
+            <h2>Vehicle Details - <span id="modalVehicleId"></span></h2>
+            <p><strong>Driver Name:</strong> <span id="modalDriverName"></span></p>
+            <p><strong>Route:</strong> <span id="modalRoute"></span></p>
+            <p><strong>Departure Time:</strong> <span id="modalDepartureTime"></span></p>
+            <p><strong>Estimated Arrival:</strong> <span id="modalEstimatedArrival"></span></p>
+            <p><strong>Status:</strong> <span id="modalStatus"></span></p>
+        </div>
+      </div>
+      
+       <!--  edit functionality-->
+      <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('editModal')">&times;</span>
+            <h2>Edit Vehicle Details - <span id="editModalVehicleId"></span></h2>
+            <form id="editForm">
+                <label for="editDriverName">Driver Name:</label>
+                <input type="text" id="editDriverName" name="driverName"><br><br>
+                <label for="editRoute">Route:</label>
+                <input type="text" id="editRoute" name="route"><br><br>
+                <label for="editDepartureTime">Departure Time:</label>
+                <input type="text" id="editDepartureTime" name="departureTime"><br><br>
+                <label for="editEstimatedArrival">Estimated Arrival:</label>
+                <input type="text" id="editEstimatedArrival" name="estimatedArrival"><br><br>
+                <label for="editStatus">Status:</label>
+                <input type="text" id="editStatus" name="status"><br><br>
+                <button type="button" onclick="saveEdits()">Save</button>
+            </form>
+        </div>
+      </div>
+
+
+    
+      <script>
+        // Enhanced order data with separate shipping addresses
+        const orderDetails = {
+          'ORD-2023-001': {
+            customer: 'Retailer A',
+            contact: '9876543210',
+            date: '2023-05-15',
+            billingAddress: 'Retailer A Store, 45 Main Street, Town X, Telangana - 500001, GSTIN: 22AAAAA0000A1Z5',
+            shippingDifferent: true,
+            shippingContactName: 'Warehouse Manager',
+            shippingContact: '9876543211',
+            shippingAddress: 'Retailer A Warehouse, 78 Industrial Zone, Town X, Telangana - 500001',
+            items: [
+              { product: 'Full Cream Milk', type: 'Pasteurized', quantity: '500 Liters', price: '₹50/L', total: '₹25,000' }
+            ],
+            shippingMethod: 'Express Delivery',
+            shippingVehicle: 'V-101 (Refrigerated Truck)',
+            shippingDriver: 'Ravi Kumar (DL-AP123456)',
+            status: { text: 'Delivered', class: 'invoice-status-delivered' },
+            invoice: 'INV-2023-001',
+            payment: 'Paid (₹25,000)',
+            subtotal: '₹25,000',
+            shipping: '₹1,200',
+            total: '₹26,200',
+            tax: '₹1,310',
+            discount: '₹0'
+          },
+          'ORD-2023-002': {
+            customer: 'Supermarket B',
+            contact: '8765432109',
+            date: '2023-05-15',
+            billingAddress: 'Supermarket B, 78 Market Road, Town Y, Telangana - 500002, GSTIN: 22BBBBB0000B1Z5',
+            shippingDifferent: true,
+            shippingContactName: 'Night Shift Manager',
+            shippingContact: '8765432110',
+            shippingAddress: 'Supermarket B Back Entrance, Loading Dock Area, Town Y, Telangana - 500002',
+            items: [
+              { product: 'Curd Packets', type: 'Probiotic', quantity: '200 Packets', price: '₹25/pkt', total: '₹5,000' }
+            ],
+            shippingMethod: 'Standard Delivery',
+            shippingVehicle: 'V-102 (Medium Truck)',
+            shippingDriver: 'Suresh Yadav (DL-TS123456)',
+            status: { text: 'In Transit', class: 'invoice-status-transit' },
+            invoice: 'INV-2023-002',
+            payment: 'Pending (₹5,000)',
+            subtotal: '₹5,000',
+            shipping: '₹800',
+            total: '₹5,800',
+            tax: '₹290',
+            discount: '₹0'
+          },
+          'ORD-2023-003': {
+            customer: 'Wholesaler C',
+            contact: '7654321098',
+            date: '2023-05-16',
+            billingAddress: 'Wholesaler C Headquarters, 3 Corporate Park, City Z, Telangana - 500003, GSTIN: 22CCCCC0000C1Z5',
+            shippingDifferent: true,
+            shippingContactName: 'Distribution Center',
+            shippingContact: '7654321099',
+            shippingAddress: 'Wholesaler C Distribution Center, 12 Warehouse Road, Industrial Area, City Z - 500004',
+            items: [
+              { product: 'Butter', type: '250g Packs', quantity: '150 Packs', price: '₹120/pack', total: '₹18,000' }
+            ],
+            shippingMethod: 'Priority Delivery',
+            shippingVehicle: 'V-103 (Small Truck)',
+            shippingDriver: 'Anil Sharma (DL-TS654321)',
+            status: { text: 'Dispatched', class: 'invoice-status-transit' },
+            invoice: 'INV-2023-003',
+            payment: 'Paid (₹18,000)',
+            subtotal: '₹18,000',
+            shipping: '₹1,500',
+            total: '₹19,500',
+            tax: '₹975',
+            discount: '₹0'
+          },
+          'ORD-2023-004': {
+            customer: 'Restaurant D',
+            contact: '6543210987',
+            date: '2023-05-16',
+            billingAddress: 'Restaurant D, 5 Food Court, Town W, Telangana - 500005, GSTIN: 22DDDDD0000D1Z5',
+            shippingDifferent: true,
+            shippingContactName: 'Kitchen Manager',
+            shippingContact: '6543210988',
+            shippingAddress: 'Restaurant D Service Entrance, Back Alley, Town W, Telangana - 500005',
+            items: [
+              { product: 'Paneer', type: 'Cottage Cheese', quantity: '80 Kg', price: '₹300/kg', total: '₹24,000' }
+            ],
+            shippingMethod: 'Standard Delivery',
+            shippingVehicle: 'V-104 (Medium Truck)',
+            shippingDriver: 'Praveen Reddy (DL-TS789012)',
+            status: { text: 'Dispatched', class: 'invoice-status-transit' },
+            invoice: 'INV-2023-004',
+            payment: 'Paid (50% advance)',
+            subtotal: '₹24,000',
+            shipping: '₹1,000',
+            total: '₹25,000',
+            tax: '₹1,250',
+            discount: '₹0'
+          },
+          'ORD-2023-005': {
+            customer: 'Supermarket E',
+            contact: '5432109876',
+            date: '2023-05-17',
+            billingAddress: 'Supermarket E, 9 Mall Road, Town V, Telangana - 500006, GSTIN: 22EEEEE0000E1Z5',
+            shippingDifferent: true,
+            shippingContactName: 'Store Manager',
+            shippingContact: '5432109877',
+            shippingAddress: 'Supermarket E Back Entrance, Loading Dock Area, Town V, Telangana - 500006',
+            items: [
+              { product: 'Cow Ghee', type: '500ml Jars', quantity: '100 Jars', price: '₹350/jar', total: '₹35,000' }
+            ],
+            shippingMethod: 'Priority Delivery',
+            shippingVehicle: 'V-105 (Small Truck)',
+            shippingDriver: 'Mahesh Kumar (DL-TS345678)',
+            status: { text: 'Scheduled', class: 'invoice-status-scheduled' },
+            invoice: 'INV-2023-005',
+            payment: 'Pending (₹35,000)',
+            subtotal: '₹35,000',
+            shipping: '₹1,800',
+            total: '₹36,800',
+            tax: '₹1,840',
+            discount: '₹0'
+          },
+          'ORD-2023-006': {
+            customer: 'Retailer F',
+            contact: '4321098765',
+            date: '2023-05-17',
+            billingAddress: 'Retailer F, 22 Shop Street, Town U, Telangana - 500007, GSTIN: 22FFFFF0000F1Z5',
+            shippingDifferent: true,
+            shippingContactName: 'Store Owner',
+            shippingContact: '4321098766',
+            shippingAddress: 'Retailer F Storage Facility, 15 Warehouse Lane, Industrial Area, Town U - 500008',
+            items: [
+              { product: 'Toned Milk', type: 'Low Fat', quantity: '400 Liters', price: '₹40/L', total: '₹16,000' }
+            ],
+            shippingMethod: 'Standard Delivery',
+            shippingVehicle: 'V-106 (Medium Truck)',
+            shippingDriver: 'Rajesh Naidu (DL-TS901234)',
+            status: { text: 'Scheduled', class: 'invoice-status-scheduled' },
+            invoice: 'INV-2023-006',
+            payment: 'Paid (₹16,000)',
+            subtotal: '₹16,000',
+            shipping: '₹900',
+            total: '₹16,900',
+            tax: '₹845',
+            discount: '₹0'
+          }
+        };
+
+        // Enhanced showOrderDetails function with billing address and totals
+        function showOrderDetails(orderId) {
+          document.getElementById('modalOrderId').textContent = orderId;
+          
+          const order = orderDetails[orderId] || {
+            customer: 'N/A',
+            contact: 'N/A',
+            date: 'N/A',
+            billingAddress: 'N/A',
+            shippingDifferent: false,
+            shippingAddress: '',
+            shippingContact: '',
+            items: [],
+            shippingMethod: 'N/A',
+            shippingVehicle: 'N/A',
+            shippingDriver: 'N/A',
+            status: { text: 'N/A', class: '' },
+            invoice: 'N/A',
+            payment: 'N/A',
+            subtotal: '₹0',
+            shipping: '₹0',
+            total: '₹0',
+            tax: '₹0',
+            discount: '₹0'
+          };
+          
+          // Populate the modal with order details
+          document.getElementById('customerName').textContent = order.customer;
+          document.getElementById('customerContact').textContent = order.contact;
+          document.getElementById('orderDate').textContent = order.date;
+          document.getElementById('billingAddress').textContent = order.billingAddress;
+          
+          // Set shipping address
+          if (order.shippingDifferent) {
+            document.getElementById('shippingAddress').textContent = order.shippingAddress;
+            document.getElementById('shippingContact').textContent = `Contact: ${order.shippingContactName || order.customer} (${order.shippingContact || order.contact})`;
+          } else {
+            document.getElementById('shippingAddress').textContent = order.billingAddress;
+            document.getElementById('shippingContact').textContent = `Contact: ${order.contact}`;
+          }
+          
+          document.getElementById('shippingMethod').textContent = order.shippingMethod;
+          document.getElementById('shippingVehicle').textContent = order.shippingVehicle;
+          document.getElementById('shippingDriver').textContent = order.shippingDriver;
+          document.getElementById('orderStatus').innerHTML = `<span class="status-badge ${order.status.class}">${order.status.text}</span>`;
+          document.getElementById('orderInvoice').textContent = order.invoice;
+          document.getElementById('paymentStatus').textContent = order.payment;
+          document.getElementById('orderSubtotal').textContent = order.subtotal;
+          document.getElementById('orderShipping').textContent = order.shipping;
+          document.getElementById('orderTotal').textContent = order.total;
+          
+          // Generate items HTML
+          let itemsHtml = '';
+          order.items.forEach(item => {
+            itemsHtml += `
+              <div class="order-item">
+                <p><strong>Product:</strong> ${item.product} (${item.type})</p>
+                <p><strong>Quantity:</strong> ${item.quantity}</p>
+                <p><strong>Price:</strong> ${item.price}</p>
+                <p><strong>Total:</strong> ${item.total}</p>
+              </div>
+            `;
+          });
+          
+          document.getElementById('orderItems').innerHTML = itemsHtml;
+          
+          // Store current order for invoice generation
+          window.currentOrder = order;
+          
+          // Show the modal
+          document.getElementById('orderDetailsModal').style.display = 'block';
+        }
+        
+        // Function to view invoice
+        function viewInvoice(invoiceId) {
+          // Find the order that matches this invoice
+          const orders = {
+            'INV-2023-001': 'ORD-2023-001',
+            'INV-2023-002': 'ORD-2023-002',
+            'INV-2023-003': 'ORD-2023-003',
+            'INV-2023-004': 'ORD-2023-004',
+            'INV-2023-005': 'ORD-2023-005',
+            'INV-2023-006': 'ORD-2023-006'
+          };
+          
+          const orderId = orders[invoiceId];
+          if (orderId) {
+            showOrderDetails(orderId);
+            generateInvoice(orderId);
+            document.getElementById('orderDetailsModal').style.display = 'none';
+            document.getElementById('invoiceModal').style.display = 'block';
+          } else {
+            alert('Invoice details not found');
+          }
+        }
+        
+        // Function to generate invoice HTML
+        function generateInvoice(orderId) {
+          const order = orderDetails[orderId] || window.currentOrder;
+          
+          const invoiceHTML = `
+            <div class="invoice-header">
+              <img src="img/logo.png" alt="Company Logo" class="invoice-logo">
+              <h2>DAIRY FARM INVOICE</h2>
+              <p>Invoice #: ${order.invoice} | Date: ${order.date}</p>
+            </div>
+            
+            <div class="invoice-details-grid">
+              <div class="invoice-address-section invoice-billing-address">
+                <div class="invoice-address-title">Billing Address:</div>
+                <div class="invoice-address-content">
+                  <p><strong>${order.customer}</strong></p>
+                  ${order.billingAddress.split(', ').map(line => `<p>${line}</p>`).join('')}
+                  <p><strong>Contact:</strong> ${order.contact}</p>
+                </div>
+              </div>
+              
+              <div class="invoice-address-section invoice-address-different">
+                <div class="invoice-address-title">Shipping Address:</div>
+                <div class="invoice-address-content">
+                  <p><strong>${order.shippingContactName || order.customer}</strong></p>
+                  ${order.shippingAddress.split(', ').map(line => `<p>${line}</p>`).join('')}
+                  <p><strong>Contact:</strong> ${order.shippingContact || order.contact}</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="invoice-shipping-info">
+              <p><strong>Shipping Method:</strong> ${order.shippingMethod}</p>
+              <p><strong>Vehicle:</strong> ${order.shippingVehicle}</p>
+              <p><strong>Driver:</strong> ${order.shippingDriver}</p>
+            </div>
+            
+            <table class="invoice-items">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Type</th>
+                  <th>Quantity</th>
+                  <th>Unit Price</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${order.items.map(item => `
+                  <tr>
+                    <td>${item.product}</td>
+                    <td>${item.type}</td>
+                    <td>${item.quantity}</td>
+                    <td>${item.price}</td>
+                    <td>${item.total}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+            
+            <table class="invoice-totals">
+              <tr>
+                <td>Subtotal:</td>
+                <td>${order.subtotal}</td>
+              </tr>
+              <tr>
+                <td>Shipping:</td>
+                <td>${order.shipping}</td>
+              </tr>
+              <tr>
+                <td>Tax (5%):</td>
+                <td>${order.tax}</td>
+              </tr>
+              <tr>
+                <td>Discount:</td>
+                <td>${order.discount}</td>
+              </tr>
+              <tr>
+                <td>Total Amount:</td>
+                <td>${order.total}</td>
+              </tr>
+            </table>
+            
+            <div class="invoice-status">
+              <p><strong>Status:</strong> <span class="invoice-status-badge ${order.status.class}">${order.status.text}</span></p>
+              <p><strong>Payment:</strong> ${order.payment}</p>
+            </div>
+            
+            <div class="invoice-footer">
+              <p>Thank you for your business!</p>
+              <p>Terms: Net 30 days | Late fee of 1.5% per month on overdue balances</p>
+            </div>
+          `;
+          
+          document.getElementById('invoiceContent').innerHTML = invoiceHTML;
+        }
+        
+        // Function to print invoice
+        function printInvoice() {
+          const printContent = document.getElementById('invoiceContent').innerHTML;
+          const originalContent = document.body.innerHTML;
+          
+          document.body.innerHTML = printContent;
+          window.print();
+          document.body.innerHTML = originalContent;
+          
+          // Re-attach event listeners
+          document.getElementById('invoiceModal').style.display = 'block';
+        }
+        
+        // Function to download invoice as PDF
+        function downloadInvoice() {
+          alert('In a real implementation, this would generate and download a PDF invoice');
+          // Actual implementation would use jsPDF or similar library
+          // const { jsPDF } = window.jspdf;
+          // const doc = new jsPDF();
+          // doc.text('Invoice', 10, 10);
+          // doc.save('invoice.pdf');
+        }
+        
+        // Function to close modal
+        function closeModal(modalId) {
+          document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+          if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
+          }
+        }
+      </script>
+      
+      <!-- view and edit functionality js -->
+      <script>
+    // Function to show details in a modal
+    function showDetails(vehicleId) {
+        // Fetch the details based on vehicleId
+        const details = getDetailsByVehicleId(vehicleId);
+
+        // Populate the modal with details
+        document.getElementById('modalVehicleId').innerText = vehicleId;
+        document.getElementById('modalDriverName').innerText = details.driverName;
+        document.getElementById('modalRoute').innerText = details.route;
+        document.getElementById('modalDepartureTime').innerText = details.departureTime;
+        document.getElementById('modalEstimatedArrival').innerText = details.estimatedArrival;
+        document.getElementById('modalStatus').innerText = details.status;
+
+        // Show the modal
+        document.getElementById('detailsModal').style.display = 'block';
+    }
+
+    // Function to get details by vehicle ID (mock data)
+    function getDetailsByVehicleId(vehicleId) {
+        const data = {
+            'V-101': {
+                driverName: 'Ravi Kumar',
+                route: 'Village A → Town X',
+                departureTime: '06:00 AM',
+                estimatedArrival: '08:30 AM',
+                status: 'On Time'
+            },
+            'V-102': {
+                driverName: 'Suresh Yadav',
+                route: 'Village B → Town Y',
+                departureTime: '07:30 AM',
+                estimatedArrival: '10:45 AM',
+                status: 'Delayed'
+            },
+            'V-103': {
+                driverName: 'Anil Sharma',
+                route: 'Village C → Town Z',
+                departureTime: '08:15 AM',
+                estimatedArrival: '11:00 AM',
+                status: 'On Time'
+            }
+        };
+        return data[vehicleId];
+    }
+
+    // Function to close the modal
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    // Add event listeners to buttons
+    document.querySelectorAll('.distribution-view-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const vehicleId = this.closest('tr').children[0].innerText;
+            showDetails(vehicleId);
+        });
+    });
+
+    document.querySelectorAll('.distribution-edit-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const vehicleId = this.closest('tr').children[0].innerText;
+            // Implement edit functionality here
+            alert('Edit functionality for ' + vehicleId + ' is not yet implemented.');
+        });
+    });
+      </script>
+    <!-- edit functionality js-->
+
+    <script>
+    // Function to show edit modal
+    function showEditModal(vehicleId) {
+        // Fetch the details based on vehicleId
+        const details = getDetailsByVehicleId(vehicleId);
+
+        // Populate the modal with current details
+        document.getElementById('editModalVehicleId').innerText = vehicleId;
+        document.getElementById('editDriverName').value = details.driverName;
+        document.getElementById('editRoute').value = details.route;
+        document.getElementById('editDepartureTime').value = details.departureTime;
+        document.getElementById('editEstimatedArrival').value = details.estimatedArrival;
+        document.getElementById('editStatus').value = details.status;
+
+        // Show the modal
+        document.getElementById('editModal').style.display = 'block';
+    }
+
+    // Function to save edits
+    function saveEdits() {
+        const vehicleId = document.getElementById('editModalVehicleId').innerText;
+        const updatedDetails = {
+            driverName: document.getElementById('editDriverName').value,
+            route: document.getElementById('editRoute').value,
+            departureTime: document.getElementById('editDepartureTime').value,
+            estimatedArrival: document.getElementById('editEstimatedArrival').value,
+            status: document.getElementById('editStatus').value
+        };
+
+        // Update the data (mock update)
+        updateDetailsByVehicleId(vehicleId, updatedDetails);
+
+        // Close the modal
+        closeModal('editModal');
+
+        // Optionally, refresh the table or update the row directly
+        alert('Details updated for ' + vehicleId);
+    }
+
+    // Mock function to update details
+    function updateDetailsByVehicleId(vehicleId, updatedDetails) {
+        // Here you would typically send the updated details to the server
+        console.log('Updated details for', vehicleId, updatedDetails);
+    }
+
+    // Add event listeners to edit buttons
+    document.querySelectorAll('.distribution-edit-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const vehicleId = this.closest('tr').children[0].innerText;
+            showEditModal(vehicleId);
+        });
+    });
+    </script>
+
+
+   <script src="js/farm.js"></script>
+</body>
+</html>
