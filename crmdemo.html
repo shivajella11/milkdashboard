@@ -488,6 +488,7 @@
 }
 
 /* Analytics Boxes Styling */
+
 .analytics-section {
   margin-top: 30px;
   padding: 20px 0;
@@ -663,6 +664,1019 @@
   flex-wrap: wrap;
 }
 
+/* Support Section Styling */
+.support-section {
+  margin-top: 30px;
+  padding: 20px 0;
+  border-top: 1px solid #eaeaea;
+  position: relative;
+}
+
+.support-section h2 {
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.support-section h2 i {
+  color: #3498db;
+  font-size: 1.4rem;
+}
+
+.support-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, #3498db, #6dd5fa);
+  border-radius: 3px;
+}
+
+.support-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.support-box {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  transition: all 0.4s ease;
+  border: 1px solid rgba(0,0,0,0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.support-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(to right, #3498db, #6dd5fa);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.support-box:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.support-box:hover::before {
+  opacity: 1;
+}
+
+.support-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.support-box-header h3 {
+  font-size: 1.2rem;
+  margin: 0;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.support-box-header h3 i {
+  font-size: 1.1rem;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.dealer-icon {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.vet-icon {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.support-box-content {
+  margin-bottom: 15px;
+}
+
+.support-stats {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.support-stat-item {
+  flex: 1;
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.03);
+  position: relative;
+  overflow: hidden;
+}
+
+.support-stat-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+.support-stat-item:nth-child(1)::before {
+  background-color: #1976d2;
+}
+
+.support-stat-item:nth-child(2)::before {
+  background-color: #f57f17;
+}
+
+.support-stat-item:nth-child(3)::before {
+  background-color: #2e7d32;
+}
+
+.support-stat-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+}
+
+.support-stat-item h4 {
+  margin: 0 0 8px 0;
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.support-stat-item p {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.support-stat-item:hover p {
+  transform: scale(1.1);
+}
+
+.support-request-list {
+  max-height: 350px;
+  overflow-y: auto;
+  padding-right: 5px;
+  scrollbar-width: thin;
+  scrollbar-color: #ddd #f5f5f5;
+}
+
+.support-request-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.support-request-list::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.support-request-list::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+  border-radius: 10px;
+}
+
+.support-request-item {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.support-request-item:last-child {
+  border-bottom: none;
+}
+
+.support-request-item:hover {
+  background-color: #f9f9f9;
+  transform: translateX(5px);
+}
+
+.support-request-item::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background-color: rgba(52, 152, 219, 0.1);
+  transition: width 0.3s ease;
+  z-index: 0;
+  border-radius: 8px;
+}
+
+.support-request-item:hover::after {
+  width: 100%;
+}
+
+.support-request-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.support-request-item:hover .support-request-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.support-request-icon.equipment {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.support-request-icon.supplies {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.support-request-icon.feed {
+  background-color: #fff8e1;
+  color: #f57f17;
+}
+
+.support-request-icon.maintenance {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.support-request-icon.emergency {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.support-request-icon.checkup {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.support-request-icon.vaccination {
+  background-color: #e0f7fa;
+  color: #00838f;
+}
+
+.support-request-icon.treatment {
+  background-color: #e8eaf6;
+  color: #3f51b5;
+}
+
+.support-request-icon.consultation {
+  background-color: #f9fbe7;
+  color: #827717;
+}
+
+.support-request-content {
+  flex: 1;
+  z-index: 1;
+}
+
+.support-request-content h4 {
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.support-request-content p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.support-request-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 5px;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.support-request-meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.support-request-meta i {
+  font-size: 0.9rem;
+}
+
+.support-request-status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.status-new {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-in-progress {
+  background-color: #fff8e1;
+  color: #f57f17;
+}
+
+.status-resolved {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-urgent {
+  background-color: #ffebee;
+  color: #c62828;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(198, 40, 40, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(198, 40, 40, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(198, 40, 40, 0);
+  }
+}
+
+.support-request-actions {
+  display: flex;
+  gap: 10px;
+  z-index: 1;
+}
+
+.support-request-actions button {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #666;
+  transition: all 0.3s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.support-request-actions button:hover {
+  color: #1976d2;
+  background-color: rgba(25, 118, 210, 0.1);
+  transform: scale(1.15);
+}
+
+.support-request-actions button.resolve-btn:hover {
+  color: #2e7d32;
+  background-color: rgba(46, 125, 50, 0.1);
+}
+
+.support-request-actions button.delete-btn:hover {
+  color: #c62828;
+  background-color: rgba(198, 40, 40, 0.1);
+}
+
+.support-form-section {
+  margin-top: 20px;
+  display: none;
+}
+
+.support-form-section.active {
+  display: block;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.support-type-selector {
+  display: flex;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.support-type-option {
+  flex: 1;
+  padding: 15px;
+  text-align: center;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-right: 1px solid #ddd;
+  position: relative;
+  overflow: hidden;
+}
+
+.support-type-option:last-child {
+  border-right: none;
+}
+
+.support-type-option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background-color: rgba(25, 118, 210, 0.1);
+  transition: height 0.3s ease;
+  z-index: 0;
+}
+
+.support-type-option:hover::before {
+  height: 100%;
+}
+
+.support-type-option.active {
+  background-color: #1976d2;
+  color: white;
+}
+
+.support-type-option.active::before {
+  display: none;
+}
+
+.support-type-option i {
+  font-size: 28px;
+  margin-bottom: 10px;
+  display: block;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.support-type-option:hover i {
+  transform: scale(1.2);
+}
+
+.support-type-option div {
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+  background-color: #fff;
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+  border-color: #aaa;
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.form-group .input-icon {
+  position: absolute;
+  right: 15px;
+  top: 42px;
+  color: #999;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus + .input-icon,
+.form-group select:focus + .input-icon,
+.form-group textarea:focus + .input-icon {
+  color: #1976d2;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-row .form-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.form-hint {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 5px;
+  display: block;
+}
+
+.form-priority {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.priority-option {
+  flex: 1;
+  text-align: center;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.priority-option input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.priority-option .priority-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.priority-option i {
+  font-size: 1.2rem;
+  color: #999;
+  transition: all 0.3s ease;
+}
+
+.priority-option span {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.priority-option:hover {
+  background-color: #f5f5f5;
+  border-color: #ccc;
+}
+
+.priority-option input:checked + .priority-content {
+  color: #1976d2;
+}
+
+.priority-option input:checked + .priority-content i {
+  color: #1976d2;
+}
+
+.priority-option input:checked + .priority-content span {
+  color: #1976d2;
+}
+
+.priority-option.low input:checked + .priority-content i {
+  color: #2e7d32;
+}
+
+.priority-option.medium input:checked + .priority-content i {
+  color: #f57f17;
+}
+
+.priority-option.high input:checked + .priority-content i {
+  color: #e65100;
+}
+
+.priority-option.urgent input:checked + .priority-content i {
+  color: #c62828;
+}
+
+.priority-option input:checked ~ .priority-bg {
+  opacity: 0.1;
+}
+
+.priority-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.3s ease;
+  border-radius: 7px;
+}
+
+.priority-option.low .priority-bg {
+  background-color: #2e7d32;
+}
+
+.priority-option.medium .priority-bg {
+  background-color: #f57f17;
+}
+
+.priority-option.high .priority-bg {
+  background-color: #e65100;
+}
+
+.priority-option.urgent .priority-bg {
+  background-color: #c62828;
+}
+
+.file-upload {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.file-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f5f5f5;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+  padding: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  justify-content: center;
+}
+
+.file-upload-btn:hover {
+  background-color: #e3f2fd;
+  border-color: #1976d2;
+}
+
+.file-upload-btn i {
+  font-size: 1.5rem;
+  color: #1976d2;
+}
+
+.file-upload-btn span {
+  font-weight: 500;
+  color: #666;
+}
+
+.file-upload input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.file-item:hover {
+  background-color: #e3f2fd;
+}
+
+.file-item i {
+  font-size: 1.2rem;
+  color: #1976d2;
+}
+
+.file-item span {
+  flex: 1;
+  font-size: 0.9rem;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-item button {
+  background: none;
+  border: none;
+  color: #c62828;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-item button:hover {
+  transform: scale(1.2);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.btn-primary {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 3px 8px rgba(25, 118, 210, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: #1565c0;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(25, 118, 210, 0.4);
+}
+
+.btn-secondary {
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-secondary:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-3px);
+}
+
+.support-filter {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  flex-wrap: wrap;
+}
+
+.support-filter-label {
+  font-weight: 500;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.support-filter-options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-option {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: white;
+  border: 1px solid #ddd;
+  color: #666;
+}
+
+.filter-option:hover {
+  background-color: #e3f2fd;
+  border-color: #1976d2;
+  color: #1976d2;
+}
+
+.filter-option.active {
+  background-color: #1976d2;
+  color: white;
+  border-color: #1976d2;
+}
+
+.support-search {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.support-search input {
+  width: 100%;
+  padding: 10px 15px 10px 40px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.support-search input:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+}
+
+.support-search i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  transition: all 0.3s ease;
+}
+
+.support-search input:focus + i {
+  color: #1976d2;
+}
+
+.support-empty {
+  text-align: center;
+  padding: 30px;
+  color: #999;
+}
+
+.support-empty i {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  color: #ddd;
+}
+
+.support-empty p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.support-empty button {
+  margin-top: 15px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.support-empty button:hover {
+  background-color: #1565c0;
+  transform: translateY(-3px);
+}
+
+.support-tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.support-tab {
+  padding: 12px 20px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.support-tab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #1976d2;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.support-tab:hover {
+  color: #1976d2;
+}
+
+.support-tab.active {
+  color: #1976d2;
+}
+
+.support-tab.active::after {
+  transform: scaleX(1);
+}
+
+.support-tab-content {
+  display: none;
+}
+
+.support-tab-content.active {
+  display: block;
+  animation: fadeIn 0.5s ease;
+}
+
+.support-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #1976d2;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
 .legend-item {
   display: flex;
   align-items: center;
@@ -755,24 +1769,263 @@
   cursor: pointer;
 }
 
+/* Support Modal Styling */
+.support-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+}
+
+.support-modal-content {
+  background: white;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.support-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 30px;
+  border-bottom: 2px solid #f0f0f0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 15px 15px 0 0;
+}
+
+.support-modal-header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.support-modal-header h3 i {
+  font-size: 1.3rem;
+  color: #1976d2;
+  background: rgba(25, 118, 210, 0.1);
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.support-modal-close {
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #666;
+  transition: all 0.3s ease;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.support-modal-close:hover {
+  color: #e74c3c;
+  background: rgba(231, 76, 60, 0.1);
+  transform: rotate(90deg);
+}
+
+.support-form {
+  padding: 30px;
+}
+
+.support-form .form-group {
+  margin-bottom: 20px;
+}
+
+.support-form .form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.support-form .form-group label::after {
+  content: " *";
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.support-form .form-group label:not([for*="required"])::after {
+  content: "";
+}
+
+.support-form input,
+.support-form textarea,
+.support-form select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.support-form input:focus,
+.support-form textarea:focus,
+.support-form select:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+  transform: translateY(-1px);
+}
+
+.support-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.support-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.support-form .form-group input[type="file"] {
+  padding: 8px;
+  border: 2px dashed #ddd;
+  background: #f9f9f9;
+  cursor: pointer;
+}
+
+.support-form .form-group input[type="file"]:hover {
+  border-color: #1976d2;
+  background: #f0f7ff;
+}
+
+.support-form .form-group small {
+  display: block;
+  margin-top: 5px;
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.support-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+  font-size: 0.95rem;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(25, 118, 210, 0.4);
+  background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
+}
+
+.btn-cancel {
+  background: #f5f5f5;
+  color: #666;
+  border: 2px solid #e0e0e0;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.btn-cancel:hover {
+  background: #e0e0e0;
+  color: #333;
+  transform: translateY(-1px);
+}
+
+/* Responsive Design for Support Modals */
+@media (max-width: 768px) {
+  .support-modal-content {
+    width: 95%;
+    margin: 10px;
+  }
+  
+  .support-modal-header {
+    padding: 20px;
+  }
+  
+  .support-form {
+    padding: 20px;
+  }
+  
+  .support-form .form-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .support-form .form-actions {
+    flex-direction: column-reverse;
+  }
+  
+  .btn-submit,
+  .btn-cancel {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 </style>
 <body>
   <nav class="navbar">
     <div class="nav-left">
-        <img src="img/logo.png" class="logo" alt="Logo" />
+        <img src="img/Company logo.jpg" class="logo" alt="Logo" />
         <div class="menu-title-group">
             <i class="fas fa-bars menu-icon" id="menuToggle"></i> 
         </div>
     </div>
     <div class="nav-center">
         <!-- Language Selector with Globe Icon -->
-        <div class="select-wrapper">
-            <i class="fas fa-globe"></i>
-            <select id="languageSelect" class="lang-dropdown">
-                <option value="en">English</option>
-                <option value="hi">हिन्दी</option>
-                <option value="te">తెలుగు</option>
-            </select>
+        <div class="nav-search-profile">
+            <input type="text" placeholder="Search..." />
+            
         </div>
         <!-- Can add navigation links here if needed -->
     </div>
@@ -788,9 +2041,16 @@
                 <i class="fas fa-moon"></i>
             </button>
         </div>
-        <div class="nav-search-profile">
-            <input type="text" placeholder="Search..." />
-            <div class="nav-icons">
+        
+        <div class="select-wrapper">
+            <i class="fas fa-globe"></i>
+            <select id="languageSelect" class="lang-dropdown">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+                <option value="te">తెలుగు</option>
+            </select>
+        </div>
+        <div class="nav-icons">
                 <i class="fas fa-envelope"></i>
                 <i class="fas fa-bell"></i>
             </div>
@@ -798,7 +2058,6 @@
                 <img src="img/profile.jpg" alt="Profile" />
                 <span>SHIVAKUMAR JELLA</span>
             </div>
-        </div>
     </div>
   </nav>
   <aside id="sidebar">
@@ -903,6 +2162,9 @@
           <div class="crm-details-panel">
             <div class="panel-header">
               <h2><i class="fas fa-info-circle"></i> Customer Details</h2>
+              <button id="editCustomerBtn" class="btn-small" style="background-color: #3498db; color: white;">
+                <i class="fas fa-edit"></i> Edit
+              </button>
             </div>
             <div id="clientDetails">
               <div class="client-detail-header">
@@ -953,6 +2215,62 @@
                   <p><strong>Preferred Time:</strong> 6:00-8:00 AM</p>
                 </div>
               </div>
+              
+              <!-- Invoice Table Section -->
+              <div style="margin-top: 20px;">
+                <div class="chart-header">
+                  <h4><i class="fas fa-file-invoice-dollar"></i> Recent Invoices</h4>
+                  <button class="btn-small" style="background-color: #3498db; color: white;">
+                    <i class="fas fa-plus"></i> New Invoice
+                  </button>
+                </div>
+                
+                <div style="overflow-x: auto; margin-top: 10px;">
+                  <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                      <tr style="background-color: #f8f9fa; border-bottom: 2px solid #e9ecef;">
+                        <th style="padding: 10px; text-align: left;">Invoice #</th>
+                        <th style="padding: 10px; text-align: left;">Date</th>
+                        <th style="padding: 10px; text-align: left;">Amount</th>
+                        <th style="padding: 10px; text-align: left;">Status</th>
+                        <th style="padding: 10px; text-align: center;">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="invoiceTableBody">
+                      <tr style="border-bottom: 1px solid #e9ecef;">
+                        <td style="padding: 10px;">INV-2023-001</td>
+                        <td style="padding: 10px;">May 15, 2023</td>
+                        <td style="padding: 10px;">₹12,480</td>
+                        <td style="padding: 10px;"><span style="background-color: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem;">Paid</span></td>
+                        <td style="padding: 10px; text-align: center;">
+                          <button class="btn-small" title="View Invoice"><i class="fas fa-eye"></i></button>
+                          <button class="btn-small" title="Download PDF"><i class="fas fa-download"></i></button>
+                        </td>
+                      </tr>
+                      <tr style="border-bottom: 1px solid #e9ecef;">
+                        <td style="padding: 10px;">INV-2023-002</td>
+                        <td style="padding: 10px;">June 15, 2023</td>
+                        <td style="padding: 10px;">₹13,560</td>
+                        <td style="padding: 10px;"><span style="background-color: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem;">Paid</span></td>
+                        <td style="padding: 10px; text-align: center;">
+                          <button class="btn-small" title="View Invoice"><i class="fas fa-eye"></i></button>
+                          <button class="btn-small" title="Download PDF"><i class="fas fa-download"></i></button>
+                        </td>
+                      </tr>
+                      <tr style="border-bottom: 1px solid #e9ecef;">
+                        <td style="padding: 10px;">INV-2023-003</td>
+                        <td style="padding: 10px;">July 15, 2023</td>
+                        <td style="padding: 10px;">₹14,220</td>
+                        <td style="padding: 10px;"><span style="background-color: #fff8e1; color: #f57f17; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem;">Pending</span></td>
+                        <td style="padding: 10px; text-align: center;">
+                          <button class="btn-small" title="View Invoice"><i class="fas fa-eye"></i></button>
+                          <button class="btn-small" title="Download PDF"><i class="fas fa-download"></i></button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -996,6 +2314,8 @@
 
           </div>
         </div>
+        
+
         
         <!-- Analytics Section -->
         <section class="analytics-section">
@@ -1059,7 +2379,597 @@
             </div>
           </div>
         </section>
+
+        <!-- Support Request Section -->
+        <section class="support-section">
+          <h2><i class="fas fa-headset"></i> Support Request Management</h2>
+          
+          <!-- Support Filter Bar -->
+          <div class="support-filter">
+            <div class="support-filter-label">Filter by:</div>
+            <div class="support-filter-options">
+              <div class="filter-option active" data-filter="all">All</div>
+              <div class="filter-option" data-filter="new">New</div>
+              <div class="filter-option" data-filter="in-progress">In Progress</div>
+              <div class="filter-option" data-filter="resolved">Resolved</div>
+              <div class="filter-option" data-filter="urgent">Urgent</div>
+            </div>
+            <div class="support-search">
+              <input type="text" placeholder="Search requests..." id="supportSearchInput">
+              <i class="fas fa-search"></i>
+            </div>
+          </div>
+          
+          <div class="support-grid">
+            <!-- Dealer Support Box -->
+            <div class="support-box">
+              <div class="support-box-header">
+                <h3><i class="fas fa-truck dealer-icon"></i> Dealer Support</h3>
+                <button class="btn-small" id="newDealerSupportBtn" style="background-color: #1976d2; color: white;">
+                  <i class="fas fa-plus"></i> New Request
+                </button>
+              </div>
+              <div class="support-box-content">
+                <!-- Support Tabs -->
+                <div class="support-tabs">
+                  <div class="support-tab active" data-tab="dealer-all">All <span class="support-badge">8</span></div>
+                  <div class="support-tab" data-tab="dealer-new">New <span class="support-badge">5</span></div>
+                  <div class="support-tab" data-tab="dealer-progress">In Progress <span class="support-badge">3</span></div>
+                </div>
+                
+                <div class="support-stats">
+                  <div class="support-stat-item">
+                    <h4>New</h4>
+                    <p>5</p>
+                  </div>
+                  <div class="support-stat-item">
+                    <h4>In Progress</h4>
+                    <p>3</p>
+                  </div>
+                  <div class="support-stat-item">
+                    <h4>Resolved</h4>
+                    <p>12</p>
+                  </div>
+                </div>
+                
+                <!-- All Dealer Requests Tab -->
+                <div class="support-tab-content active" id="dealer-all-content">
+                  <div class="support-request-list">
+                    <div class="support-request-item">
+                      <div class="support-request-icon equipment">
+                        <i class="fas fa-tools"></i>
+                      </div>
+                      <div class="support-request-content">
+                        <h4>Equipment Maintenance</h4>
+                        <p>Supermarket Chain <span class="support-request-status status-new">New</span></p>
+                        <div class="support-request-meta">
+                          <span><i class="far fa-clock"></i> Today, 10:30 AM</span>
+                          <span><i class="fas fa-tag"></i> High Priority</span>
+                        </div>
+                      </div>
+                      <div class="support-request-actions">
+                        <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                        <button title="Assign" class="assign-btn"><i class="fas fa-user-plus"></i></button>
+                      </div>
+                    </div>
+                    
+                    <div class="support-request-item">
+                      <div class="support-request-icon supplies">
+                        <i class="fas fa-box"></i>
+                      </div>
+                      <div class="support-request-content">
+                        <h4>Dairy Supplies</h4>
+                        <p>Local Restaurant <span class="support-request-status status-in-progress">In Progress</span></p>
+                        <div class="support-request-meta">
+                          <span><i class="far fa-clock"></i> Yesterday, 3:45 PM</span>
+                          <span><i class="fas fa-tag"></i> Medium Priority</span>
+                        </div>
+                      </div>
+                      <div class="support-request-actions">
+                        <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                        <button title="Mark Resolved" class="resolve-btn"><i class="fas fa-check"></i></button>
+                      </div>
+                    </div>
+                    
+                    <div class="support-request-item">
+                      <div class="support-request-icon maintenance">
+                        <i class="fas fa-wrench"></i>
+                      </div>
+                      <div class="support-request-content">
+                        <h4>Cooling System Repair</h4>
+                        <p>Wholesale Distributor <span class="support-request-status status-urgent">Urgent</span></p>
+                        <div class="support-request-meta">
+                          <span><i class="far fa-clock"></i> Today, 8:15 AM</span>
+                          <span><i class="fas fa-tag"></i> Urgent Priority</span>
+                        </div>
+                      </div>
+                      <div class="support-request-actions">
+                        <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                        <button title="Escalate" class="delete-btn"><i class="fas fa-exclamation-triangle"></i></button>
+                      </div>
+                    </div>
+                    
+                    <div class="support-request-item">
+                      <div class="support-request-icon feed">
+                        <i class="fas fa-leaf"></i>
+                      </div>
+                      <div class="support-request-content">
+                        <h4>Animal Feed</h4>
+                        <p>District School <span class="support-request-status status-resolved">Resolved</span></p>
+                        <div class="support-request-meta">
+                          <span><i class="far fa-clock"></i> 3 days ago</span>
+                          <span><i class="fas fa-tag"></i> Low Priority</span>
+                        </div>
+                      </div>
+                      <div class="support-request-actions">
+                        <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                        <button title="Reopen" class="assign-btn"><i class="fas fa-redo"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- New Dealer Requests Tab -->
+                <div class="support-tab-content" id="dealer-new-content">
+                  <div class="support-request-list">
+                    <div class="support-request-item">
+                      <div class="support-request-icon equipment">
+                        <i class="fas fa-tools"></i>
+                      </div>
+                      <div class="support-request-content">
+                        <h4>Equipment Maintenance</h4>
+                        <p>Supermarket Chain <span class="support-request-status status-new">New</span></p>
+                        <div class="support-request-meta">
+                          <span><i class="far fa-clock"></i> Today, 10:30 AM</span>
+                          <span><i class="fas fa-tag"></i> High Priority</span>
+                        </div>
+                      </div>
+                      <div class="support-request-actions">
+                        <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                        <button title="Assign" class="assign-btn"><i class="fas fa-user-plus"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- In Progress Dealer Requests Tab -->
+                <div class="support-tab-content" id="dealer-progress-content">
+                  <div class="support-request-list">
+                    <div class="support-request-item">
+                      <div class="support-request-icon supplies">
+                        <i class="fas fa-box"></i>
+                      </div>
+                      <div class="support-request-content">
+                        <h4>Dairy Supplies</h4>
+                        <p>Local Restaurant <span class="support-request-status status-in-progress">In Progress</span></p>
+                        <div class="support-request-meta">
+                          <span><i class="far fa-clock"></i> Yesterday, 3:45 PM</span>
+                          <span><i class="fas fa-tag"></i> Medium Priority</span>
+                        </div>
+                      </div>
+                      <div class="support-request-actions">
+                        <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                        <button title="Mark Resolved" class="resolve-btn"><i class="fas fa-check"></i></button>
+                      </div>
+                    </div>
+                    
+                    <div class="support-request-item">
+                      <div class="support-request-icon maintenance">
+                        <i class="fas fa-wrench"></i>
+                      </div>
+                      <div class="support-request-content">
+                        <h4>Cooling System Repair</h4>
+                        <p>Wholesale Distributor <span class="support-request-status status-urgent">Urgent</span></p>
+                        <div class="support-request-meta">
+                          <span><i class="far fa-clock"></i> Today, 8:15 AM</span>
+                          <span><i class="fas fa-tag"></i> Urgent Priority</span>
+                        </div>
+                      </div>
+                      <div class="support-request-actions">
+                        <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                        <button title="Escalate" class="delete-btn"><i class="fas fa-exclamation-triangle"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Veterinary Support Box -->
+            <div class="support-box">
+              <div class="support-box-header">
+                <h3><i class="fas fa-stethoscope vet-icon"></i> Veterinary Support</h3>
+                <button class="btn-small" id="newVetSupportBtn" style="background-color: #2e7d32; color: white;">
+                  <i class="fas fa-plus"></i> New Request
+                </button>
+              </div>
+              <div class="support-box-content">
+                <!-- Support Tabs -->
+                <div class="support-tabs">
+                  <div class="support-tab active" data-tab="vet-all">All <span class="support-badge">6</span></div>
+                  <div class="support-tab" data-tab="vet-new">New <span class="support-badge">2</span></div>
+                  <div class="support-tab" data-tab="vet-progress">In Progress <span class="support-badge">4</span></div>
+                </div>
+                
+                <div class="support-stats">
+                  <div class="support-stat-item">
+                    <h4>New</h4>
+                    <p>2</p>
+                  </div>
+                  <div class="support-stat-item">
+                    <h4>In Progress</h4>
+                    <p>4</p>
+                  </div>
+                  <div class="support-stat-item">
+                    <h4>Resolved</h4>
+                    <p>8</p>
+                  </div>
+                </div>
+                
+                <!-- All Vet Requests Tab -->
+                <div class="support-tab-content active" id="vet-all-content">
+                  <div class="support-request-list">
+                    <div class="support-request-item">
+                      <div class="support-request-icon emergency">
+                        <i class="fas fa-ambulance"></i>
+                      </div>
+                      <div class="support-request-content">
+                        <h4>Emergency Visit</h4>
+                        <p>Supermarket Chain <span class="support-request-status status-in-progress">In Progress</span></p>
+                        <div class="support-request-meta">
+                          <span><i class="far fa-clock"></i> Today, 9:15 AM</span>
+                          <span><i class="fas fa-tag"></i> High Priority</span>
+                        </div>
+                      </div>
+                      <div class="support-request-actions">
+                        <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                        <button title="Mark Resolved" class="resolve-btn"><i class="fas fa-check"></i></button>
+                      </div>
+                    </div>
+                    
+                    <div class="support-request-item">
+                      <div class="support-request-icon checkup">
+                        <i class="fas fa-heartbeat"></i>
+                      </div>
+                      <div class="support-request-content">
+                        <h4>Routine Checkup</h4>
+                        <p>Local Restaurant <span class="support-request-status status-new">New</span></p>
+                        <div class="support-request-meta">
+                          <span><i class="far fa-clock"></i> Yesterday, 2:30 PM</span>
+                          <span><i class="fas fa-tag"></i> Medium Priority</span>
+                        </div>
+                      </div>
+                      <div class="support-request-actions">
+                        <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                        <button title="Assign" class="assign-btn"><i class="fas fa-user-plus"></i></button>
+                      </div>
+                    </div>
+                    
+                    <div class="support-request-item">
+                      <div class="support-request-icon treatment">
+                        <i class="fas fa-pills"></i>
+                      </div>
+                      <div class="support-request-content">
+                        <h4>Mastitis Treatment</h4>
+                        <p>Wholesale Distributor <span class="support-request-status status-urgent">Urgent</span></p>
+                        <div class="support-request-meta">
+                          <span><i class="far fa-clock"></i> Today, 7:45 AM</span>
+                          <span><i class="fas fa-tag"></i> Urgent Priority</span>
+                        </div>
+                      </div>
+                      <div class="support-request-actions">
+                        <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                        <button title="Escalate" class="delete-btn"><i class="fas fa-exclamation-triangle"></i></button>
+                      </div>
+                    </div>
+                    
+                    <div class="support-request-item">
+                      <div class="support-request-icon vaccination">
+                        <i class="fas fa-syringe"></i>
+                      </div>
+                      <div class="support-request-content">
+                        <h4>Vaccination</h4>
+                        <p>District School <span class="support-request-status status-resolved">Resolved</span></p>
+                        <div class="support-request-meta">
+                          <span><i class="far fa-clock"></i> 5 days ago</span>
+                          <span><i class="fas fa-tag"></i> Low Priority</span>
+                        </div>
+                      </div>
+                      <div class="support-request-actions">
+                        <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                        <button title="Reopen" class="assign-btn"><i class="fas fa-redo"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- New Vet Requests Tab -->
+                <div class="support-tab-content" id="vet-new-content">
+                  <div class="support-request-list">
+                    <div class="support-request-item">
+                      <div class="support-request-icon checkup">
+                        <i class="fas fa-heartbeat"></i>
+                      </div>
+                      <div class="support-request-content">
+                        <h4>Routine Checkup</h4>
+                        <p>Local Restaurant <span class="support-request-status status-new">New</span></p>
+                        <div class="support-request-meta">
+                          <span><i class="far fa-clock"></i> Yesterday, 2:30 PM</span>
+                          <span><i class="fas fa-tag"></i> Medium Priority</span>
+                        </div>
+                      </div>
+                      <div class="support-request-actions">
+                        <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                        <button title="Assign" class="assign-btn"><i class="fas fa-user-plus"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- In Progress Vet Requests Tab -->
+                <div class="support-tab-content" id="vet-progress-content">
+                  <div class="support-request-list">
+                    <div class="support-request-item">
+                      <div class="support-request-icon emergency">
+                        <i class="fas fa-ambulance"></i>
+                      </div>
+                      <div class="support-request-content">
+                        <h4>Emergency Visit</h4>
+                        <p>Supermarket Chain <span class="support-request-status status-in-progress">In Progress</span></p>
+                        <div class="support-request-meta">
+                          <span><i class="far fa-clock"></i> Today, 9:15 AM</span>
+                          <span><i class="fas fa-tag"></i> High Priority</span>
+                        </div>
+                      </div>
+                      <div class="support-request-actions">
+                        <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                        <button title="Mark Resolved" class="resolve-btn"><i class="fas fa-check"></i></button>
+                      </div>
+                    </div>
+                    
+                    <div class="support-request-item">
+                      <div class="support-request-icon treatment">
+                        <i class="fas fa-pills"></i>
+                      </div>
+                      <div class="support-request-content">
+                        <h4>Mastitis Treatment</h4>
+                        <p>Wholesale Distributor <span class="support-request-status status-urgent">Urgent</span></p>
+                        <div class="support-request-meta">
+                          <span><i class="far fa-clock"></i> Today, 7:45 AM</span>
+                          <span><i class="fas fa-tag"></i> Urgent Priority</span>
+                        </div>
+                      </div>
+                      <div class="support-request-actions">
+                        <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                        <button title="Escalate" class="delete-btn"><i class="fas fa-exclamation-triangle"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
+
+      <!-- Dealer Support Modal -->
+      <div id="dealerSupportModal" class="support-modal">
+        <div class="support-modal-content">
+          <div class="support-modal-header">
+            <h3><i class="fas fa-truck"></i> New Dealer Support Request</h3>
+            <span class="support-modal-close" data-modal="dealerSupportModal">&times;</span>
+          </div>
+          <form id="dealerSupportForm" class="support-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="dealerClientName">Client/Dealer Name *</label>
+                <input type="text" id="dealerClientName" name="clientName" required>
+              </div>
+              <div class="form-group">
+                <label for="dealerContactPerson">Contact Person *</label>
+                <input type="text" id="dealerContactPerson" name="contactPerson" required>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="dealerPhone">Phone Number *</label>
+                <input type="tel" id="dealerPhone" name="phone" required>
+              </div>
+              <div class="form-group">
+                <label for="dealerEmail">Email Address</label>
+                <input type="email" id="dealerEmail" name="email">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="dealerRequestType">Request Type *</label>
+                <select id="dealerRequestType" name="requestType" required>
+                  <option value="">Select Request Type</option>
+                  <option value="equipment">Equipment Maintenance</option>
+                  <option value="supplies">Dairy Supplies</option>
+                  <option value="cooling">Cooling System</option>
+                  <option value="feed">Animal Feed</option>
+                  <option value="delivery">Delivery Issues</option>
+                  <option value="billing">Billing Support</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="dealerPriority">Priority Level *</label>
+                <select id="dealerPriority" name="priority" required>
+                  <option value="">Select Priority</option>
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                  <option value="urgent">Urgent</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="dealerLocation">Location/Address *</label>
+              <textarea id="dealerLocation" name="location" rows="2" required placeholder="Enter complete address"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="dealerDescription">Issue Description *</label>
+              <textarea id="dealerDescription" name="description" rows="4" required placeholder="Describe the issue in detail..."></textarea>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="dealerPreferredDate">Preferred Service Date</label>
+                <input type="date" id="dealerPreferredDate" name="preferredDate">
+              </div>
+              <div class="form-group">
+                <label for="dealerPreferredTime">Preferred Time</label>
+                <select id="dealerPreferredTime" name="preferredTime">
+                  <option value="">Select Time</option>
+                  <option value="morning">Morning (8 AM - 12 PM)</option>
+                  <option value="afternoon">Afternoon (12 PM - 5 PM)</option>
+                  <option value="evening">Evening (5 PM - 8 PM)</option>
+                  <option value="anytime">Anytime</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="dealerAttachment">Attach Files (Optional)</label>
+              <input type="file" id="dealerAttachment" name="attachment" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx">
+              <small>Supported formats: JPG, PNG, PDF, DOC, DOCX (Max 5MB each)</small>
+            </div>
+            
+            <div class="form-actions">
+              <button type="button" class="btn-cancel" data-modal="dealerSupportModal">Cancel</button>
+              <button type="submit" class="btn-submit">Submit Request</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Veterinary Support Modal -->
+      <div id="vetSupportModal" class="support-modal">
+        <div class="support-modal-content">
+          <div class="support-modal-header">
+            <h3><i class="fas fa-stethoscope"></i> New Veterinary Support Request</h3>
+            <span class="support-modal-close" data-modal="vetSupportModal">&times;</span>
+          </div>
+          <form id="vetSupportForm" class="support-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="vetFarmName">Farm/Facility Name *</label>
+                <input type="text" id="vetFarmName" name="farmName" required>
+              </div>
+              <div class="form-group">
+                <label for="vetOwnerName">Owner/Manager Name *</label>
+                <input type="text" id="vetOwnerName" name="ownerName" required>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="vetPhone">Phone Number *</label>
+                <input type="tel" id="vetPhone" name="phone" required>
+              </div>
+              <div class="form-group">
+                <label for="vetEmail">Email Address</label>
+                <input type="email" id="vetEmail" name="email">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="vetServiceType">Service Type *</label>
+                <select id="vetServiceType" name="serviceType" required>
+                  <option value="">Select Service Type</option>
+                  <option value="emergency">Emergency Visit</option>
+                  <option value="checkup">Routine Checkup</option>
+                  <option value="vaccination">Vaccination</option>
+                  <option value="treatment">Disease Treatment</option>
+                  <option value="surgery">Surgery</option>
+                  <option value="consultation">Consultation</option>
+                  <option value="pregnancy">Pregnancy Check</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="vetUrgency">Urgency Level *</label>
+                <select id="vetUrgency" name="urgency" required>
+                  <option value="">Select Urgency</option>
+                  <option value="routine">Routine</option>
+                  <option value="urgent">Urgent (Within 24 hours)</option>
+                  <option value="emergency">Emergency (Immediate)</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="vetAnimalType">Animal Type *</label>
+                <select id="vetAnimalType" name="animalType" required>
+                  <option value="">Select Animal Type</option>
+                  <option value="cattle">Cattle/Cows</option>
+                  <option value="buffalo">Buffalo</option>
+                  <option value="goat">Goats</option>
+                  <option value="sheep">Sheep</option>
+                  <option value="mixed">Mixed Livestock</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="vetAnimalCount">Number of Animals Affected</label>
+                <input type="number" id="vetAnimalCount" name="animalCount" min="1" placeholder="e.g., 5">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="vetLocation">Farm Location/Address *</label>
+              <textarea id="vetLocation" name="location" rows="2" required placeholder="Enter complete farm address"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="vetSymptoms">Symptoms/Issue Description *</label>
+              <textarea id="vetSymptoms" name="symptoms" rows="4" required placeholder="Describe symptoms, behavior changes, or health concerns in detail..."></textarea>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="vetPreferredDate">Preferred Visit Date</label>
+                <input type="date" id="vetPreferredDate" name="preferredDate">
+              </div>
+              <div class="form-group">
+                <label for="vetPreferredTime">Preferred Time</label>
+                <select id="vetPreferredTime" name="preferredTime">
+                  <option value="">Select Time</option>
+                  <option value="early-morning">Early Morning (6 AM - 9 AM)</option>
+                  <option value="morning">Morning (9 AM - 12 PM)</option>
+                  <option value="afternoon">Afternoon (12 PM - 5 PM)</option>
+                  <option value="evening">Evening (5 PM - 7 PM)</option>
+                  <option value="anytime">Anytime</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="vetPreviousTreatment">Previous Treatment (if any)</label>
+              <textarea id="vetPreviousTreatment" name="previousTreatment" rows="2" placeholder="Mention any recent treatments, medications, or veterinary visits..."></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="vetAttachment">Attach Files (Optional)</label>
+              <input type="file" id="vetAttachment" name="attachment" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx">
+              <small>Upload photos of affected animals, medical records, etc. (Max 5MB each)</small>
+            </div>
+            
+            <div class="form-actions">
+              <button type="button" class="btn-cancel" data-modal="vetSupportModal">Cancel</button>
+              <button type="submit" class="btn-submit">Submit Request</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
       <!-- Customer Benefits Section -->
       <section class="customer-benefits-section">
         <div class="customer-benefits-container">
@@ -1170,7 +3080,7 @@
             <label for="clientType">Customer Type</label>
             <select id="clientType" required>
               <option value="">Select type</option>
-              <option value="retail">Retail Store</option>
+              <option value="retail"> Store</option>
               <option value="restaurant">Restaurant</option>
               <option value="school">School/Institution</option>
               <option value="wholesale">Wholesale</option>
@@ -1202,7 +3112,7 @@
         </form>
       </div>
     </div>
-
+    
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         // Customer data for different customers
@@ -2243,5 +4153,1141 @@
       }
     }
   </style>
+  
+  <!-- Edit Customer Modal -->
+  <div class="modal" id="editClientModal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2><i class="fas fa-user-edit"></i> Edit Customer</h2>
+      <form id="editClientForm">
+        <input type="hidden" id="editClientId">
+        <div class="form-group">
+          <label for="editClientName">Customer Name</label>
+          <input type="text" id="editClientName" required>
+        </div>
+        <div class="form-group">
+          <label for="editClientType">Customer Type</label>
+          <select id="editClientType" required>
+            <option value="">Select type</option>
+            <option value="retail">Retail Customer</option>
+            <option value="restaurant">Restaurant</option>
+            <option value="hotel">Hotel</option>
+            <option value="school">School</option>
+            <option value="hospital">Hospital</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="editContactPerson">Contact Person</label>
+          <input type="text" id="editContactPerson" required>
+        </div>
+        <div class="form-group">
+          <label for="editContactPhone">Contact Phone</label>
+          <input type="tel" id="editContactPhone" required>
+        </div>
+        <div class="form-group">
+          <label for="editContactEmail">Email</label>
+          <input type="email" id="editContactEmail">
+        </div>
+        <div class="form-group">
+          <label for="editDeliveryAddress">Delivery Address</label>
+          <textarea id="editDeliveryAddress" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="editDeliverySchedule">Delivery Schedule</label>
+          <input type="text" id="editDeliverySchedule">
+        </div>
+        <div class="form-group">
+          <label for="editPreferredTime">Preferred Delivery Time</label>
+          <input type="text" id="editPreferredTime">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Update Customer</button>
+          <button type="button" class="btn-secondary close-modal-btn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Invoice Modal -->
+  <div class="modal" id="newInvoiceModal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2><i class="fas fa-file-invoice"></i> Create New Invoice</h2>
+      <form id="newInvoiceForm">
+        <input type="hidden" id="invoiceClientId">
+        <div class="form-group">
+          <label for="invoiceNumber">Invoice Number</label>
+          <input type="text" id="invoiceNumber" required>
+        </div>
+        <div class="form-group">
+          <label for="invoiceDate">Invoice Date</label>
+          <input type="date" id="invoiceDate" required>
+        </div>
+        <div class="form-group">
+          <label for="invoiceAmount">Amount (₹)</label>
+          <input type="number" id="invoiceAmount" min="1" step="0.01" required>
+        </div>
+        <div class="form-group">
+          <label for="invoiceDescription">Description</label>
+          <textarea id="invoiceDescription" rows="3" required></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Create Invoice</button>
+          <button type="button" class="btn-secondary close-modal-btn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  
+  
+  <script>
+    // Edit Customer Button Functionality
+    document.getElementById('editCustomerBtn').addEventListener('click', function() {
+      // Get current client ID
+      const currentClientId = milkUsageChart.clientId;
+      const clientData = clientsData[currentClientId];
+      
+      if (!clientData) return;
+      
+      // Populate form with client data
+      document.getElementById('editClientId').value = currentClientId;
+      document.getElementById('editClientName').value = clientData.name;
+      
+      // Set client type
+      const editClientType = document.getElementById('editClientType');
+      for (let i = 0; i < editClientType.options.length; i++) {
+        if (editClientType.options[i].text === clientData.type) {
+          editClientType.selectedIndex = i;
+          break;
+        }
+      }
+      
+      // Set contact info
+      document.getElementById('editContactPerson').value = clientData.contact?.name || '';
+      document.getElementById('editContactPhone').value = clientData.contact?.phone || '';
+      document.getElementById('editContactEmail').value = clientData.contact?.email || '';
+      
+      // Set delivery info
+      document.getElementById('editDeliveryAddress').value = clientData.delivery?.address || '';
+      document.getElementById('editDeliverySchedule').value = clientData.delivery?.schedule || '';
+      document.getElementById('editPreferredTime').value = clientData.delivery?.preferredTime || '';
+      
+      // Show modal
+      document.getElementById('editClientModal').style.display = 'flex';
+    });
+    
+    // Edit Client Form Submission
+    document.getElementById('editClientForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const clientId = document.getElementById('editClientId').value;
+      const clientName = document.getElementById('editClientName').value;
+      const clientType = document.getElementById('editClientType');
+      const clientTypeText = clientType.options[clientType.selectedIndex].text;
+      const contactPerson = document.getElementById('editContactPerson').value;
+      const contactPhone = document.getElementById('editContactPhone').value;
+      const contactEmail = document.getElementById('editContactEmail').value;
+      const deliveryAddress = document.getElementById('editDeliveryAddress').value;
+      const deliverySchedule = document.getElementById('editDeliverySchedule').value;
+      const preferredTime = document.getElementById('editPreferredTime').value;
+      
+      // Update client data
+      clientsData[clientId].name = clientName;
+      clientsData[clientId].type = clientTypeText;
+      
+      // Update contact info
+      if (!clientsData[clientId].contact) clientsData[clientId].contact = {};
+      clientsData[clientId].contact.name = contactPerson;
+      clientsData[clientId].contact.phone = contactPhone;
+      clientsData[clientId].contact.email = contactEmail;
+      
+      // Update delivery info
+      if (!clientsData[clientId].delivery) clientsData[clientId].delivery = {};
+      clientsData[clientId].delivery.address = deliveryAddress;
+      clientsData[clientId].delivery.schedule = deliverySchedule;
+      clientsData[clientId].delivery.preferredTime = preferredTime;
+      
+      // Update UI
+      updateClientDetails(clientId);
+      
+      // Update customer list item
+      const customerItem = document.querySelector(`.customer-item[data-client-id="${clientId}"]`);
+      if (customerItem) {
+        customerItem.querySelector('h3').textContent = clientName;
+      }
+      
+      // Show success message
+      alert('Customer updated successfully!');
+      
+      // Close modal
+      document.getElementById('editClientModal').style.display = 'none';
+    });
+    
+    // New Invoice Button Functionality
+    document.querySelector('.chart-header button').addEventListener('click', function() {
+      // Get current client ID
+      const currentClientId = milkUsageChart.clientId;
+      
+      // Set client ID in form
+      document.getElementById('invoiceClientId').value = currentClientId;
+      
+      // Generate invoice number
+      const today = new Date();
+      const invoiceNumber = 'INV-' + today.getFullYear() + '-' + 
+                           String(Math.floor(Math.random() * 1000)).padStart(3, '0');
+      document.getElementById('invoiceNumber').value = invoiceNumber;
+      
+      // Set today's date
+      const dateStr = today.toISOString().split('T')[0];
+      document.getElementById('invoiceDate').value = dateStr;
+      
+      // Show modal
+      document.getElementById('newInvoiceModal').style.display = 'flex';
+    });
+    
+    // New Invoice Form Submission
+    document.getElementById('newInvoiceForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const clientId = document.getElementById('invoiceClientId').value;
+      const invoiceNumber = document.getElementById('invoiceNumber').value;
+      const invoiceDate = document.getElementById('invoiceDate').value;
+      const invoiceAmount = document.getElementById('invoiceAmount').value;
+      const invoiceDescription = document.getElementById('invoiceDescription').value;
+      
+      // Format date
+      const date = new Date(invoiceDate);
+      const formattedDate = date.toLocaleDateString('en-US', { 
+        month: 'long', 
+        day: 'numeric', 
+        year: 'numeric' 
+      });
+      
+      // Format amount
+      const formattedAmount = '₹' + parseFloat(invoiceAmount).toLocaleString('en-IN');
+      
+      // Add to invoice table
+      const tbody = document.getElementById('invoiceTableBody');
+      const newRow = document.createElement('tr');
+      newRow.style.borderBottom = '1px solid #e9ecef';
+      
+      newRow.innerHTML = `
+        <td style="padding: 10px;">${invoiceNumber}</td>
+        <td style="padding: 10px;">${formattedDate}</td>
+        <td style="padding: 10px;">${formattedAmount}</td>
+        <td style="padding: 10px;"><span style="background-color: #fff8e1; color: #f57f17; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem;">Pending</span></td>
+        <td style="padding: 10px; text-align: center;">
+          <button class="btn-small" title="View Invoice"><i class="fas fa-eye"></i></button>
+          <button class="btn-small" title="Download PDF"><i class="fas fa-download"></i></button>
+        </td>
+      `;
+      
+      // Add to table at the top
+      tbody.insertBefore(newRow, tbody.firstChild);
+      
+      // Show success message
+      alert('Invoice created successfully!');
+      
+      // Close modal
+      document.getElementById('newInvoiceModal').style.display = 'none';
+      
+      // Reset form
+      document.getElementById('newInvoiceForm').reset();
+    });
+    
+    // Close modals when clicking outside
+    window.addEventListener('click', function(event) {
+      const editModal = document.getElementById('editClientModal');
+      const invoiceModal = document.getElementById('newInvoiceModal');
+      
+      if (event.target === editModal) {
+        editModal.style.display = 'none';
+      }
+      
+      if (event.target === invoiceModal) {
+        invoiceModal.style.display = 'none';
+      }
+    });
+    
+    // Close modals with close buttons
+    document.querySelectorAll('#editClientModal .close-modal, #editClientModal .close-modal-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.getElementById('editClientModal').style.display = 'none';
+      });
+    });
+    
+    document.querySelectorAll('#newInvoiceModal .close-modal, #newInvoiceModal .close-modal-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.getElementById('newInvoiceModal').style.display = 'none';
+      });
+    });
+
+    // Support Request Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Support Request Buttons
+      const newDealerSupportBtn = document.getElementById('newDealerSupportBtn');
+      const newVetSupportBtn = document.getElementById('newVetSupportBtn');
+      
+      // Support section elements
+      const supportTabs = document.querySelectorAll('.support-tab');
+      const supportFilterOptions = document.querySelectorAll('.filter-option');
+      const supportSearchInput = document.getElementById('supportSearchInput');
+      
+     
+      
+      // Get modal elements
+      const supportRequestModal = document.getElementById('supportRequestModal');
+      const submitSupportRequestBtn = document.getElementById('submitSupportRequest');
+      const supportTypeOptions = document.querySelectorAll('.support-type-option');
+      
+      // File upload handling
+      document.getElementById('dealerAttachment')?.addEventListener('change', function(e) {
+        handleFileUpload(e, 'dealerFileList');
+      });
+      
+      document.getElementById('vetAttachment')?.addEventListener('change', function(e) {
+        handleFileUpload(e, 'vetFileList');
+      });
+      
+      function handleFileUpload(e, listId) {
+        const fileList = document.getElementById(listId);
+        if (!fileList) return;
+        
+        // Clear previous files
+        fileList.innerHTML = '';
+        
+        // Add each file to the list
+        Array.from(e.target.files).forEach(file => {
+          const fileItem = document.createElement('div');
+          fileItem.className = 'file-item';
+          
+          // Determine icon based on file type
+          let fileIcon = 'fas fa-file';
+          if (file.type.includes('image')) {
+            fileIcon = 'fas fa-file-image';
+          } else if (file.type.includes('pdf')) {
+            fileIcon = 'fas fa-file-pdf';
+          } else if (file.type.includes('word')) {
+            fileIcon = 'fas fa-file-word';
+          } else if (file.type.includes('excel') || file.type.includes('sheet')) {
+            fileIcon = 'fas fa-file-excel';
+          }
+          
+          fileItem.innerHTML = `
+            <i class="${fileIcon}"></i>
+            <span>${file.name}</span>
+            <button type="button" class="remove-file" title="Remove file"><i class="fas fa-times"></i></button>
+          `;
+          
+          fileList.appendChild(fileItem);
+          
+          // Add remove functionality
+          fileItem.querySelector('.remove-file').addEventListener('click', function() {
+            fileItem.remove();
+          });
+        });
+      }
+      
+      // Open Support Request Modal - Dealer
+      if (newDealerSupportBtn) {
+        newDealerSupportBtn.addEventListener('click', () => {
+          // Set active tab to dealer
+          document.querySelectorAll('.support-type-option').forEach(opt => opt.classList.remove('active'));
+          document.querySelector('.support-type-option[data-type="dealer"]').classList.add('active');
+          
+          // Show dealer form
+          document.querySelectorAll('.support-form-section').forEach(section => section.classList.remove('active'));
+          document.getElementById('dealerSupportForm').classList.add('active');
+          
+          // Show modal
+          supportRequestModal.style.display = 'flex';
+        });
+      }
+      
+      // Open Support Request Modal - Veterinary
+      if (newVetSupportBtn) {
+        newVetSupportBtn.addEventListener('click', () => {
+          // Set active tab to veterinary
+          document.querySelectorAll('.support-type-option').forEach(opt => opt.classList.remove('active'));
+          document.querySelector('.support-type-option[data-type="veterinary"]').classList.add('active');
+          
+          // Show veterinary form
+          document.querySelectorAll('.support-form-section').forEach(section => section.classList.remove('active'));
+          document.getElementById('veterinarySupportForm').classList.add('active');
+          
+          // Show modal
+          supportRequestModal.style.display = 'flex';
+        });
+      }
+      
+      // Support Type Selector
+      supportTypeOptions.forEach(option => {
+        option.addEventListener('click', () => {
+          // Remove active class from all options
+          supportTypeOptions.forEach(opt => opt.classList.remove('active'));
+          // Add active class to clicked option
+          option.classList.add('active');
+          
+          // Show corresponding form
+          const type = option.getAttribute('data-type');
+          document.querySelectorAll('.support-form-section').forEach(section => {
+            section.classList.remove('active');
+          });
+          
+          if (type === 'dealer') {
+            document.getElementById('dealerSupportForm').classList.add('active');
+          } else if (type === 'veterinary') {
+            document.getElementById('veterinarySupportForm').classList.add('active');
+          }
+        });
+      });
+      
+      // Support Tabs Functionality
+      supportTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          // Get parent container
+          const parentContainer = tab.closest('.support-box-content');
+          
+          // Remove active class from all tabs in this container
+          parentContainer.querySelectorAll('.support-tab').forEach(t => {
+            t.classList.remove('active');
+          });
+          
+          // Add active class to clicked tab
+          tab.classList.add('active');
+          
+          // Show corresponding content
+          const tabId = tab.getAttribute('data-tab');
+          parentContainer.querySelectorAll('.support-tab-content').forEach(content => {
+            content.classList.remove('active');
+          });
+          
+          const tabContent = document.getElementById(`${tabId}-content`);
+          if (tabContent) {
+            tabContent.classList.add('active');
+          }
+        });
+      });
+      
+      // Support Filter Functionality
+      supportFilterOptions.forEach(option => {
+        option.addEventListener('click', () => {
+          // Remove active class from all options
+          supportFilterOptions.forEach(opt => {
+            opt.classList.remove('active');
+          });
+          
+          // Add active class to clicked option
+          option.classList.add('active');
+          
+          // Get filter value
+          const filter = option.getAttribute('data-filter');
+          
+          // Filter items
+          filterSupportRequests(filter);
+        });
+      });
+      
+      // Support Search Functionality
+      if (supportSearchInput) {
+        supportSearchInput.addEventListener('input', () => {
+          const searchTerm = supportSearchInput.value.toLowerCase();
+          searchSupportRequests(searchTerm);
+        });
+      }
+      
+      // Filter support requests
+      function filterSupportRequests(filter) {
+        const allItems = document.querySelectorAll('.support-request-item');
+        
+        allItems.forEach(item => {
+          const status = item.querySelector('.support-request-status');
+          
+          if (filter === 'all') {
+            item.style.display = '';
+          } else if (status && status.classList.contains(`status-${filter}`)) {
+            item.style.display = '';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      }
+      
+      // Search support requests
+      function searchSupportRequests(term) {
+        const allItems = document.querySelectorAll('.support-request-item');
+        
+        allItems.forEach(item => {
+          const title = item.querySelector('h4').textContent.toLowerCase();
+          const customer = item.querySelector('p').textContent.toLowerCase();
+          
+          if (title.includes(term) || customer.includes(term)) {
+            item.style.display = '';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      }
+      
+      // Submit Support Request
+      if (submitSupportRequestBtn) {
+        submitSupportRequestBtn.addEventListener('click', () => {
+          // Determine which form is active
+          const activeForm = document.querySelector('.support-form-section.active');
+          let isValid = true;
+          let formData = {};
+          
+          if (activeForm.id === 'dealerSupportForm') {
+            // Validate dealer form
+            const clientId = document.getElementById('dealerClientId').value;
+            const requestType = document.getElementById('dealerRequestType').value;
+            const description = document.getElementById('dealerDescription').value;
+            const priorityRadio = document.querySelector('input[name="dealerPriority"]:checked');
+            
+            if (!clientId || !requestType || !description || !priorityRadio) {
+              isValid = false;
+              alert('Please fill in all required fields');
+            } else {
+              formData = {
+                type: 'dealer',
+                clientId: clientId,
+                clientName: document.getElementById('dealerClientId').options[document.getElementById('dealerClientId').selectedIndex].text,
+                requestType: requestType,
+                dealerName: document.getElementById('dealerName').value,
+                dealerContact: document.getElementById('dealerContact').value,
+                priority: priorityRadio.value,
+                description: description,
+                files: Array.from(document.getElementById('dealerFileList').children).map(item => item.querySelector('span').textContent),
+                timestamp: new Date().toLocaleString()
+              };
+            }
+          } else if (activeForm.id === 'veterinarySupportForm') {
+            // Validate veterinary form
+            const clientId = document.getElementById('vetClientId').value;
+            const requestType = document.getElementById('vetRequestType').value;
+            const animalType = document.getElementById('animalType').value;
+            const animalCount = document.getElementById('animalCount').value;
+            const description = document.getElementById('vetDescription').value;
+            const priorityRadio = document.querySelector('input[name="vetPriority"]:checked');
+            
+            if (!clientId || !requestType || !animalType || !animalCount || !description || !priorityRadio) {
+              isValid = false;
+              alert('Please fill in all required fields');
+            } else {
+              formData = {
+                type: 'veterinary',
+                clientId: clientId,
+                clientName: document.getElementById('vetClientId').options[document.getElementById('vetClientId').selectedIndex].text,
+                requestType: requestType,
+                animalType: animalType,
+                animalCount: animalCount,
+                priority: priorityRadio.value,
+                preferredDate: document.getElementById('preferredDate').value,
+                preferredTime: document.getElementById('preferredTime').value,
+                description: description,
+                files: Array.from(document.getElementById('vetFileList').children).map(item => item.querySelector('span').textContent),
+                timestamp: new Date().toLocaleString()
+              };
+            }
+          }
+          
+          if (isValid) {
+            // Here you would typically send the data to your server
+            console.log('Support request submitted:', formData);
+            
+            // Add the request to the UI
+            addSupportRequestToUI(formData);
+            
+            // Show success message with better styling
+            showNotification('Support request submitted successfully!', 'success');
+            
+            // Close modal and reset form
+            supportRequestModal.style.display = 'none';
+            if (activeForm.id === 'dealerSupportForm') {
+              document.getElementById('dealerForm').reset();
+              document.getElementById('dealerFileList').innerHTML = '';
+            } else {
+              document.getElementById('veterinaryForm').reset();
+              document.getElementById('vetFileList').innerHTML = '';
+            }
+          }
+        });
+      }
+      
+      // Function to show notification
+      function showNotification(message, type = 'info') {
+        // Create notification element if it doesn't exist
+        if (!document.getElementById('notification-container')) {
+          const container = document.createElement('div');
+          container.id = 'notification-container';
+          container.style.position = 'fixed';
+          container.style.top = '20px';
+          container.style.right = '20px';
+          container.style.zIndex = '9999';
+          document.body.appendChild(container);
+        }
+        
+        const container = document.getElementById('notification-container');
+        
+        // Create notification
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.style.backgroundColor = type === 'success' ? '#e8f5e9' : '#fff3e0';
+        notification.style.color = type === 'success' ? '#2e7d32' : '#e65100';
+        notification.style.padding = '15px 20px';
+        notification.style.marginBottom = '10px';
+        notification.style.borderRadius = '8px';
+        notification.style.boxShadow = '0 3px 10px rgba(0,0,0,0.1)';
+        notification.style.display = 'flex';
+        notification.style.alignItems = 'center';
+        notification.style.gap = '10px';
+        notification.style.animation = 'slideIn 0.3s ease, fadeOut 0.5s ease 3.5s forwards';
+        
+        // Add icon
+        const icon = document.createElement('i');
+        icon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-info-circle';
+        icon.style.fontSize = '1.5rem';
+        
+        // Add message
+        const text = document.createElement('span');
+        text.textContent = message;
+        text.style.fontWeight = '500';
+        
+        // Add close button
+        const closeBtn = document.createElement('button');
+        closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+        closeBtn.style.background = 'none';
+        closeBtn.style.border = 'none';
+        closeBtn.style.color = 'inherit';
+        closeBtn.style.cursor = 'pointer';
+        closeBtn.style.marginLeft = 'auto';
+        closeBtn.style.fontSize = '1rem';
+        closeBtn.onclick = () => notification.remove();
+        
+        // Add elements to notification
+        notification.appendChild(icon);
+        notification.appendChild(text);
+        notification.appendChild(closeBtn);
+        
+        // Add notification to container
+        container.appendChild(notification);
+        
+        // Add CSS for animations
+        const style = document.createElement('style');
+        style.textContent = `
+          @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+          }
+          @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+          }
+        `;
+        document.head.appendChild(style);
+        
+        // Remove notification after 4 seconds
+        setTimeout(() => {
+          notification.remove();
+        }, 4000);
+      }
+      
+      // Function to add support request to UI
+      function addSupportRequestToUI(formData) {
+        // Create new request item
+        const requestItem = document.createElement('div');
+        requestItem.className = 'support-request-item';
+        
+        // Determine icon class based on request type
+        let iconClass = '';
+        let iconElement = '';
+        
+        if (formData.type === 'dealer') {
+          switch(formData.requestType) {
+            case 'equipment':
+              iconClass = 'equipment';
+              iconElement = '<i class="fas fa-tools"></i>';
+              break;
+            case 'supplies':
+              iconClass = 'supplies';
+              iconElement = '<i class="fas fa-box"></i>';
+              break;
+            case 'feed':
+              iconClass = 'feed';
+              iconElement = '<i class="fas fa-leaf"></i>';
+              break;
+            case 'maintenance':
+              iconClass = 'maintenance';
+              iconElement = '<i class="fas fa-wrench"></i>';
+              break;
+            default:
+              iconClass = 'equipment';
+              iconElement = '<i class="fas fa-tools"></i>';
+          }
+          
+          // Determine status class based on priority
+          let statusClass = 'status-new';
+          if (formData.priority === 'urgent') {
+            statusClass = 'status-urgent';
+          }
+          
+          // Format timestamp
+          const timestamp = formData.timestamp || 'Just now';
+          
+          // Add to dealer support list - both to All tab and New tab
+          const dealerAllList = document.querySelector('#dealer-all-content .support-request-list');
+          const dealerNewList = document.querySelector('#dealer-new-content .support-request-list');
+          
+          if (dealerAllList && dealerNewList) {
+            const requestHTML = `
+              <div class="support-request-icon ${iconClass}">
+                ${iconElement}
+              </div>
+              <div class="support-request-content">
+                <h4>${formData.requestType.charAt(0).toUpperCase() + formData.requestType.slice(1)}</h4>
+                <p>${formData.clientName} <span class="support-request-status ${statusClass}">${formData.priority === 'urgent' ? 'Urgent' : 'New'}</span></p>
+                <div class="support-request-meta">
+                  <span><i class="far fa-clock"></i> ${timestamp}</span>
+                  <span><i class="fas fa-tag"></i> ${formData.priority.charAt(0).toUpperCase() + formData.priority.slice(1)} Priority</span>
+                </div>
+              </div>
+              <div class="support-request-actions">
+                <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                <button title="Assign" class="assign-btn"><i class="fas fa-user-plus"></i></button>
+              </div>
+            `;
+            
+            // Add to All tab
+            const allItem = document.createElement('div');
+            allItem.className = 'support-request-item';
+            allItem.innerHTML = requestHTML;
+            dealerAllList.prepend(allItem);
+            
+            // Add to New tab
+            const newItem = document.createElement('div');
+            newItem.className = 'support-request-item';
+            newItem.innerHTML = requestHTML;
+            dealerNewList.prepend(newItem);
+            
+            // Update stats
+            const newStat = dealerAllList.closest('.support-box').querySelector('.support-stats .support-stat-item:first-child p');
+            if (newStat) {
+              newStat.textContent = parseInt(newStat.textContent) + 1;
+            }
+            
+            // Update badge count
+            const newBadge = dealerAllList.closest('.support-box').querySelector('.support-tab[data-tab="dealer-new"] .support-badge');
+            if (newBadge) {
+              newBadge.textContent = parseInt(newBadge.textContent) + 1;
+            }
+            
+            // Add event listeners to buttons
+            addSupportItemEventListeners(allItem);
+            addSupportItemEventListeners(newItem);
+          }
+        } else if (formData.type === 'veterinary') {
+          switch(formData.requestType) {
+            case 'checkup':
+              iconClass = 'checkup';
+              iconElement = '<i class="fas fa-heartbeat"></i>';
+              break;
+            case 'emergency':
+              iconClass = 'emergency';
+              iconElement = '<i class="fas fa-ambulance"></i>';
+              break;
+            case 'vaccination':
+              iconClass = 'vaccination';
+              iconElement = '<i class="fas fa-syringe"></i>';
+              break;
+            case 'treatment':
+              iconClass = 'treatment';
+              iconElement = '<i class="fas fa-pills"></i>';
+              break;
+            case 'consultation':
+              iconClass = 'consultation';
+              iconElement = '<i class="fas fa-comment-medical"></i>';
+              break;
+            default:
+              iconClass = 'checkup';
+              iconElement = '<i class="fas fa-heartbeat"></i>';
+          }
+          
+          // Determine status class based on priority
+          let statusClass = 'status-new';
+          if (formData.priority === 'urgent') {
+            statusClass = 'status-urgent';
+          }
+          
+          // Format timestamp
+          const timestamp = formData.timestamp || 'Just now';
+          
+          // Add to vet support list - both to All tab and New tab
+          const vetAllList = document.querySelector('#vet-all-content .support-request-list');
+          const vetNewList = document.querySelector('#vet-new-content .support-request-list');
+          
+          if (vetAllList && vetNewList) {
+            const requestHTML = `
+              <div class="support-request-icon ${iconClass}">
+                ${iconElement}
+              </div>
+              <div class="support-request-content">
+                <h4>${formData.requestType.charAt(0).toUpperCase() + formData.requestType.slice(1)}</h4>
+                <p>${formData.clientName} <span class="support-request-status ${statusClass}">${formData.priority === 'urgent' ? 'Urgent' : 'New'}</span></p>
+                <div class="support-request-meta">
+                  <span><i class="far fa-clock"></i> ${timestamp}</span>
+                  <span><i class="fas fa-tag"></i> ${formData.priority.charAt(0).toUpperCase() + formData.priority.slice(1)} Priority</span>
+                </div>
+              </div>
+              <div class="support-request-actions">
+                <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                <button title="Assign" class="assign-btn"><i class="fas fa-user-plus"></i></button>
+              </div>
+            `;
+            
+            // Add to All tab
+            const allItem = document.createElement('div');
+            allItem.className = 'support-request-item';
+            allItem.innerHTML = requestHTML;
+            vetAllList.prepend(allItem);
+            
+            // Add to New tab
+            const newItem = document.createElement('div');
+            newItem.className = 'support-request-item';
+            newItem.innerHTML = requestHTML;
+            vetNewList.prepend(newItem);
+            
+            // Update stats
+            const newStat = vetAllList.closest('.support-box').querySelector('.support-stats .support-stat-item:first-child p');
+            if (newStat) {
+              newStat.textContent = parseInt(newStat.textContent) + 1;
+            }
+            
+            // Update badge count
+            const newBadge = vetAllList.closest('.support-box').querySelector('.support-tab[data-tab="vet-new"] .support-badge');
+            if (newBadge) {
+              newBadge.textContent = parseInt(newBadge.textContent) + 1;
+            }
+            
+            // Add event listeners to buttons
+            addSupportItemEventListeners(allItem);
+            addSupportItemEventListeners(newItem);
+          }
+        }
+      }
+      
+      // Add event listeners to support item buttons
+      function addSupportItemEventListeners(item) {
+        // View button
+        const viewBtn = item.querySelector('.view-btn');
+        if (viewBtn) {
+          viewBtn.addEventListener('click', function() {
+            const title = item.querySelector('h4').textContent;
+            const customer = item.querySelector('p').textContent.split(' ')[0];
+            alert(`Viewing details for ${title} request from ${customer}`);
+          });
+        }
+        
+        // Assign button
+        const assignBtn = item.querySelector('.assign-btn');
+        if (assignBtn) {
+          assignBtn.addEventListener('click', function() {
+            const title = item.querySelector('h4').textContent;
+            const customer = item.querySelector('p').textContent.split(' ')[0];
+            
+            // Create a simple prompt for assignment
+            const assignTo = prompt(`Assign ${title} request from ${customer} to:`, 'Support Agent');
+            
+            if (assignTo) {
+              // Update status to in-progress
+              const statusSpan = item.querySelector('.support-request-status');
+              if (statusSpan) {
+                statusSpan.className = 'support-request-status status-in-progress';
+                statusSpan.textContent = 'In Progress';
+              }
+              
+              // Update actions
+              const actions = item.querySelector('.support-request-actions');
+              if (actions) {
+                actions.innerHTML = `
+                  <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                  <button title="Mark Resolved" class="resolve-btn"><i class="fas fa-check"></i></button>
+                `;
+                
+                // Add event listeners to new buttons
+                const newViewBtn = actions.querySelector('.view-btn');
+                if (newViewBtn) {
+                  newViewBtn.addEventListener('click', function() {
+                    alert(`Viewing details for ${title} request from ${customer}`);
+                  });
+                }
+                
+                const resolveBtn = actions.querySelector('.resolve-btn');
+                if (resolveBtn) {
+                  resolveBtn.addEventListener('click', function() {
+                    // Update status to resolved
+                    const statusSpan = item.querySelector('.support-request-status');
+                    if (statusSpan) {
+                      statusSpan.className = 'support-request-status status-resolved';
+                      statusSpan.textContent = 'Resolved';
+                    }
+                    
+                    // Update actions
+                    actions.innerHTML = `
+                      <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                      <button title="Reopen" class="assign-btn"><i class="fas fa-redo"></i></button>
+                    `;
+                    
+                    // Add event listeners to new buttons
+                    addSupportItemEventListeners(item);
+                  });
+                }
+              }
+              
+              // Show notification
+              showNotification(`Request assigned to ${assignTo}`, 'success');
+            }
+          });
+        }
+        
+        // Resolve button
+        const resolveBtn = item.querySelector('.resolve-btn');
+        if (resolveBtn) {
+          resolveBtn.addEventListener('click', function() {
+            const title = item.querySelector('h4').textContent;
+            const customer = item.querySelector('p').textContent.split(' ')[0];
+            
+            // Update status to resolved
+            const statusSpan = item.querySelector('.support-request-status');
+            if (statusSpan) {
+              statusSpan.className = 'support-request-status status-resolved';
+              statusSpan.textContent = 'Resolved';
+            }
+            
+            // Update actions
+            const actions = item.querySelector('.support-request-actions');
+            if (actions) {
+              actions.innerHTML = `
+                <button title="View Details" class="view-btn"><i class="fas fa-eye"></i></button>
+                <button title="Reopen" class="assign-btn"><i class="fas fa-redo"></i></button>
+              `;
+              
+              // Add event listeners to new buttons
+              addSupportItemEventListeners(item);
+            }
+            
+            // Show notification
+            showNotification(`Request from ${customer} marked as resolved`, 'success');
+          });
+        }
+      }
+      
+      // Add event listeners to existing support items
+      document.querySelectorAll('.support-request-item').forEach(item => {
+        addSupportItemEventListeners(item);
+      });
+      
+      // Close modal buttons
+      document.querySelectorAll('#supportRequestModal .close-modal, #supportRequestModal .close-modal-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          supportRequestModal.style.display = 'none';
+        });
+      });
+      
+      // Close modal when clicking outside
+      window.addEventListener('click', function(event) {
+        if (event.target === supportRequestModal) {
+          supportRequestModal.style.display = 'none';
+        }
+      });
+    });
+  </script>
+  
+  <!-- Recent Invoices JavaScript -->
+  <script>
+    
+    
+    // Support Modal Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get modal elements
+      const dealerModal = document.getElementById('dealerSupportModal');
+      const vetModal = document.getElementById('vetSupportModal');
+      
+      // Get button elements
+      const dealerBtn = document.getElementById('newDealerSupportBtn');
+      const vetBtn = document.getElementById('newVetSupportBtn');
+      
+      // Get close elements
+      const closeButtons = document.querySelectorAll('.support-modal-close, .btn-cancel');
+      
+      // Open dealer support modal
+      if (dealerBtn) {
+        dealerBtn.addEventListener('click', function() {
+          dealerModal.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        });
+      }
+      
+      // Open veterinary support modal
+      if (vetBtn) {
+        vetBtn.addEventListener('click', function() {
+          vetModal.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        });
+      }
+      
+      // Close modals
+      closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const modalId = this.getAttribute('data-modal');
+          if (modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+              modal.style.display = 'none';
+              document.body.style.overflow = 'auto';
+            }
+          } else {
+            // For cancel buttons, close the parent modal
+            const modal = this.closest('.support-modal');
+            if (modal) {
+              modal.style.display = 'none';
+              document.body.style.overflow = 'auto';
+            }
+          }
+        });
+      });
+      
+      // Close modal when clicking outside
+      window.addEventListener('click', function(event) {
+        if (event.target.classList.contains('support-modal')) {
+          event.target.style.display = 'none';
+          document.body.style.overflow = 'auto';
+        }
+      });
+      
+      // Handle form submissions
+      const dealerForm = document.getElementById('dealerSupportForm');
+      const vetForm = document.getElementById('vetSupportForm');
+      
+      if (dealerForm) {
+        dealerForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          handleDealerSupportSubmission(this);
+        });
+      }
+      
+      if (vetForm) {
+        vetForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          handleVetSupportSubmission(this);
+        });
+      }
+      
+      // Set minimum date to today for date inputs
+      const today = new Date().toISOString().split('T')[0];
+      const dateInputs = document.querySelectorAll('input[type="date"]');
+      dateInputs.forEach(input => {
+        input.min = today;
+      });
+    });
+    
+    function handleDealerSupportSubmission(form) {
+      // Get form data
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      
+      // Validate required fields
+      const requiredFields = ['clientName', 'contactPerson', 'phone', 'requestType', 'priority', 'location', 'description'];
+      const missingFields = requiredFields.filter(field => !data[field] || data[field].trim() === '');
+      
+      if (missingFields.length > 0) {
+        alert('Please fill in all required fields: ' + missingFields.join(', '));
+        return;
+      }
+      
+      // Simulate API call
+      const submitBtn = form.querySelector('.btn-submit');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Submitting...';
+      submitBtn.disabled = true;
+      
+      setTimeout(() => {
+        // Reset button
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        
+        // Show success message
+        alert('Dealer support request submitted successfully! Ticket ID: DS-' + Date.now().toString().slice(-6));
+        
+        // Close modal and reset form
+        document.getElementById('dealerSupportModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+        form.reset();
+        
+        // In a real application, you would:
+        // 1. Send data to server
+        // 2. Update the support request list
+        // 3. Send confirmation email
+        // 4. Create notification for support team
+        
+      }, 2000);
+    }
+    
+    function handleVetSupportSubmission(form) {
+      // Get form data
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      
+      // Validate required fields
+      const requiredFields = ['farmName', 'ownerName', 'phone', 'serviceType', 'urgency', 'animalType', 'location', 'symptoms'];
+      const missingFields = requiredFields.filter(field => !data[field] || data[field].trim() === '');
+      
+      if (missingFields.length > 0) {
+        alert('Please fill in all required fields: ' + missingFields.join(', '));
+        return;
+      }
+      
+      // Simulate API call
+      const submitBtn = form.querySelector('.btn-submit');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Submitting...';
+      submitBtn.disabled = true;
+      
+      setTimeout(() => {
+        // Reset button
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        
+        // Show success message with urgency-specific response
+        let message = 'Veterinary support request submitted successfully! Ticket ID: VS-' + Date.now().toString().slice(-6);
+        
+        if (data.urgency === 'emergency') {
+          message += '\n\nEMERGENCY REQUEST: Our veterinary team has been notified immediately and will contact you within 30 minutes.';
+        } else if (data.urgency === 'urgent') {
+          message += '\n\nURGENT REQUEST: Our veterinary team will contact you within 2-4 hours.';
+        } else {
+          message += '\n\nOur veterinary team will contact you within 24 hours to schedule the visit.';
+        }
+        
+        alert(message);
+        
+        // Close modal and reset form
+        document.getElementById('vetSupportModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+        form.reset();
+        
+        // In a real application, you would:
+        // 1. Send data to server
+        // 2. Update the support request list
+        // 3. Send confirmation email/SMS
+        // 4. Alert veterinary team based on urgency
+        // 5. Schedule automatic follow-ups
+        
+      }, 2000);
+    }
+  </script>
 </body>
 </html>

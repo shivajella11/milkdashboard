@@ -364,57 +364,338 @@
     margin-top: 5px;
 }
 
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    width: 80%;
+    max-width: 700px;
+    position: relative;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close:hover {
+    color: #555;
+}
+
+/* Division Header Styles */
+.mcs-division-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px 0;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.mcs-division-header h2 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.mcs-btn-success {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mcs-btn-success:hover {
+    background: linear-gradient(135deg, #229954, #27ae60);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+}
+
+.mcs-btn-warning {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    color: white;
+}
+
+.mcs-btn-warning:hover {
+    background: linear-gradient(135deg, #e67e22, #d35400);
+}
+
+.mcs-btn-danger {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+}
+
+.mcs-btn-danger:hover {
+    background: linear-gradient(135deg, #c0392b, #a93226);
+}
+
+.mcs-btn-small {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    margin-left: 5px;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+}
+
+/* Notification Styles */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 10000;
+    min-width: 300px;
+    animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.notification-success {
+    border-left: 4px solid #27ae60;
+    color: #27ae60;
+}
+
+.notification-error {
+    border-left: 4px solid #e74c3c;
+    color: #e74c3c;
+}
+
+.notification-warning {
+    border-left: 4px solid #f39c12;
+    color: #f39c12;
+}
+
+.notification-info {
+    border-left: 4px solid #3498db;
+    color: #3498db;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #7f8c8d;
+    margin-left: auto;
+}
+
+.notification-close:hover {
+    color: #2c3e50;
+}
+
+/* Dark Mode Support */
+body.dark-mode .mcs-division-header {
+    border-bottom-color: #4a5f7a;
+}
+
+body.dark-mode .mcs-division-header h2 {
+    color: #ecf0f1;
+}
+
+body.dark-mode .form-group label {
+    color: #ecf0f1;
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group select,
+body.dark-mode .form-group textarea {
+    background: #34495e;
+    color: #ecf0f1;
+    border-color: #4a5f7a;
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group select:focus,
+body.dark-mode .form-group textarea:focus {
+    border-color: #3498db;
+}
+
+body.dark-mode .form-actions {
+    border-top-color: #4a5f7a;
+}
+
+body.dark-mode .notification {
+    background: #34495e;
+    color: #ecf0f1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mcs-division-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+
+    .mcs-division-header h2 {
+        text-align: center;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .notification {
+        left: 10px;
+        right: 10px;
+        min-width: auto;
+    }
+}
+
+
 </style>
 <body>
     <nav class="navbar">
-        <div class="nav-left">
-            <img src="img/logo.png" class="logo" alt="Logo" />
-            <div class="menu-title-group">
-                <i class="fas fa-bars menu-icon" id="menuToggle"></i> 
-            </div>
+    <div class="nav-left">
+        <img src="img/Company logo.jpg" class="logo" alt="Logo" />
+        <div class="menu-title-group">
+            <i class="fas fa-bars menu-icon" id="menuToggle"></i> 
         </div>
-        <div class="nav-center">
-            <!-- Language Selector with Globe Icon -->
-            <div class="select-wrapper">
-                <i class="fas fa-globe"></i>
-                <select id="languageSelect" class="lang-dropdown">
-                    <option value="en">English</option>
-                    <option value="hi">हिन्दी</option>
-                    <option value="te">తెలుగు</option>
-                </select>
-            </div>
-            <!-- Can add navigation links here if needed -->
+    </div>
+    <div class="nav-center">
+        <!-- Language Selector with Globe Icon -->
+        <div class="nav-search-profile">
+            <input type="text" placeholder="Search..." />
+            
         </div>
-        <div class="nav-right">
-            <div class="nav-tools">
-                <!-- Online Status Label -->
-                <div class="status-label">
-                    <span id="statusDot" class="dot online"></span>
-                    <span id="statusText">Active</span>
-                </div>
-                <!-- Mode Toggle -->
-                <button id="modeToggle" class="mode-toggle">
-                    <i class="fas fa-moon"></i>
-                </button>
+        <!-- Can add navigation links here if needed -->
+    </div>
+    <div class="nav-right">
+        <div class="nav-tools">
+            <!-- Online Status Label -->
+            <div class="status-label">
+                <span id="statusDot" class="dot online"></span>
+                <span id="statusText">Active</span>
             </div>
-            <div class="nav-search-profile">
-                <input type="text" placeholder="Search..." />
-                <div class="nav-icons">
-                    <i class="fas fa-envelope"></i>
-                    <i class="fas fa-bell"></i>
-                </div>
-                <div class="profile">
-                    <img src="img/profile.jpg" alt="Profile" />
-                    <span>SHIVAKUMAR JELLA</span>
-                </div>
-            </div>
+            <!-- Mode Toggle -->
+            <button id="modeToggle" class="mode-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
         </div>
-    </nav>
+        
+        <div class="select-wrapper">
+            <i class="fas fa-globe"></i>
+            <select id="languageSelect" class="lang-dropdown">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+                <option value="te">తెలుగు</option>
+            </select>
+        </div>
+        <div class="nav-icons">
+                <i class="fas fa-envelope"></i>
+                <i class="fas fa-bell"></i>
+            </div>
+            <div class="profile">
+                <img src="img/profile.jpg" alt="Profile" />
+                <span>SHIVAKUMAR JELLA</span>
+            </div>
+    </div>
+  </nav>
     <aside id="sidebar">
         <ul>
             <li class="dashboard-nav"><a href="dashb.html"><i class="fas fa-home"></i> Dashboard</a></li>
             <li class="farmer-nav"><a href="farmer.html"><i class="fas fa-user-friends"></i> Farmer Directory</a></li>
-            <li class="collection-nav"><a href="collection.html"><i class="fas fa-tractor"></i> Daily Milk Yields</a></li>
+            <li class="collection-nav active"><a href="collection.html"><i class="fas fa-tractor"></i> Daily Milk Yields</a></li>
             <li class="chilling-nav"><a href="chilling.html"><i class="fas fa-snowflake"></i> Cooling Stations</a></li>
             <li class="processing-nav"><a href="plant.html"><i class="fas fa-industry"></i> Dairy Processing</a></li>
             <li class="quality-nav"><a href="qualitydemo.html"><i class="fas fa-clipboard-check"></i> Milk Quality Tests</a></li>
@@ -473,7 +754,12 @@
                 </div>
 
                 <!-- Division-wise Collection -->
-                <h2>Division-wise Collection (Today)</h2>
+                <div class="mcs-division-header">
+                    <h2>Division-wise Collection (Today)</h2>
+                    <button class="mcs-btn mcs-btn-success" onclick="openAddDivisionModal('north')">
+                        <i class="fas fa-plus"></i> Add New Division
+                    </button>
+                </div>
                 <div class="table-responsive">
                     <table class="mcs-collection-table">
                         <thead>
@@ -570,7 +856,12 @@
                 </div>
 
                 <!-- Division-wise Collection -->
-                <h2>Division-wise Collection (Today)</h2>
+                <div class="mcs-division-header">
+                    <h2>Division-wise Collection (Today)</h2>
+                    <button class="mcs-btn mcs-btn-success" onclick="openAddDivisionModal('south')">
+                        <i class="fas fa-plus"></i> Add New Division
+                    </button>
+                </div>
                 <div class="table-responsive">
                     <table class="mcs-collection-table">
                         <thead>
@@ -654,7 +945,12 @@
                     </div>
                 </div>
             
-                <h2>Division-wise Collection (Today)</h2>
+                <div class="mcs-division-header">
+                    <h2>Division-wise Collection (Today)</h2>
+                    <button class="mcs-btn mcs-btn-success" onclick="openAddDivisionModal('east')">
+                        <i class="fas fa-plus"></i> Add New Division
+                    </button>
+                </div>
                 <div class="table-responsive">
                     <table class="mcs-collection-table">
                         <thead>
@@ -732,7 +1028,12 @@
                     </div>
                 </div>
             
-                <h2>Division-wise Collection (Today)</h2>
+                <div class="mcs-division-header">
+                    <h2>Division-wise Collection (Today)</h2>
+                    <button class="mcs-btn mcs-btn-success" onclick="openAddDivisionModal('west')">
+                        <i class="fas fa-plus"></i> Add New Division
+                    </button>
+                </div>
                 <div class="table-responsive">
                     <table class="mcs-collection-table">
                         <thead>
@@ -943,14 +1244,14 @@
                             <i class="fas fa-microchip" style="color: #e74c3c; margin-right: 10px;"></i> IoT Device Status
                         </h3>
                         <div style="display: flex; gap: 10px;">
-                            <button style="background: #3498db; color: white; border: none; padding: 8px 15px; border-radius: 6px; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 5px;">
-                                <i class="fas fa-plus"></i> Add Device
+                            <button id="addDeviceBtn" style="background: linear-gradient(135deg, #3498db, #2980b9); color: white; border: none; padding: 10px 18px; border-radius: 8px; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                                <i class="fas fa-plus-circle"></i> Add New Device
                             </button>
                         </div>
                     </div>
                     
                     <div class="table-responsive" style="overflow-x: auto;">
-                        <table style="width: 100%; border-collapse: collapse; border-radius: 10px; overflow: hidden;">
+                        <table class="iot-table" style="width: 100%; border-collapse: collapse; border-radius: 10px; overflow: hidden;">
                             <thead>
                                 <tr style="background: #f8f9fa; text-align: left;">
                                     <th style="padding: 15px; color: #7f8c8d; font-weight: 500; font-size: 0.9rem;">Device ID</th>
@@ -958,7 +1259,7 @@
                                     <th style="padding: 15px; color: #7f8c8d; font-weight: 500; font-size: 0.9rem;">Last Reading</th>
                                     <th style="padding: 15px; color: #7f8c8d; font-weight: 500; font-size: 0.9rem;">Battery</th>
                                     <th style="padding: 15px; color: #7f8c8d; font-weight: 500; font-size: 0.9rem;">Signal</th>
-                                    <th style="padding: 15px; color: #7f8c8d; font-weight: 500; font-size: 0.9rem;">Status</th>
+                                    <th style="padding: 15px; color: #7f8c8d; font-weight: 500; font-size: 0.9rem; text-align: center;">Status</th>
                                     <th style="padding: 15px; color: #7f8c8d; font-weight: 500; font-size: 0.9rem;">Actions</th>
                                 </tr>
                             </thead>
@@ -984,8 +1285,8 @@
                                             <div style="width: 4px; height: 22px; background: #ecf0f1; border-radius: 1px;"></div>
                                         </div>
                                     </td>
-                                    <td style="padding: 15px; text-align: center;">
-                                        <span style="display: inline-block; min-width: 120px; background: #e1f5fe; color: #0288d1; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; text-align: center;">
+                                    <td style="padding: 15px; text-align: center; vertical-align: middle;">
+                                        <span style="display: inline-block; background: #e1f5fe; color: #0288d1; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500;">
                                             Online
                                         </span>
                                     </td>
@@ -1024,8 +1325,8 @@
                                             <div style="width: 4px; height: 22px; background: #ecf0f1; border-radius: 1px;"></div>
                                         </div>
                                     </td>
-                                    <td style="padding: 15px; text-align: center;">
-                                        <span style="display: inline-block; min-width: 120px; background: #e1f5fe; color: #0288d1; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; text-align: center;">
+                                    <td style="padding: 15px; text-align: center; vertical-align: middle;">
+                                        <span style="display: inline-block; background: #e1f5fe; color: #0288d1; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500;">
                                             Online
                                         </span>
                                     </td>
@@ -1064,8 +1365,8 @@
                                             <div style="width: 4px; height: 22px; background: #ecf0f1; border-radius: 1px;"></div>
                                         </div>
                                     </td>
-                                    <td style="padding: 15px; text-align: center;">
-                                        <span style="display: inline-block; min-width: 120px; background: #fff3e0; color: #e65100; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; text-align: center;">
+                                    <td style="padding: 15px; text-align: center; vertical-align: middle;">
+                                        <span style="display: inline-block; background: #fff3e0; color: #e65100; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500;">
                                             Low Battery
                                         </span>
                                     </td>
@@ -1104,8 +1405,8 @@
                                             <div style="width: 4px; height: 22px; background: #ecf0f1; border-radius: 1px;"></div>
                                         </div>
                                     </td>
-                                    <td style="padding: 15px; text-align: center;">
-                                        <span style="display: inline-block; min-width: 120px; background: #ffebee; color: #d32f2f; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; text-align: center;">
+                                    <td style="padding: 15px; text-align: center; vertical-align: middle;">
+                                        <span style="display: inline-block; background: #ffebee; color: #d32f2f; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500;">
                                             Offline
                                         </span>
                                     </td>
@@ -1127,7 +1428,6 @@
                         </table>
                     </div>
                 </div>
-                
             </div>
                 <!--viewDetailsModal-->
             <div id="viewDetailsModal" class="modal">
@@ -1365,6 +1665,565 @@
     </script>
 
 
+    <!-- Add Device Modal -->
+    <div id="addDeviceModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addDeviceModal')">&times;</span>
+            <h2 style="color: #2c3e50; margin-top: 0; margin-bottom: 20px; font-size: 1.5rem;">
+                <i class="fas fa-plus-circle" style="color: #3498db; margin-right: 10px;"></i>Add New IoT Device
+            </h2>
+            
+            <form id="addDeviceForm" style="display: grid; gap: 15px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <label for="deviceId" style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 0.9rem;">Device ID*</label>
+                        <input type="text" id="deviceId" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 0.9rem; box-sizing: border-box;" placeholder="e.g., IOT-005">
+                    </div>
+                    
+                    <div>
+                        <label for="deviceType" style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 0.9rem;">Device Type*</label>
+                        <select id="deviceType" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 0.9rem; box-sizing: border-box;">
+                            <option value="">Select Type</option>
+                            <option value="sensor">Milk Quality Sensor</option>
+                            <option value="temperature">Temperature Monitor</option>
+                            <option value="volume">Volume Tracker</option>
+                            <option value="gateway">Collection Gateway</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="deviceLocation" style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 0.9rem;">Location*</label>
+                    <input type="text" id="deviceLocation" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 0.9rem; box-sizing: border-box;" placeholder="e.g., North Collection Center 3">
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <label for="initialStatus" style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 0.9rem;">Initial Status*</label>
+                        <select id="initialStatus" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 0.9rem; box-sizing: border-box;">
+                            <option value="online">Online</option>
+                            <option value="offline">Offline</option>
+                            <option value="maintenance">Maintenance</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="installDate" style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 0.9rem;">Installation Date</label>
+                        <input type="date" id="installDate" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 0.9rem; box-sizing: border-box;">
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="notes" style="display: block; margin-bottom: 5px; color: #7f8c8d; font-size: 0.9rem;">Notes</label>
+                    <textarea id="notes" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 0.9rem; box-sizing: border-box; min-height: 80px; resize: vertical;" placeholder="Additional information about this device..."></textarea>
+                </div>
+                
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+                    <button type="button" onclick="closeModal('addDeviceModal')" style="padding: 10px 15px; border: 1px solid #ddd; background: #f5f5f5; color: #7f8c8d; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">Cancel</button>
+                    <button type="submit" style="padding: 10px 20px; border: none; background: linear-gradient(135deg, #3498db, #2980b9); color: white; border-radius: 5px; cursor: pointer; font-size: 0.9rem; font-weight: 500;">Add Device</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script src="js/farm.js"></script>
+    
+    <!-- IoT Device Management Script -->
+    <script>
+        // Add Device Button Click Event
+        document.getElementById('addDeviceBtn').addEventListener('click', function() {
+            document.getElementById('addDeviceModal').style.display = 'block';
+        });
+        
+        // Form Submission
+        document.getElementById('addDeviceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const deviceId = document.getElementById('deviceId').value;
+            const location = document.getElementById('deviceLocation').value;
+            const deviceType = document.getElementById('deviceType').value;
+            const status = document.getElementById('initialStatus').value;
+            const notes = document.getElementById('notes').value;
+            
+            // Create new device row (this would typically connect to a backend)
+            addNewDeviceToTable(deviceId, location, status);
+            
+            // Reset form and close modal
+            document.getElementById('addDeviceForm').reset();
+            closeModal('addDeviceModal');
+            
+            // Show success message
+            showNotification('Device added successfully!', 'success');
+        });
+        
+        // Function to add new device to the table
+        function addNewDeviceToTable(deviceId, location, status) {
+            const tbody = document.querySelector('.iot-table tbody');
+            const newRow = document.createElement('tr');
+            newRow.style.borderBottom = '1px solid #f1f2f6';
+            newRow.style.transition = 'background-color 0.2s';
+            
+            // Set status classes and styles based on the status
+            let statusClass = 'online';
+            let statusBg = '#e1f5fe';
+            let statusColor = '#0288d1';
+            let statusIcon = '<i class="fas fa-circle" style="font-size: 8px; margin-right: 5px;"></i>';
+            let statusText = 'Online';
+            
+            if (status === 'offline') {
+                statusClass = 'offline';
+                statusBg = '#ffebee';
+                statusColor = '#d32f2f';
+                statusIcon = '<i class="fas fa-times-circle" style="margin-right: 5px;"></i>';
+                statusText = 'Offline';
+            } else if (status === 'maintenance') {
+                statusClass = 'maintenance';
+                statusBg = '#fff3e0';
+                statusColor = '#e65100';
+                statusIcon = '<i class="fas fa-tools" style="margin-right: 5px;"></i>';
+                statusText = 'Maintenance';
+            }
+            
+            // Create row HTML with consistent styling
+            newRow.innerHTML = `
+                <td style="padding: 15px; color: #2c3e50; font-weight: 500;">${deviceId}</td>
+                <td style="padding: 15px; color: #2c3e50;">${location}</td>
+                <td style="padding: 15px; color: #2c3e50;">Just added</td>
+                <td style="padding: 15px; color: #2c3e50; vertical-align: middle;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 50px; height: 10px; background: #ecf0f1; border-radius: 5px; overflow: hidden;">
+                            <div style="width: 100%; height: 100%; background: #2ecc71;" class="battery-level"></div>
+                        </div>
+                        <span>100%</span>
+                    </div>
+                </td>
+                <td style="padding: 15px; color: #2c3e50; vertical-align: middle;">
+                    <div style="display: flex; gap: 2px;" class="signal-strength-indicator">
+                        <div style="width: 4px; height: 10px; background: #3498db; border-radius: 1px;" class="signal-bar active"></div>
+                        <div style="width: 4px; height: 13px; background: #3498db; border-radius: 1px;" class="signal-bar active"></div>
+                        <div style="width: 4px; height: 16px; background: #3498db; border-radius: 1px;" class="signal-bar active"></div>
+                        <div style="width: 4px; height: 19px; background: #3498db; border-radius: 1px;" class="signal-bar active"></div>
+                        <div style="width: 4px; height: 22px; background: #3498db; border-radius: 1px;" class="signal-bar active"></div>
+                    </div>
+                </td>
+                <td style="padding: 15px; text-align: center; vertical-align: middle;">
+                    <span style="display: inline-block; min-width: 120px; background: ${statusBg}; color: ${statusColor}; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; text-align: center;" class="device-status ${statusClass}">
+                        ${statusIcon} ${statusText}
+                    </span>
+                </td>
+                <td style="padding: 15px; text-align: center; vertical-align: middle;">
+                    <div style="display: flex; gap: 8px; justify-content: center;">
+                        <button style="background: #f1f2f6; color: #3498db; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.2s;" title="Refresh" onmouseover="this.style.backgroundColor='#e1f5fe'" onmouseout="this.style.backgroundColor='#f1f2f6'">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <button style="background: #f1f2f6; color: #7f8c8d; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.2s;" title="Settings" onmouseover="this.style.backgroundColor='#f5f5f5'" onmouseout="this.style.backgroundColor='#f1f2f6'">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                        <button style="background: #f1f2f6; color: #2ecc71; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.2s;" title="View Data" onmouseover="this.style.backgroundColor='#e8f8f5'" onmouseout="this.style.backgroundColor='#f1f2f6'">
+                            <i class="fas fa-chart-line"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            
+            // Add to table at the top
+            tbody.insertBefore(newRow, tbody.firstChild);
+        }
+        
+        // Function to show notification
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.right = '20px';
+            notification.style.padding = '15px 20px';
+            notification.style.borderRadius = '8px';
+            notification.style.color = 'white';
+            notification.style.fontWeight = '500';
+            notification.style.zIndex = '9999';
+            notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+            notification.style.display = 'flex';
+            notification.style.alignItems = 'center';
+            notification.style.gap = '10px';
+            notification.style.transition = 'all 0.3s ease';
+            
+            // Set style based on type
+            if (type === 'success') {
+                notification.style.backgroundColor = '#2ecc71';
+                notification.innerHTML = '<i class="fas fa-check-circle"></i> ' + message;
+            } else if (type === 'error') {
+                notification.style.backgroundColor = '#e74c3c';
+                notification.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + message;
+            } else {
+                notification.style.backgroundColor = '#3498db';
+                notification.innerHTML = '<i class="fas fa-info-circle"></i> ' + message;
+            }
+            
+            // Add to body
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 3000);
+        }
+        
+        // Function to close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('addDeviceModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        
+        // Update IoT device statuses periodically (for demo purposes)
+        function updateIoTStatuses() {
+            const batteryLevels = document.querySelectorAll('.battery-level');
+            const signalIndicators = document.querySelectorAll('.signal-strength-indicator');
+            const deviceStatuses = document.querySelectorAll('.device-status');
+            
+            // Randomly update some devices
+            batteryLevels.forEach((battery, index) => {
+                // Skip some updates randomly
+                if (Math.random() > 0.7) return;
+                
+                // Get current width
+                let currentWidth = parseInt(battery.style.width);
+                if (isNaN(currentWidth)) currentWidth = 50;
+                
+                // Decrease by 1-3%
+                let newWidth = Math.max(0, currentWidth - Math.floor(Math.random() * 3) - 1);
+                battery.style.width = newWidth + '%';
+                
+                // Update battery level text
+                const batteryText = battery.parentElement.nextElementSibling;
+                if (batteryText) batteryText.textContent = newWidth + '%';
+                
+                // Update battery color if low
+                if (newWidth < 20) {
+                    battery.classList.add('battery-low');
+                    battery.style.backgroundColor = '#e74c3c';
+                    
+                    // Update status to low battery if it's currently online
+                    const status = deviceStatuses[index];
+                    if (status && status.classList.contains('online')) {
+                        status.classList.remove('online');
+                        status.classList.add('low-battery');
+                        status.style.backgroundColor = '#fff3e0';
+                        status.style.color = '#e65100';
+                        status.innerHTML = '<i class="fas fa-exclamation-triangle" style="margin-right: 5px;"></i> Low Battery';
+                    }
+                }
+            });
+        }
+        
+        // Run status updates every 30 seconds
+        setInterval(updateIoTStatuses, 30000);
+    </script>
+
+    <!-- Add Division Modal -->
+    <div id="addDivisionModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddDivisionModal()">&times;</span>
+            <h2><i class="fas fa-plus-circle"></i> Add New Division</h2>
+            
+            <form id="addDivisionForm" onsubmit="addNewDivision(event)">
+                <div class="form-group">
+                    <label for="regionSelect">Region:</label>
+                    <select id="regionSelect" required>
+                        <option value="">Select Region</option>
+                        <option value="north">North Region</option>
+                        <option value="south">South Region</option>
+                        <option value="east">East Region</option>
+                        <option value="west">West Region</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="divisionName">Division Name:</label>
+                    <input type="text" id="divisionName" placeholder="e.g., Division E" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="collectionCenters">Number of Collection Centers:</label>
+                    <input type="number" id="collectionCenters" min="1" max="10" placeholder="e.g., 3" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="expectedMorning">Expected Morning Collection (Liters):</label>
+                    <input type="number" id="expectedMorning" min="0" placeholder="e.g., 200" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="expectedEvening">Expected Evening Collection (Liters):</label>
+                    <input type="number" id="expectedEvening" min="0" placeholder="e.g., 180" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="divisionManager">Division Manager:</label>
+                    <input type="text" id="divisionManager" placeholder="e.g., John Doe" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactNumber">Contact Number:</label>
+                    <input type="tel" id="contactNumber" placeholder="e.g., +91 9876543210" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="divisionLocation">Location/Area:</label>
+                    <textarea id="divisionLocation" rows="3" placeholder="Enter division location details..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="divisionStatus">Initial Status:</label>
+                    <select id="divisionStatus" required>
+                        <option value="active">Active</option>
+                        <option value="pending">Pending Setup</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="mcs-btn mcs-btn-secondary" onclick="closeAddDivisionModal()">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="mcs-btn mcs-btn-success">
+                        <i class="fas fa-save"></i> Add Division
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Division JavaScript -->
+    <script>
+        let currentRegion = '';
+
+        // Open Add Division Modal
+        function openAddDivisionModal(region) {
+            currentRegion = region;
+            const modal = document.getElementById('addDivisionModal');
+            const regionSelect = document.getElementById('regionSelect');
+            
+            // Set the region in the dropdown
+            regionSelect.value = region;
+            
+            // Show modal
+            modal.style.display = 'block';
+            
+            // Focus on division name input
+            document.getElementById('divisionName').focus();
+        }
+
+        // Close Add Division Modal
+        function closeAddDivisionModal() {
+            const modal = document.getElementById('addDivisionModal');
+            modal.style.display = 'none';
+            
+            // Reset form
+            document.getElementById('addDivisionForm').reset();
+            currentRegion = '';
+        }
+
+        // Add New Division
+        function addNewDivision(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = {
+                region: document.getElementById('regionSelect').value,
+                divisionName: document.getElementById('divisionName').value,
+                collectionCenters: document.getElementById('collectionCenters').value,
+                expectedMorning: document.getElementById('expectedMorning').value,
+                expectedEvening: document.getElementById('expectedEvening').value,
+                divisionManager: document.getElementById('divisionManager').value,
+                contactNumber: document.getElementById('contactNumber').value,
+                divisionLocation: document.getElementById('divisionLocation').value,
+                divisionStatus: document.getElementById('divisionStatus').value
+            };
+
+            // Calculate total expected collection
+            const totalExpected = parseInt(formData.expectedMorning) + parseInt(formData.expectedEvening);
+
+            // Create new table row
+            const newRow = createDivisionRow(formData, totalExpected);
+
+            // Find the correct table based on region
+            const regionContentId = formData.region + '-region';
+            const regionContent = document.getElementById(regionContentId);
+            
+            if (regionContent) {
+                const table = regionContent.querySelector('.mcs-collection-table tbody');
+                if (table) {
+                    table.appendChild(newRow);
+                    
+                    // Show success message
+                    showNotification(`Division "${formData.divisionName}" added successfully to ${formData.region.charAt(0).toUpperCase() + formData.region.slice(1)} Region!`, 'success');
+                    
+                    // Update region statistics
+                    updateRegionStats(formData.region, totalExpected, parseInt(formData.collectionCenters));
+                    
+                    // Close modal
+                    closeAddDivisionModal();
+                } else {
+                    showNotification('Error: Could not find table to add division', 'error');
+                }
+            } else {
+                showNotification('Error: Could not find region content', 'error');
+            }
+        }
+
+        // Create Division Row
+        function createDivisionRow(data, totalExpected) {
+            const row = document.createElement('tr');
+            
+            // Determine status class and display
+            let statusClass = 'mcs-status-pending';
+            let statusText = 'Pending';
+            
+            if (data.divisionStatus === 'active') {
+                statusClass = 'mcs-status-completed';
+                statusText = 'Active';
+            } else if (data.divisionStatus === 'inactive') {
+                statusClass = 'mcs-status-error';
+                statusText = 'Inactive';
+            }
+
+            row.innerHTML = `
+                <td>${data.divisionName}</td>
+                <td>-</td>
+                <td>-</td>
+                <td>0</td>
+                <td>${data.collectionCenters}</td>
+                <td><span class="mcs-status ${statusClass}">${statusText}</span></td>
+                <td>
+                    <button class="mcs-btn mcs-btn-primary" onclick="viewDivisionDetails('${data.divisionName}', '${data.region}')">
+                        View Details
+                    </button>
+                    <button class="mcs-btn mcs-btn-warning mcs-btn-small" onclick="editDivision('${data.divisionName}', '${data.region}')" title="Edit Division">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="mcs-btn mcs-btn-danger mcs-btn-small" onclick="deleteDivision('${data.divisionName}', '${data.region}')" title="Delete Division">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            `;
+
+            // Add data attributes for future reference
+            row.setAttribute('data-division', data.divisionName);
+            row.setAttribute('data-region', data.region);
+            row.setAttribute('data-manager', data.divisionManager);
+            row.setAttribute('data-contact', data.contactNumber);
+            row.setAttribute('data-location', data.divisionLocation);
+            row.setAttribute('data-expected-morning', data.expectedMorning);
+            row.setAttribute('data-expected-evening', data.expectedEvening);
+
+            return row;
+        }
+
+        // Update Region Statistics
+        function updateRegionStats(region, totalExpected, collectionCenters) {
+            const regionContentId = region + '-region';
+            const regionContent = document.getElementById(regionContentId);
+            
+            if (regionContent) {
+                // Update active farmers count (assuming each division adds some farmers)
+                const farmersCard = regionContent.querySelector('.mcs-card-footer:contains("In")');
+                if (farmersCard) {
+                    const farmersValueElement = farmersCard.parentElement.querySelector('.mcs-card-value');
+                    if (farmersValueElement) {
+                        const currentFarmers = parseInt(farmersValueElement.textContent);
+                        farmersValueElement.textContent = currentFarmers + Math.floor(Math.random() * 10) + 5; // Add 5-15 farmers
+                    }
+                }
+            }
+        }
+
+        // View Division Details
+        function viewDivisionDetails(divisionName, region) {
+            const row = document.querySelector(`tr[data-division="${divisionName}"][data-region="${region}"]`);
+            if (row) {
+                const details = {
+                    name: divisionName,
+                    region: region,
+                    manager: row.getAttribute('data-manager'),
+                    contact: row.getAttribute('data-contact'),
+                    location: row.getAttribute('data-location'),
+                    expectedMorning: row.getAttribute('data-expected-morning'),
+                    expectedEvening: row.getAttribute('data-expected-evening'),
+                    collectionCenters: row.cells[4].textContent
+                };
+                
+                alert(`Division Details:\n\nName: ${details.name}\nRegion: ${details.region.charAt(0).toUpperCase() + details.region.slice(1)}\nManager: ${details.manager}\nContact: ${details.contact}\nLocation: ${details.location}\nExpected Morning: ${details.expectedMorning}L\nExpected Evening: ${details.expectedEvening}L\nCollection Centers: ${details.collectionCenters}`);
+            }
+        }
+
+        // Edit Division
+        function editDivision(divisionName, region) {
+            showNotification(`Edit functionality for ${divisionName} will be implemented soon`, 'info');
+        }
+
+        // Delete Division
+        function deleteDivision(divisionName, region) {
+            if (confirm(`Are you sure you want to delete division "${divisionName}" from ${region.charAt(0).toUpperCase() + region.slice(1)} Region?\n\nThis action cannot be undone.`)) {
+                const row = document.querySelector(`tr[data-division="${divisionName}"][data-region="${region}"]`);
+                if (row) {
+                    row.remove();
+                    showNotification(`Division "${divisionName}" deleted successfully`, 'success');
+                }
+            }
+        }
+
+        // Show Notification
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${getNotificationIcon(type)}"></i>
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()" class="notification-close">×</button>
+            `;
+            
+            // Add to page
+            document.body.appendChild(notification);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        function getNotificationIcon(type) {
+            const icons = {
+                'success': 'check-circle',
+                'error': 'exclamation-circle',
+                'warning': 'exclamation-triangle',
+                'info': 'info-circle'
+            };
+            return icons[type] || 'info-circle';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('addDivisionModal');
+            if (event.target === modal) {
+                closeAddDivisionModal();
+            }
+        }
+    </script>
 </body>
 </html>

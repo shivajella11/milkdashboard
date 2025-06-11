@@ -326,20 +326,16 @@
 <body>
   <nav class="navbar">
     <div class="nav-left">
-        <img src="img/logo.png" class="logo" alt="Logo" />
+        <img src="img/Company logo.jpg" class="logo" alt="Logo" />
         <div class="menu-title-group">
             <i class="fas fa-bars menu-icon" id="menuToggle"></i> 
         </div>
     </div>
     <div class="nav-center">
         <!-- Language Selector with Globe Icon -->
-        <div class="select-wrapper">
-            <i class="fas fa-globe"></i>
-            <select id="languageSelect" class="lang-dropdown">
-                <option value="en">English</option>
-                <option value="hi">हिन्दी</option>
-                <option value="te">తెలుగు</option>
-            </select>
+        <div class="nav-search-profile">
+            <input type="text" placeholder="Search..." />
+            
         </div>
         <!-- Can add navigation links here if needed -->
     </div>
@@ -355,9 +351,16 @@
                 <i class="fas fa-moon"></i>
             </button>
         </div>
-        <div class="nav-search-profile">
-            <input type="text" placeholder="Search..." />
-            <div class="nav-icons">
+        
+        <div class="select-wrapper">
+            <i class="fas fa-globe"></i>
+            <select id="languageSelect" class="lang-dropdown">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+                <option value="te">తెలుగు</option>
+            </select>
+        </div>
+        <div class="nav-icons">
                 <i class="fas fa-envelope"></i>
                 <i class="fas fa-bell"></i>
             </div>
@@ -365,7 +368,6 @@
                 <img src="img/profile.jpg" alt="Profile" />
                 <span>SHIVAKUMAR JELLA</span>
             </div>
-        </div>
     </div>
   </nav>
   <aside id="sidebar">
@@ -736,22 +738,1015 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('editModal')">&times;</span>
             <h2>Edit Vehicle Details - <span id="editModalVehicleId"></span></h2>
-            <form id="editForm">
-                <label for="editDriverName">Driver Name:</label>
-                <input type="text" id="editDriverName" name="driverName"><br><br>
-                <label for="editRoute">Route:</label>
-                <input type="text" id="editRoute" name="route"><br><br>
-                <label for="editDepartureTime">Departure Time:</label>
-                <input type="text" id="editDepartureTime" name="departureTime"><br><br>
-                <label for="editEstimatedArrival">Estimated Arrival:</label>
-                <input type="text" id="editEstimatedArrival" name="estimatedArrival"><br><br>
-                <label for="editStatus">Status:</label>
-                <input type="text" id="editStatus" name="status"><br><br>
-                <button type="button" onclick="saveEdits()">Save</button>
+            <form id="editForm" onsubmit="return false;">
+                <div class="form-group">
+                    <label for="editDriverName">Driver Name:</label>
+                    <input type="text" id="editDriverName" name="driverName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editRoute">Route:</label>
+                    <input type="text" id="editRoute" name="route" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editDepartureTime">Departure Time:</label>
+                    <input type="time" id="editDepartureTime" name="departureTime" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editEstimatedArrival">Estimated Arrival:</label>
+                    <input type="time" id="editEstimatedArrival" name="estimatedArrival" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editStatus">Status:</label>
+                    <select id="editStatus" name="status" required>
+                        <option value="">Select Status</option>
+                        <option value="On Time">On Time</option>
+                        <option value="Delayed">Delayed</option>
+                        <option value="In Transit">In Transit</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('editModal')">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="saveEdits()">Save Changes</button>
+                </div>
             </form>
         </div>
       </div>
 
+  <style>
+      .payment-section {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 25px;
+      margin-bottom: 30px;
+    }
+    
+    .payment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    
+    .payment-section h2 {
+      color: var(--dark-color);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .payment-section h2 i {
+      color: var(--primary-color);
+    }
+    
+    .payment-controls {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .filter-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .filter-controls label {
+      font-weight: 500;
+      color: var(--dark-color);
+      white-space: nowrap;
+    }
+    
+    .filter-dropdown {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: white;
+      color: var(--dark-color);
+      font-size: 0.9rem;
+      cursor: pointer;
+      min-width: 140px;
+    }
+    
+    .filter-dropdown:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+    }
+    
+    .record-count {
+      font-size: 0.85rem;
+      color: #666;
+      font-weight: 500;
+      padding: 4px 8px;
+      background-color: #f8f9fa;
+      border-radius: 12px;
+      white-space: nowrap;
+    }
+    
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: #2980b9;
+    }
+    
+    .btn-secondary {
+      background-color: #6c757d;
+      color: white;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #5a6268;
+    }
+    
+    .btn-success {
+      background-color: var(--secondary-color);
+      color: white;
+    }
+    
+    .btn-success:hover {
+      background-color: #27ae60;
+    }
+    
+    .btn-danger {
+      background-color: var(--danger-color);
+      color: white;
+    }
+    
+    .btn-danger:hover {
+      background-color: #c0392b;
+    }
+    
+    .btn-small {
+      padding: 5px 10px;
+      font-size: 0.8rem;
+    }
+    
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+    
+    .styled-table th, 
+    .styled-table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .styled-table th {
+      background-color: var(--light-color);
+      font-weight: 600;
+      color: var(--dark-color);
+    }
+    
+    .styled-table tr:hover {
+      background-color: rgba(0, 0, 0, 0.02);
+    }
+    
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    .status-paid {
+      background-color: #e8f5e9;
+      color: var(--paid-color);
+    }
+    
+    .status-pending {
+      background-color: #fff8e1;
+      color: var(--pending-color);
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 5px;
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background-color: white;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #777;
+    }
+    
+    .close-modal:hover {
+      color: #333;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+      color: #555;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+    
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .payment-options {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .payment-option {
+      flex: 1;
+      min-width: 120px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .payment-option:hover {
+      border-color: var(--primary-color);
+    }
+    
+    .payment-option.selected {
+      border-color: var(--primary-color);
+      background-color: rgba(52, 152, 219, 0.1);
+    }
+    
+    .payment-option i {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+      color: var(--primary-color);
+    }
+    
+    .milk-product-card {
+      display: flex;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 15px;
+      background-color: var(--milk-color);
+    }
+    
+    .milk-product-image {
+      width: 100px;
+      height: 100px;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .milk-product-details {
+      flex: 1;
+      padding: 15px;
+    }
+    
+    .milk-product-title {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .milk-product-price {
+      font-weight: 600;
+      color: var(--paid-color);
+      margin-bottom: 10px;
+    }
+    
+    .milk-product-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .quantity-control button {
+      width: 25px;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ddd;
+      background: white;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    
+    .quantity-control input {
+      width: 50px;
+      text-align: center;
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    @media (max-width: 768px) {
+      .styled-table th, 
+      .styled-table td {
+        padding: 8px 10px;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+        gap: 3px;
+      }
+      
+      .payment-option {
+        min-width: 100px;
+      }
+      
+      .milk-product-card {
+        flex-direction: column;
+      }
+      
+      .milk-product-image {
+        width: 100%;
+        height: 120px;
+      }
+      
+      .payment-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      
+      .payment-controls {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .filter-controls {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+      
+      .filter-dropdown {
+        min-width: 120px;
+      }
+    }
+  </style>
+
+  <section class="payment-section">
+    <div class="payment-header">
+      <h2><i class="fas fa-cash-register"></i> Milk Product Payment Records</h2>
+      <div class="payment-controls">
+        <div class="filter-controls">
+          <label for="statusFilter">Filter by Status:</label>
+          <select id="statusFilter" class="filter-dropdown">
+            <option value="all">All Records</option>
+            <option value="Paid">Paid Only</option>
+            <option value="Pending">Pending Only</option>
+          </select>
+          <span id="recordCount" class="record-count"></span>
+        </div>
+        <button class="btn btn-primary" id="addPaymentBtn">
+          <i class="fas fa-plus"></i> Add Payment
+        </button>
+      </div>
+    </div>
+
+    <table class="styled-table" id="paymentTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Product</th>
+          <th>Client</th>
+          <th>Quantity</th>
+          <th>Rate (₹)</th>
+          <th>Total (₹)</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Sample data - will be populated dynamically -->
+        <tr>
+          <td>2023-07-15</td>
+          <td>Fresh Cow Milk</td>
+          <td>Grand Hotel</td>
+          <td>25 L</td>
+          <td>₹50.00</td>
+          <td>₹1,250.00</td>
+          <td><span class="status-badge status-paid">Paid</span></td>
+          <td class="action-buttons">
+            <button class="btn-small btn-primary" title="View">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="btn-small btn-success" title="Invoice">
+              <i class="fas fa-file-invoice"></i>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>2023-07-14</td>
+          <td>Buffalo Milk</td>
+          <td>Sunshine Restaurant</td>
+          <td>15 L</td>
+          <td>₹60.00</td>
+          <td>₹900.00</td>
+          <td><span class="status-badge status-pending">Pending</span></td>
+          <td class="action-buttons">
+            <button class="btn-small btn-primary" title="View">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="btn-small btn-success" title="Invoice">
+              <i class="fas fa-file-invoice"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Add Payment Modal -->
+  <div class="modal" id="addPaymentModal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2><i class="fas fa-money-bill-wave"></i> Add Milk Product Payment</h2>
+
+      <form id="paymentForm">
+        <div class="form-group">
+          <label for="paymentDate">Date:</label>
+          <input type="date" id="paymentDate" name="date" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="paymentProduct">Product:</label>
+          <select id="paymentProduct" name="product" required>
+            <option value="">Select Product</option>
+            <option value="Fresh Cow Milk">Fresh Cow Milk</option>
+            <option value="Buffalo Milk">Buffalo Milk</option>
+            <option value="Flavored Milk">Flavored Milk</option>
+            <option value="Yogurt">Yogurt</option>
+            <option value="Paneer">Paneer</option>
+            <option value="Cheese">Cheese</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="paymentClient">Client Name:</label>
+          <input type="text" id="paymentClient" name="client" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="paymentQuantity">Quantity (Liters):</label>
+          <input type="number" id="paymentQuantity" name="quantity" required min="0" step="0.1">
+        </div>
+        
+        <div class="form-group">
+          <label for="paymentRate">Rate (₹ per liter):</label>
+          <input type="number" id="paymentRate" name="rate" required min="0" step="0.01">
+        </div>
+        
+        <div class="form-group">
+          <label for="paymentTotal">Total (₹):</label>
+          <input type="text" id="paymentTotal" name="total" readonly>
+        </div>
+        
+        <div class="payment-options">
+          <div class="payment-option" data-method="cash">
+            <i class="fas fa-money-bill-wave"></i>
+            <div>Cash</div>
+          </div>
+          <div class="payment-option" data-method="card">
+            <i class="fas fa-credit-card"></i>
+            <div>Card</div>
+          </div>
+          <div class="payment-option" data-method="upi">
+            <i class="fas fa-mobile-alt"></i>
+            <div>UPI</div>
+          </div>
+          <div class="payment-option" data-method="bank">
+            <i class="fas fa-university"></i>
+            <div>Bank Transfer</div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="paymentStatus">Status:</label>
+          <select id="paymentStatus" name="status" required>
+            <option value="">Select Status</option>
+            <option value="Paid">Paid</option>
+            <option value="Pending" selected>Pending</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="paymentNotes">Notes:</label>
+          <textarea id="paymentNotes" name="notes" rows="3"></textarea>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Save Payment
+          </button>
+          <button type="button" class="btn btn-secondary close-modal-btn">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- View Payment Modal -->
+  <div class="modal" id="viewPaymentModal">
+    <div class="modal-content" style="max-width: 600px;">
+      <span class="close-modal">&times;</span>
+      <h2><i class="fas fa-receipt"></i> Payment Details</h2>
+      
+      <div style="margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <strong>Date:</strong>
+          <span id="viewPaymentDate"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <strong>Payment ID:</strong>
+          <span id="viewPaymentId"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <strong>Client:</strong>
+          <span id="viewPaymentClient"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <strong>Product:</strong>
+          <span id="viewPaymentProduct"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <strong>Quantity:</strong>
+          <span id="viewPaymentQuantity"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <strong>Rate:</strong>
+          <span id="viewPaymentRate"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <strong>Total:</strong>
+          <span id="viewPaymentTotal"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <strong>Payment Method:</strong>
+          <span id="viewPaymentMethod"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <strong>Status:</strong>
+          <span id="viewPaymentStatus"></span>
+        </div>
+        <div style="margin-top: 15px;">
+          <strong>Notes:</strong>
+          <p id="viewPaymentNotes" style="margin-top: 5px;"></p>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button id="printReceiptBtn" class="btn btn-primary">
+          <i class="fas fa-print"></i> Print Receipt
+        </button>
+        <button class="btn btn-secondary close-modal-btn">
+          <i class="fas fa-times"></i> Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sample data - in a real app, this would come from an API
+    let paymentsData = [
+      {
+        id: "PMT-001",
+        date: "2023-07-15",
+        product: "Fresh Cow Milk",
+        client: "Grand Hotel",
+        quantity: 25,
+        rate: 50,
+        total: 1250,
+        paymentMethod: "bank",
+        status: "Paid",
+        notes: "Monthly bulk order"
+      },
+      {
+        id: "PMT-002",
+        date: "2023-07-14",
+        product: "Buffalo Milk",
+        client: "Sunshine Restaurant",
+        quantity: 15,
+        rate: 60,
+        total: 900,
+        paymentMethod: "cash",
+        status: "Pending",
+        notes: "Will pay next week"
+      }
+    ];
+    
+    // DOM Elements
+    const addPaymentBtn = document.getElementById('addPaymentBtn');
+    const addPaymentModal = document.getElementById('addPaymentModal');
+    const viewPaymentModal = document.getElementById('viewPaymentModal');
+    const paymentForm = document.getElementById('paymentForm');
+    const paymentTable = document.getElementById('paymentTable').querySelector('tbody');
+    const paymentOptions = document.querySelectorAll('.payment-option');
+    
+    // Function to clean up any existing records with undefined status
+    function cleanupPaymentData() {
+      paymentsData.forEach(payment => {
+        if (!payment.status || payment.status === 'undefined') {
+          payment.status = 'Pending';
+        }
+      });
+    }
+
+    // Initialize the app
+    document.addEventListener('DOMContentLoaded', function() {
+      // Clean up any existing data with undefined status
+      cleanupPaymentData();
+      
+      renderPaymentsTable();
+      
+      // Set today's date as default
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('paymentDate').value = today;
+      
+      // Set default status
+      document.getElementById('paymentStatus').value = 'Pending';
+      
+      // Set up event listeners
+      addPaymentBtn.addEventListener('click', openAddPaymentModal);
+      paymentForm.addEventListener('submit', handlePaymentSubmit);
+      
+      // Status filter event listener
+      document.getElementById('statusFilter').addEventListener('change', function() {
+        const selectedFilter = this.value;
+        renderPaymentsTable(selectedFilter);
+        
+        // Add visual feedback for active filter
+        if (selectedFilter !== 'all') {
+          this.style.borderColor = 'var(--primary-color)';
+          this.style.backgroundColor = 'rgba(52, 152, 219, 0.05)';
+        } else {
+          this.style.borderColor = '#ddd';
+          this.style.backgroundColor = 'white';
+        }
+      });
+      
+      // Close modal buttons
+      document.querySelectorAll('.close-modal, .close-modal-btn').forEach(btn => {
+        btn.addEventListener('click', closeAllModals);
+      });
+      
+      // Close modal when clicking outside
+      window.addEventListener('click', function(event) {
+        if (event.target.classList.contains('modal')) {
+          closeAllModals();
+        }
+      });
+      
+      // Auto-calculate total
+      document.getElementById('paymentQuantity').addEventListener('input', calculateTotal);
+      document.getElementById('paymentRate').addEventListener('input', calculateTotal);
+      
+      // Payment method selection
+      paymentOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          paymentOptions.forEach(opt => opt.classList.remove('selected'));
+          this.classList.add('selected');
+        });
+      });
+      
+      // View payment buttons
+      document.querySelectorAll('#paymentTable .btn-primary').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const row = this.closest('tr');
+          const paymentId = row.dataset.id;
+          viewPayment(paymentId);
+        });
+      });
+    });
+    
+    // Render payments table with optional status filter
+    function renderPaymentsTable(statusFilter = 'all') {
+      paymentTable.innerHTML = '';
+      
+      // Filter payments based on status
+      let filteredPayments = paymentsData;
+      if (statusFilter !== 'all') {
+        filteredPayments = paymentsData.filter(payment => {
+          const paymentStatus = payment.status || 'Pending';
+          return paymentStatus === statusFilter;
+        });
+      }
+      
+      // Update record count
+      const recordCountElement = document.getElementById('recordCount');
+      if (recordCountElement) {
+        const countText = statusFilter === 'all' 
+          ? `${filteredPayments.length} total records`
+          : `${filteredPayments.length} ${statusFilter.toLowerCase()} records`;
+        recordCountElement.textContent = `(${countText})`;
+      }
+
+      if (filteredPayments.length === 0) {
+        const message = statusFilter === 'all' 
+          ? 'No payment records found' 
+          : `No ${statusFilter.toLowerCase()} payment records found`;
+        paymentTable.innerHTML = `
+          <tr>
+            <td colspan="8" style="text-align: center; padding: 20px; color: #666;">
+              ${message}
+            </td>
+          </tr>
+        `;
+        return;
+      }
+      
+      // Sort by date (newest first)
+      const sortedPayments = [...filteredPayments].sort((a, b) => new Date(b.date) - new Date(a.date));
+      
+      sortedPayments.forEach(payment => {
+        const row = document.createElement('tr');
+        row.dataset.id = payment.id;
+        
+        // Format date
+        const date = new Date(payment.date);
+        const formattedDate = date.toLocaleDateString('en-US', { 
+          year: 'numeric', 
+          month: 'short', 
+          day: 'numeric' 
+        });
+        
+        // Format payment method
+        let paymentMethodText = '';
+        switch(payment.paymentMethod) {
+          case 'cash': paymentMethodText = 'Cash'; break;
+          case 'card': paymentMethodText = 'Card'; break;
+          case 'upi': paymentMethodText = 'UPI'; break;
+          case 'bank': paymentMethodText = 'Bank Transfer'; break;
+          default: paymentMethodText = 'Other';
+        }
+        
+        row.innerHTML = `
+          <td>${formattedDate}</td>
+          <td>${payment.product}</td>
+          <td>${payment.client}</td>
+          <td>${payment.quantity} L</td>
+          <td>₹${payment.rate.toFixed(2)}</td>
+          <td>₹${payment.total.toFixed(2)}</td>
+          <td>
+            <span class="status-badge ${payment.status === 'Paid' ? 'status-paid' : 'status-pending'}">
+              ${payment.status || 'Pending'}
+            </span>
+          </td>
+          <td class="action-buttons">
+            <button class="btn-small btn-primary" title="View">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="btn-small btn-success" title="Invoice">
+              <i class="fas fa-file-invoice"></i>
+            </button>
+          </td>
+        `;
+        
+        paymentTable.appendChild(row);
+      });
+      
+      // Add event listeners to view buttons
+      document.querySelectorAll('#paymentTable .btn-primary').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const row = this.closest('tr');
+          const paymentId = row.dataset.id;
+          viewPayment(paymentId);
+        });
+      });
+    }
+    
+    // Open add payment modal
+    function openAddPaymentModal() {
+      // Reset form
+      paymentForm.reset();
+      document.getElementById('paymentDate').value = new Date().toISOString().split('T')[0];
+      document.getElementById('paymentTotal').value = '0.00';
+      
+      // Set default status to Pending
+      document.getElementById('paymentStatus').value = 'Pending';
+      
+      // Reset payment method selection
+      paymentOptions.forEach(opt => opt.classList.remove('selected'));
+      
+      addPaymentModal.style.display = 'flex';
+    }
+    
+    // Calculate total amount
+    function calculateTotal() {
+      const quantity = parseFloat(document.getElementById('paymentQuantity').value) || 0;
+      const rate = parseFloat(document.getElementById('paymentRate').value) || 0;
+      const total = quantity * rate;
+      
+      document.getElementById('paymentTotal').value = total.toFixed(2);
+    }
+    
+    // Handle payment form submission
+    function handlePaymentSubmit(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const date = document.getElementById('paymentDate').value;
+      const product = document.getElementById('paymentProduct').value;
+      const client = document.getElementById('paymentClient').value;
+      const quantity = parseFloat(document.getElementById('paymentQuantity').value);
+      const rate = parseFloat(document.getElementById('paymentRate').value);
+      const total = parseFloat(document.getElementById('paymentTotal').value);
+      const status = document.getElementById('paymentStatus').value;
+      const notes = document.getElementById('paymentNotes').value;
+      
+      // Validate required fields
+      if (!date || !product || !client || !quantity || !rate || !status) {
+        alert('Please fill in all required fields');
+        return;
+      }
+      
+      // Validate status
+      if (status !== 'Paid' && status !== 'Pending') {
+        alert('Please select a valid status (Paid or Pending)');
+        return;
+      }
+      
+      // Get selected payment method
+      const selectedMethod = document.querySelector('.payment-option.selected');
+      if (!selectedMethod) {
+        alert('Please select a payment method');
+        return;
+      }
+      const paymentMethod = selectedMethod.dataset.method;
+      
+      // Create new payment
+      const newPayment = {
+        id: `PMT-${String(paymentsData.length + 1).padStart(3, '0')}`,
+        date,
+        product,
+        client,
+        quantity,
+        rate,
+        total,
+        paymentMethod,
+        status: status || 'Pending', // Ensure status is never undefined
+        notes
+      };
+      
+      // Debug log to check the payment object
+      console.log('New payment created:', newPayment);
+      
+      // Add to payments data
+      paymentsData.unshift(newPayment);
+      
+      // Show success message
+      alert('Payment record added successfully!');
+      
+      // Close modal
+      closeAllModals();
+      
+      // Refresh the payments table with current filter
+      const currentFilter = document.getElementById('statusFilter').value;
+      renderPaymentsTable(currentFilter);
+    }
+    
+    // View payment details
+    function viewPayment(paymentId) {
+      const payment = paymentsData.find(p => p.id === paymentId);
+      if (!payment) return;
+      
+      // Set payment details
+      document.getElementById('viewPaymentId').textContent = payment.id;
+      
+      const date = new Date(payment.date);
+      document.getElementById('viewPaymentDate').textContent = 
+        date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+      
+      document.getElementById('viewPaymentClient').textContent = payment.client;
+      document.getElementById('viewPaymentProduct').textContent = payment.product;
+      document.getElementById('viewPaymentQuantity').textContent = `${payment.quantity} L`;
+      document.getElementById('viewPaymentRate').textContent = `₹${payment.rate.toFixed(2)}`;
+      document.getElementById('viewPaymentTotal').textContent = `₹${payment.total.toFixed(2)}`;
+      
+      // Format payment method
+      let paymentMethodText = '';
+      switch(payment.paymentMethod) {
+        case 'cash': paymentMethodText = 'Cash'; break;
+        case 'card': paymentMethodText = 'Credit/Debit Card'; break;
+        case 'upi': paymentMethodText = 'UPI Payment'; break;
+        case 'bank': paymentMethodText = 'Bank Transfer'; break;
+        default: paymentMethodText = 'Other';
+      }
+      document.getElementById('viewPaymentMethod').textContent = paymentMethodText;
+      
+      // Set status
+      const statusBadge = document.getElementById('viewPaymentStatus');
+      statusBadge.className = '';
+      statusBadge.classList.add('status-badge');
+      
+      const paymentStatus = payment.status || 'Pending';
+      if (paymentStatus === 'Paid') {
+        statusBadge.classList.add('status-paid');
+      } else {
+        statusBadge.classList.add('status-pending');
+      }
+      statusBadge.textContent = paymentStatus;
+      
+      // Set notes
+      document.getElementById('viewPaymentNotes').textContent = payment.notes || 'No notes';
+      
+      // Show modal
+      viewPaymentModal.style.display = 'flex';
+    }
+    
+    // Close all modals
+    function closeAllModals() {
+      document.querySelectorAll('.modal').forEach(modal => {
+        modal.style.display = 'none';
+      });
+    }
+    
+    // Print receipt
+    document.getElementById('printReceiptBtn').addEventListener('click', function() {
+      // In a real app, this would open the print dialog with a printer-friendly version
+      alert('Receipt sent to printer');
+    });
+  </script>
 
     
       <script>
@@ -1151,32 +2146,34 @@
         document.getElementById('detailsModal').style.display = 'block';
     }
 
-    // Function to get details by vehicle ID (mock data)
+    // Global data storage for vehicle details
+    let vehicleData = {
+        'V-101': {
+            driverName: 'Ravi Kumar',
+            route: 'Village A → Town X',
+            departureTime: '06:00 AM',
+            estimatedArrival: '08:30 AM',
+            status: 'On Time'
+        },
+        'V-102': {
+            driverName: 'Suresh Yadav',
+            route: 'Village B → Town Y',
+            departureTime: '07:30 AM',
+            estimatedArrival: '10:45 AM',
+            status: 'Delayed'
+        },
+        'V-103': {
+            driverName: 'Anil Sharma',
+            route: 'Village C → Town Z',
+            departureTime: '08:15 AM',
+            estimatedArrival: '11:00 AM',
+            status: 'On Time'
+        }
+    };
+
+    // Function to get details by vehicle ID
     function getDetailsByVehicleId(vehicleId) {
-        const data = {
-            'V-101': {
-                driverName: 'Ravi Kumar',
-                route: 'Village A → Town X',
-                departureTime: '06:00 AM',
-                estimatedArrival: '08:30 AM',
-                status: 'On Time'
-            },
-            'V-102': {
-                driverName: 'Suresh Yadav',
-                route: 'Village B → Town Y',
-                departureTime: '07:30 AM',
-                estimatedArrival: '10:45 AM',
-                status: 'Delayed'
-            },
-            'V-103': {
-                driverName: 'Anil Sharma',
-                route: 'Village C → Town Z',
-                departureTime: '08:15 AM',
-                estimatedArrival: '11:00 AM',
-                status: 'On Time'
-            }
-        };
-        return data[vehicleId];
+        return vehicleData[vehicleId];
     }
 
     // Function to close the modal
@@ -1192,13 +2189,7 @@
         });
     });
 
-    document.querySelectorAll('.distribution-edit-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const vehicleId = this.closest('tr').children[0].innerText;
-            // Implement edit functionality here
-            alert('Edit functionality for ' + vehicleId + ' is not yet implemented.');
-        });
-    });
+
       </script>
     <!-- edit functionality js-->
 
@@ -1212,39 +2203,129 @@
         document.getElementById('editModalVehicleId').innerText = vehicleId;
         document.getElementById('editDriverName').value = details.driverName;
         document.getElementById('editRoute').value = details.route;
-        document.getElementById('editDepartureTime').value = details.departureTime;
-        document.getElementById('editEstimatedArrival').value = details.estimatedArrival;
+        
+        // Convert time format from "06:00 AM" to "06:00" for time input
+        document.getElementById('editDepartureTime').value = convertTo24Hour(details.departureTime);
+        document.getElementById('editEstimatedArrival').value = convertTo24Hour(details.estimatedArrival);
         document.getElementById('editStatus').value = details.status;
 
         // Show the modal
         document.getElementById('editModal').style.display = 'block';
     }
 
+    // Helper function to convert 12-hour format to 24-hour format for time input
+    function convertTo24Hour(time12h) {
+        const [time, modifier] = time12h.split(' ');
+        let [hours, minutes] = time.split(':');
+        
+        if (hours === '12') {
+            hours = '00';
+        }
+        
+        if (modifier === 'PM') {
+            hours = parseInt(hours, 10) + 12;
+        }
+        
+        return `${hours.toString().padStart(2, '0')}:${minutes}`;
+    }
+
+    // Helper function to convert 24-hour format to 12-hour format for display
+    function convertTo12Hour(time24h) {
+        const [hours, minutes] = time24h.split(':');
+        const hour = parseInt(hours, 10);
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+        const displayHour = hour % 12 || 12;
+        
+        return `${displayHour.toString().padStart(2, '0')}:${minutes} ${ampm}`;
+    }
+
     // Function to save edits
     function saveEdits() {
         const vehicleId = document.getElementById('editModalVehicleId').innerText;
+        const departureTime24h = document.getElementById('editDepartureTime').value;
+        const estimatedArrival24h = document.getElementById('editEstimatedArrival').value;
+        
         const updatedDetails = {
             driverName: document.getElementById('editDriverName').value,
             route: document.getElementById('editRoute').value,
-            departureTime: document.getElementById('editDepartureTime').value,
-            estimatedArrival: document.getElementById('editEstimatedArrival').value,
+            departureTime: convertTo12Hour(departureTime24h),
+            estimatedArrival: convertTo12Hour(estimatedArrival24h),
             status: document.getElementById('editStatus').value
         };
 
-        // Update the data (mock update)
+        // Validate inputs
+        if (!updatedDetails.driverName || !updatedDetails.route || !departureTime24h || 
+            !estimatedArrival24h || !updatedDetails.status) {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        // Update the data
         updateDetailsByVehicleId(vehicleId, updatedDetails);
+
+        // Update the table row
+        updateTableRow(vehicleId, updatedDetails);
 
         // Close the modal
         closeModal('editModal');
 
-        // Optionally, refresh the table or update the row directly
-        alert('Details updated for ' + vehicleId);
+        // Show success message
+        alert('Details updated successfully for ' + vehicleId);
     }
 
-    // Mock function to update details
+    // Function to update details in data storage
     function updateDetailsByVehicleId(vehicleId, updatedDetails) {
-        // Here you would typically send the updated details to the server
-        console.log('Updated details for', vehicleId, updatedDetails);
+        if (vehicleData[vehicleId]) {
+            vehicleData[vehicleId] = { ...vehicleData[vehicleId], ...updatedDetails };
+            console.log('Updated details for', vehicleId, vehicleData[vehicleId]);
+        }
+    }
+
+    // Function to update table row dynamically
+    function updateTableRow(vehicleId, updatedDetails) {
+        // Find the table row with the matching vehicle ID
+        const table = document.querySelector('.distribution-styled-table tbody');
+        const rows = table.querySelectorAll('tr');
+        
+        rows.forEach(row => {
+            const firstCell = row.cells[0];
+            if (firstCell && firstCell.textContent.trim() === vehicleId) {
+                // Update each cell with new data
+                row.cells[1].textContent = updatedDetails.driverName; // Driver Name
+                row.cells[2].textContent = updatedDetails.route; // Route
+                row.cells[3].textContent = updatedDetails.departureTime; // Departure Time
+                row.cells[4].textContent = updatedDetails.estimatedArrival; // Estimated Arrival
+                
+                // Update status with proper styling
+                const statusCell = row.cells[5];
+                const statusSpan = statusCell.querySelector('.distribution-status');
+                if (statusSpan) {
+                    statusSpan.textContent = updatedDetails.status;
+                    
+                    // Remove existing status classes
+                    statusSpan.classList.remove('distribution-status-on-time', 'distribution-status-delayed', 'distribution-status-cancelled');
+                    
+                    // Add appropriate status class based on status
+                    const status = updatedDetails.status.toLowerCase();
+                    if (status.includes('delayed')) {
+                        statusSpan.classList.add('distribution-status-delayed');
+                    } else if (status.includes('on time') || status.includes('completed')) {
+                        statusSpan.classList.add('distribution-status-on-time');
+                    } else if (status.includes('cancelled')) {
+                        statusSpan.classList.add('distribution-status-cancelled');
+                    } else {
+                        // For other statuses like "In Transit", use on-time styling as default
+                        statusSpan.classList.add('distribution-status-on-time');
+                    }
+                }
+                
+                // Add a brief highlight effect to show the row was updated
+                row.style.backgroundColor = '#e8f5e9';
+                setTimeout(() => {
+                    row.style.backgroundColor = '';
+                }, 2000);
+            }
+        });
     }
 
     // Add event listeners to edit buttons

@@ -460,20 +460,16 @@
 <body>
   <nav class="navbar">
     <div class="nav-left">
-        <img src="img/logo.png" class="logo" alt="Logo" />
+        <img src="img/Company logo.jpg" class="logo" alt="Logo" />
         <div class="menu-title-group">
             <i class="fas fa-bars menu-icon" id="menuToggle"></i> 
         </div>
     </div>
     <div class="nav-center">
         <!-- Language Selector with Globe Icon -->
-        <div class="select-wrapper">
-            <i class="fas fa-globe"></i>
-            <select id="languageSelect" class="lang-dropdown">
-                <option value="en">English</option>
-                <option value="hi">हिन्दी</option>
-                <option value="te">తెలుగు</option>
-            </select>
+        <div class="nav-search-profile">
+            <input type="text" placeholder="Search..." />
+            
         </div>
         <!-- Can add navigation links here if needed -->
     </div>
@@ -489,9 +485,16 @@
                 <i class="fas fa-moon"></i>
             </button>
         </div>
-        <div class="nav-search-profile">
-            <input type="text" placeholder="Search..." />
-            <div class="nav-icons">
+        
+        <div class="select-wrapper">
+            <i class="fas fa-globe"></i>
+            <select id="languageSelect" class="lang-dropdown">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+                <option value="te">తెలుగు</option>
+            </select>
+        </div>
+        <div class="nav-icons">
                 <i class="fas fa-envelope"></i>
                 <i class="fas fa-bell"></i>
             </div>
@@ -499,7 +502,6 @@
                 <img src="img/profile.jpg" alt="Profile" />
                 <span>SHIVAKUMAR JELLA</span>
             </div>
-        </div>
     </div>
   </nav>
   <aside id="sidebar">

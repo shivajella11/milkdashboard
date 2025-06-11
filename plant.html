@@ -160,16 +160,216 @@
   .date-range span {
     font-weight: normal;
   }
+
+  /* Plant Status Styles */
+  .plant-status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .plant-status-active {
+    background-color: #d4edda;
+    color: #155724;
+  }
+
+  .plant-status-maintenance {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+
+  .plant-status-offline {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+
+  /* Plant Actions Styles */
+  .plant-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .plant-action-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    min-width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .plant-action-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+
+  /* Edit Button - Blue */
+  .plant-action-btn.edit-btn {
+    background: linear-gradient(135deg, #4f46e5, #3b82f6);
+    color: white;
+  }
+
+  .plant-action-btn.edit-btn:hover {
+    background: linear-gradient(135deg, #4338ca, #2563eb);
+  }
+
+  /* Delete Button - Red */
+  .plant-action-btn.delete-btn {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+  }
+
+  .plant-action-btn.delete-btn:hover {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+  }
+
+  /* Toggle Status Button - Dynamic Colors */
+  .plant-action-btn.toggle-btn-activate {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+  }
+
+  .plant-action-btn.toggle-btn-activate:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+  }
+
+  .plant-action-btn.toggle-btn-deactivate {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+  }
+
+  .plant-action-btn.toggle-btn-deactivate:hover {
+    background: linear-gradient(135deg, #d97706, #b45309);
+  }
+
+  /* Icon styling within buttons */
+  .plant-action-btn i {
+    font-size: 0.9rem;
+  }
+
+  /* Plant Progress Styles */
+  .plant-progress-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .plant-progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .plant-progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+  }
+
+  .plant-progress-text {
+    font-size: 0.8rem;
+    color: #6c757d;
+  }
+
+  .plant-inspection-text {
+    font-size: 0.75rem;
+    color: #6c757d;
+    margin-top: 2px;
+  }
+
+  /* Table Enhancements */
+  .plant-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    margin: 20px 0;
+  }
+
+  .plant-table th {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 16px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    border: none;
+  }
+
+  .plant-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+  }
+
+  .plant-table tbody tr {
+    transition: all 0.2s ease;
+  }
+
+  .plant-table tbody tr:hover {
+    background-color: #f8fafc;
+    transform: scale(1.01);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .plant-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* Actions column specific styling */
+  .plant-table th:last-child,
+  .plant-table td:last-child {
+    text-align: center;
+    width: 140px;
+  }
 </style>
 <body>
   <nav class="navbar">
     <div class="nav-left">
-        <img src="img/logo.png" class="logo" alt="Logo" />
+        <img src="img/Company logo.jpg" class="logo" alt="Logo" />
         <div class="menu-title-group">
             <i class="fas fa-bars menu-icon" id="menuToggle"></i> 
         </div>
     </div>
     <div class="nav-center">
+        <!-- Language Selector with Globe Icon -->
+        <div class="nav-search-profile">
+            <input type="text" placeholder="Search..." />
+            
+        </div>
+        <!-- Can add navigation links here if needed -->
+    </div>
+    <div class="nav-right">
+        <div class="nav-tools">
+            <!-- Online Status Label -->
+            <div class="status-label">
+                <span id="statusDot" class="dot online"></span>
+                <span id="statusText">Active</span>
+            </div>
+            <!-- Mode Toggle -->
+            <button id="modeToggle" class="mode-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        
         <div class="select-wrapper">
             <i class="fas fa-globe"></i>
             <select id="languageSelect" class="lang-dropdown">
@@ -178,20 +378,7 @@
                 <option value="te">తెలుగు</option>
             </select>
         </div>
-    </div>
-    <div class="nav-right">
-        <div class="nav-tools">
-            <div class="status-label">
-                <span id="statusDot" class="dot online"></span>
-                <span id="statusText">Active</span>
-            </div>
-            <button id="modeToggle" class="mode-toggle">
-                <i class="fas fa-moon"></i>
-            </button>
-        </div>
-        <div class="nav-search-profile">
-            <input type="text" placeholder="Search..." />
-            <div class="nav-icons">
+        <div class="nav-icons">
                 <i class="fas fa-envelope"></i>
                 <i class="fas fa-bell"></i>
             </div>
@@ -199,7 +386,6 @@
                 <img src="img/profile.jpg" alt="Profile" />
                 <span>SHIVAKUMAR JELLA</span>
             </div>
-        </div>
     </div>
   </nav>
   <aside id="sidebar">
@@ -649,7 +835,7 @@
       // Initialize product cards on load
       document.addEventListener('DOMContentLoaded', renderProductCards);
     </script>
-
+    
 
     <script>
     // Sample data
@@ -762,16 +948,16 @@
           </td>
           <td>
             <div class="plant-actions">
-              <button class="plant-action-btn" title="View Details" onclick="viewPlant(${plant.id})">
-                <i class="fas fa-eye"></i>
-              </button>
-              <button class="plant-action-btn" title="Edit Plant" onclick="editPlant(${plant.id})">
+              <button class="plant-action-btn edit-btn" title="Edit Plant" onclick="editPlant(${plant.id})">
                 <i class="fas fa-edit"></i>
               </button>
-              <button class="plant-action-btn ${plant.status === 'offline' ? '' : 'plant-action-btn-danger'}" 
-                      title="${plant.status === 'offline' ? 'Activate' : 'Deactivate'}" 
+              <button class="plant-action-btn delete-btn" title="Delete Plant" onclick="deletePlant(${plant.id})">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+              <button class="plant-action-btn ${plant.status === 'offline' ? 'toggle-btn-activate' : 'toggle-btn-deactivate'}" 
+                      title="${plant.status === 'offline' ? 'Activate Plant' : 'Deactivate Plant'}" 
                       onclick="togglePlantStatus(${plant.id})">
-                <i class="fas ${plant.status === 'offline' ? 'fa-play' : 'fa-stop'}"></i>
+                <i class="fas ${plant.status === 'offline' ? 'fa-play-circle' : 'fa-pause-circle'}"></i>
               </button>
             </div>
           </td>
@@ -806,9 +992,38 @@
     }
     
     function editPlant(id) {
-      alert(`Editing plant ID: ${id}`);
+      const plant = plants.find(p => p.id === id);
+      if (plant) {
+        // Populate the form with existing plant data
+        document.getElementById('plantName').value = plant.name;
+        document.getElementById('plantLocation').value = plant.location;
+        document.getElementById('plantCapacity').value = plant.capacity;
+        document.getElementById('plantStatus').value = plant.status;
+        
+        // Store the plant ID for updating
+        const form = document.getElementById('addPlantForm');
+        form.dataset.editingId = id;
+        
+        // Change modal title
+        document.querySelector('#addPlantModal h2').innerHTML = '<i class="fas fa-edit"></i> Edit Processing Plant';
+        
+        // Show the modal
+        document.getElementById('addPlantModal').style.display = 'block';
+      }
     }
     
+    function deletePlant(id) {
+      if (confirm('Are you sure you want to delete this plant? This action cannot be undone.')) {
+        const plantIndex = plants.findIndex(p => p.id === id);
+        if (plantIndex !== -1) {
+          plants.splice(plantIndex, 1);
+          filterPlants();
+          updateStats();
+          alert('Plant deleted successfully!');
+        }
+      }
+    }
+
     function togglePlantStatus(id) {
       const plant = plants.find(p => p.id === id);
       if (plant) {
@@ -850,9 +1065,70 @@
       // Form submission handlers
       document.getElementById('addPlantForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        alert('Plant added successfully!');
+        
+        // Get form data
+        const formData = new FormData(this);
+        const plantName = formData.get('plantName');
+        const plantLocation = formData.get('plantLocation');
+        const plantCapacity = parseInt(formData.get('plantCapacity'));
+        const plantStatus = formData.get('plantStatus');
+        
+        // Calculate current output based on status
+        let currentOutput = 0;
+        if (plantStatus === 'active') {
+          currentOutput = Math.floor(plantCapacity * 0.85); // 85% utilization for active plants
+        } else if (plantStatus === 'maintenance') {
+          currentOutput = Math.floor(plantCapacity * 0.5); // 50% utilization for maintenance
+        }
+        // offline plants have 0 output
+        
+        // Check if we're editing an existing plant
+        const editingId = this.dataset.editingId;
+        
+        if (editingId) {
+          // Update existing plant
+          const plantIndex = plants.findIndex(p => p.id === parseInt(editingId));
+          if (plantIndex !== -1) {
+            plants[plantIndex] = {
+              ...plants[plantIndex],
+              name: plantName,
+              location: plantLocation,
+              capacity: plantCapacity,
+              currentOutput: currentOutput,
+              status: plantStatus
+            };
+          }
+          
+          // Reset form state
+          delete this.dataset.editingId;
+          document.querySelector('#addPlantModal h2').innerHTML = '<i class="fas fa-industry"></i> Add New Processing Plant';
+          
+          alert('Plant updated successfully!');
+        } else {
+          // Create new plant object
+          const newPlant = {
+            id: plants.length > 0 ? Math.max(...plants.map(p => p.id)) + 1 : 1,
+            name: plantName,
+            location: plantLocation,
+            capacity: plantCapacity,
+            currentOutput: currentOutput,
+            status: plantStatus,
+            lastInspection: new Date().toISOString().split('T')[0] // Today's date
+          };
+          
+          // Add to plants array
+          plants.push(newPlant);
+          
+          alert('Plant added successfully!');
+        }
+        
+        // Update the table and stats
+        filterPlants(); // This will re-render the table
+        updateStats();
+        
+        // Close modal and reset form
         document.getElementById('addPlantModal').style.display = 'none';
-        // Here you would typically send the data to your backend
+        this.reset();
       });
       
       document.getElementById('exportDataForm').addEventListener('submit', function(e) {

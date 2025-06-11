@@ -8,6 +8,11 @@ body {
     padding-top: 70px; /* To account for fixed navbar */
 }
 
+/* Smooth transitions for all elements during mode change */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
 /* Dark mode styles */
 body.dark-mode {
     background-color: #121212;
@@ -203,6 +208,7 @@ body.dark-mode input {
 
 /* Search input styling */
 .nav-search-profile input[type="text"] {
+    width: 400px;
     border-radius: 20px; /* Rounded pill shape */
     padding: 8px 15px;
     border: 1px solid #ccc; /* Light gray border */
@@ -299,12 +305,20 @@ body.dark-mode .nav-search-profile input[type="text"] {
 
 /* Active state */
 #sidebar li.active {
-    background: linear-gradient(to right, #a3b7ea, #7c80ee);
-    border-color: #ff7f50;
+    background: linear-gradient(to right, #4a6fa5, #166088);
+    border-left: 4px solid #ff7f50;
+    box-shadow: 0 2px 8px rgba(74, 111, 165, 0.3);
+    transform: translateX(2px);
 }
 
 #sidebar li.active a {
     color: #fff;
+    font-weight: 600;
+}
+
+#sidebar li.active a i {
+    color: #fff;
+    transform: scale(1.1);
 }
 
 /* Responsive adjustments */
@@ -336,6 +350,327 @@ body.dark-mode #sidebar li a {
 
 body.dark-mode #sidebar li:hover a {
     color: #ddd;
+}
+
+/* Dark mode active state for sidebar */
+body.dark-mode #sidebar li.active {
+    background: linear-gradient(to right, #3498db, #2980b9);
+    border-left: 4px solid #f39c12;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.4);
+    transform: translateX(2px);
+}
+
+body.dark-mode #sidebar li.active a {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+body.dark-mode #sidebar li.active a i {
+    color: #ffffff;
+    transform: scale(1.1);
+}
+
+/* Comprehensive Dark Mode Styles for Page Content */
+
+/* Main content area */
+body.dark-mode .main-content {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+/* Cards and sections */
+body.dark-mode .dashboard-cards .card,
+body.dark-mode .section {
+    background-color: #2d2d2d;
+    border-color: #444;
+    color: #ffffff;
+}
+
+body.dark-mode .card h3,
+body.dark-mode .section h2 {
+    color: #ffffff;
+}
+
+body.dark-mode .card-title {
+    color: #bbb;
+}
+
+body.dark-mode .card-value {
+    color: #ffffff;
+}
+
+/* Tables */
+body.dark-mode table {
+    background-color: #2d2d2d;
+    color: #ffffff;
+}
+
+body.dark-mode table thead {
+    background-color: #3a3a3a;
+}
+
+body.dark-mode table th {
+    background-color: #3a3a3a;
+    color: #ffffff;
+    border-color: #555;
+}
+
+body.dark-mode table td {
+    background-color: #2d2d2d;
+    color: #ffffff;
+    border-color: #444;
+}
+
+body.dark-mode table tbody tr:hover {
+    background-color: #3a3a3a;
+}
+
+/* Status badges */
+body.dark-mode .status.active {
+    background-color: #27ae60;
+    color: white;
+}
+
+body.dark-mode .status.inactive {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* Buttons */
+body.dark-mode .btn {
+    border-color: #555;
+}
+
+body.dark-mode .btn-primary {
+    background-color: #3498db;
+    border-color: #3498db;
+}
+
+body.dark-mode .btn-primary:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+
+body.dark-mode .btn-outline {
+    color: #ffffff;
+    border-color: #555;
+}
+
+body.dark-mode .btn-outline:hover {
+    background-color: #555;
+    color: #ffffff;
+}
+
+/* Action buttons */
+body.dark-mode .action-btn {
+    background-color: #444;
+    color: #ffffff;
+    border-color: #555;
+}
+
+body.dark-mode .action-btn:hover {
+    background-color: #555;
+}
+
+/* Farmer details expanded view */
+body.dark-mode .farmer-details-expanded {
+    background-color: #2d2d2d;
+    border-color: #444;
+    color: #ffffff;
+}
+
+body.dark-mode .details-header {
+    border-bottom-color: #555;
+}
+
+body.dark-mode .details-header h3 {
+    color: #3498db;
+}
+
+body.dark-mode .detail-label {
+    color: #bbb;
+}
+
+body.dark-mode .detail-value {
+    color: #ffffff;
+}
+
+body.dark-mode .details-notes {
+    background-color: #3a3a3a;
+}
+
+body.dark-mode .farmer-summary {
+    background-color: #3a3a3a;
+    border-color: #555;
+}
+
+/* Market analysis section */
+body.dark-mode .market-analysis-section {
+    background-color: #2d2d2d;
+}
+
+body.dark-mode .analysis-card {
+    background-color: #3a3a3a;
+    color: #ffffff;
+}
+
+body.dark-mode .card-header h3 {
+    color: #ffffff;
+}
+
+body.dark-mode .card-footer {
+    border-top-color: #555;
+}
+
+body.dark-mode .stat-label {
+    color: #bbb;
+}
+
+body.dark-mode .stat-value {
+    color: #ffffff;
+}
+
+/* News items */
+body.dark-mode .news-item {
+    background-color: #3a3a3a;
+    color: #ffffff;
+}
+
+body.dark-mode .news-item:hover {
+    background-color: #444;
+}
+
+body.dark-mode .news-content h4 {
+    color: #ffffff;
+}
+
+body.dark-mode .news-content p {
+    color: #bbb;
+}
+
+/* Form elements */
+body.dark-mode .form-group label {
+    color: #ffffff;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+    background-color: #444;
+    color: #ffffff;
+    border-color: #555;
+}
+
+body.dark-mode input:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+/* Collection table specific styles */
+body.dark-mode .collection-table th {
+    background-color: #3a3a3a;
+}
+
+body.dark-mode .collection-table td.high-yield {
+    color: #2ecc71;
+}
+
+body.dark-mode .collection-table td.quality-high {
+    color: #2ecc71;
+}
+
+body.dark-mode .collection-table td.quality-medium {
+    color: #f39c12;
+}
+
+/* Milk collection section */
+body.dark-mode .milk-collection-header {
+    background-color: #3a3a3a;
+    border-bottom-color: #555;
+}
+
+body.dark-mode .milk-collection-header h3 {
+    color: #3498db;
+}
+
+body.dark-mode .collection-controls {
+    background-color: #444;
+    border-bottom-color: #555;
+}
+
+body.dark-mode .summary-item {
+    background-color: #2d2d2d;
+    border-color: #555;
+}
+
+/* Close buttons */
+body.dark-mode .close-details-btn {
+    color: #bbb;
+}
+
+body.dark-mode .close-details-btn:hover {
+    color: #ffffff;
+}
+
+/* Modal styles */
+body.dark-mode .modal-content {
+    background-color: #2d2d2d;
+    color: #ffffff;
+}
+
+body.dark-mode .modal-header h3 {
+    color: #ffffff;
+}
+
+/* Farmer banner */
+body.dark-mode .farmer-banner {
+    background-color: #2d2d2d;
+}
+
+body.dark-mode .farmer-banner h1 {
+    color: #ffffff;
+}
+
+/* Mode Toggle Button Styles */
+.mode-toggle {
+    background: none;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #666;
+}
+
+.mode-toggle:hover {
+    border-color: #3498db;
+    color: #3498db;
+    transform: scale(1.1);
+}
+
+body.dark-mode .mode-toggle {
+    border-color: #555;
+    color: #ffffff;
+}
+
+body.dark-mode .mode-toggle:hover {
+    border-color: #3498db;
+    color: #3498db;
+}
+
+/* Animation for mode toggle icon */
+.mode-toggle i {
+    transition: all 0.3s ease;
+}
+
+.mode-toggle:hover i {
+    transform: rotate(20deg);
 }
 
 

@@ -482,26 +482,498 @@ body.dark-mode .chart-toggle-buttons button.active {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+/* Enhanced Export Action Buttons */
+.export-action-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.export-action-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 0 5px;
+}
+
+.export-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.urgent {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+  animation: pulse-urgent 2s infinite;
+}
+
+.status-badge.normal {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.status-badge.warning {
+  background-color: #fff3e0;
+  color: #ef6c00;
+  border: 1px solid #ffe0b2;
+}
+
+@keyframes pulse-urgent {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.export-action-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.export-action-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.export-action-card:hover::before {
+  opacity: 1;
+}
+
+.export-action-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.export-action-card.priority-high {
+  border-left-color: #f44336;
+  background: linear-gradient(135deg, #ffebee 0%, #ffffff 100%);
+}
+
+.export-action-card.priority-medium {
+  border-left-color: #ff9800;
+  background: linear-gradient(135deg, #fff3e0 0%, #ffffff 100%);
+}
+
+.export-action-card.priority-low {
+  border-left-color: #4caf50;
+  background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%);
+}
+
+.action-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.action-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--dark-color);
+}
+
+.action-priority {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.priority-high {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.priority-medium {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.priority-low {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.action-content {
+  margin-bottom: 15px;
+}
+
+.action-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.action-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+.action-item:last-child {
+  border-bottom: none;
+}
+
+.item-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.item-status {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.item-status.pending {
+  background-color: #ff9800;
+}
+
+.item-status.in-progress {
+  background-color: #2196f3;
+}
+
+.item-status.completed {
+  background-color: #4caf50;
+}
+
+.item-status.overdue {
+  background-color: #f44336;
+  animation: pulse-urgent 1.5s infinite;
+}
+
+.item-due-date {
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
+}
+
+.due-today {
+  color: #f44336;
+  font-weight: 600;
+}
+
+.due-soon {
+  color: #ff9800;
+  font-weight: 600;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.action-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.action-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.action-btn:hover::before {
+  left: 100%;
+}
+
+.action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2196f3, #1976d2);
+  color: white;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #4caf50, #388e3c);
+  color: white;
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #ff9800, #f57c00);
+  color: white;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #f44336, #d32f2f);
+  color: white;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #9e9e9e, #757575);
+  color: white;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid #e0e0e0;
+  color: #666;
+}
+
+.btn-outline:hover {
+  background-color: #f5f5f5;
+  border-color: #bdbdbd;
+}
+
+.real-time-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #4caf50;
+  animation: pulse-realtime 2s infinite;
+}
+
+@keyframes pulse-realtime {
+  0% {
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+  }
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background-color: #e0e0e0;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4caf50, #8bc34a);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #f44336;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Dark mode styles for export actions */
+body.dark-mode .export-action-card {
+  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+  color: #f0f0f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .export-action-card.priority-high {
+  background: linear-gradient(135deg, rgba(244, 67, 54, 0.1) 0%, #2d2d2d 100%);
+}
+
+body.dark-mode .export-action-card.priority-medium {
+  background: linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, #2d2d2d 100%);
+}
+
+body.dark-mode .export-action-card.priority-low {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, #2d2d2d 100%);
+}
+
+body.dark-mode .action-title {
+  color: #f0f0f0;
+}
+
+body.dark-mode .action-item {
+  border-bottom-color: #404040;
+  color: #e0e0e0;
+}
+
+body.dark-mode .item-due-date {
+  color: #b0b0b0;
+}
+
+body.dark-mode .status-badge.urgent {
+  background-color: rgba(244, 67, 54, 0.2);
+  color: #ff6b6b;
+  border-color: rgba(244, 67, 54, 0.3);
+}
+
+body.dark-mode .status-badge.normal {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #81c784;
+  border-color: rgba(76, 175, 80, 0.3);
+}
+
+body.dark-mode .status-badge.warning {
+  background-color: rgba(255, 152, 0, 0.2);
+  color: #ffb74d;
+  border-color: rgba(255, 152, 0, 0.3);
+}
+
+/* Export Action Center Toggle Styles */
+.export-toggle-btn {
+  background: linear-gradient(135deg, #2196f3, #1976d2);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 3px 10px rgba(33, 150, 243, 0.3);
+  position: relative;
+}
+
+.export-toggle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+}
+
+.export-toggle-btn i {
+  transition: transform 0.3s ease;
+}
+
+.export-toggle-btn.expanded i {
+  transform: rotate(180deg);
+}
+
+.export-actions-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out, opacity 0.4s ease-out;
+  opacity: 0;
+  margin-top: 0;
+}
+
+.export-actions-content.show {
+  max-height: 3000px; /* Adjust based on content height */
+  opacity: 1;
+  margin-top: 15px;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dark mode toggle button */
+body.dark-mode .export-toggle-btn {
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.4);
+}
+
+body.dark-mode .export-toggle-btn:hover {
+  box-shadow: 0 6px 20px rgba(25, 118, 210, 0.5);
+}
+
 
 
 </style>
 <body>
   <nav class="navbar">
     <div class="nav-left">
-        <img src="img/logo.png" class="logo" alt="Logo" />
+        <img src="img/Company logo.jpg" class="logo" alt="Logo" />
         <div class="menu-title-group">
             <i class="fas fa-bars menu-icon" id="menuToggle"></i> 
         </div>
     </div>
     <div class="nav-center">
         <!-- Language Selector with Globe Icon -->
-        <div class="select-wrapper">
-            <i class="fas fa-globe"></i>
-            <select id="languageSelect" class="lang-dropdown">
-                <option value="en">English</option>
-                <option value="hi">हिन्दी</option>
-                <option value="te">తెలుగు</option>
-            </select>
+        <div class="nav-search-profile">
+            <input type="text" placeholder="Search..." />
+            
         </div>
         <!-- Can add navigation links here if needed -->
     </div>
@@ -517,9 +989,16 @@ body.dark-mode .chart-toggle-buttons button.active {
                 <i class="fas fa-moon"></i>
             </button>
         </div>
-        <div class="nav-search-profile">
-            <input type="text" placeholder="Search..." />
-            <div class="nav-icons">
+        
+        <div class="select-wrapper">
+            <i class="fas fa-globe"></i>
+            <select id="languageSelect" class="lang-dropdown">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+                <option value="te">తెలుగు</option>
+            </select>
+        </div>
+        <div class="nav-icons">
                 <i class="fas fa-envelope"></i>
                 <i class="fas fa-bell"></i>
             </div>
@@ -527,7 +1006,6 @@ body.dark-mode .chart-toggle-buttons button.active {
                 <img src="img/profile.jpg" alt="Profile" />
                 <span>SHIVAKUMAR JELLA</span>
             </div>
-        </div>
     </div>
   </nav>
   <aside id="sidebar">
@@ -971,55 +1449,243 @@ body.dark-mode .chart-toggle-buttons button.active {
         </div>
         
         
-        <!-- Export Action Items -->
-        <div class="export-actions" style="background-color: white; border-radius: 10px; padding: 20px; box-shadow: var(--card-shadow);">
-          <h4 style="margin: 0 0 20px 0; font-size: 18px; color: var(--dark-color); border-bottom: 1px solid #eee; padding-bottom: 10px;">
-            <i class="fas fa-tasks" style="margin-right: 8px; color: var(--primary-color);"></i> Export Action Items
-          </h4>
+        <!-- Enhanced Export Action Items -->
+        <div class="export-action-container">
+          <!-- Toggle Button Only (Positioned Right) -->
+          <div style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
+            <button class="export-toggle-btn" onclick="toggleExportActions()">
+              <i class="fas fa-list-alt"></i>
+              <span>Export Operations</span>
+            </button>
+          </div>
           
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
-            <div style="background-color: rgba(33, 150, 243, 0.1); border-radius: 8px; padding: 15px;">
-              <h5 style="margin: 0 0 10px 0; font-size: 16px; color: #1976d2;">
-                <i class="fas fa-file-contract" style="margin-right: 5px;"></i> Pending Contracts
-              </h5>
-              <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #333;">
-                <li style="margin-bottom: 8px;">Global Dairy Ltd. - Renewal (Due: Jun 30)</li>
-                <li style="margin-bottom: 8px;">Milky Way Co. - New Contract (Due: Jul 15)</li>
-                <li>Southern Dairy - Price Negotiation (Due: Jul 5)</li>
-              </ul>
-              <div style="text-align: right; margin-top: 10px;">
-                <a href="#" style="color: #1976d2; text-decoration: none; font-size: 13px; font-weight: 500;"> <i class="fas fa-chevron-right" style="font-size: 10px;"></i></a>
+          <!-- Export Actions Content (Hidden by default) -->
+          <div class="export-actions-content" id="exportActionsContent">
+            <!-- Header and Status (Hidden by default, shown when expanded) -->
+            <div class="export-action-header">
+              <h4 style="margin: 0; font-size: 18px; color: var(--dark-color); display: flex; align-items: center;">
+                <i class="fas fa-tasks" style="margin-right: 8px; color: var(--primary-color);"></i> 
+                Export Action Center
+                <div class="real-time-indicator"></div>
+              </h4>
+              <div class="export-status-indicator">
+                <span class="status-badge urgent">3 Urgent</span>
+                <span class="status-badge warning">5 Due Soon</span>
+                <span class="status-badge normal">12 Active</span>
               </div>
             </div>
-            
-            <div style="background-color: rgba(76, 175, 80, 0.1); border-radius: 8px; padding: 15px;">
-              <h5 style="margin: 0 0 10px 0; font-size: 16px; color: #388e3c;">
-                <i class="fas fa-shipping-fast" style="margin-right: 5px;"></i> Upcoming Shipments
+
+          <!-- Critical Contracts Section -->
+          <div class="export-action-card priority-high">
+            <div class="notification-badge">3</div>
+            <div class="action-header">
+              <h5 class="action-title">
+                <i class="fas fa-file-contract"></i>
+                Critical Contract Actions
               </h5>
-              <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #333;">
-                <li style="margin-bottom: 8px;">Eastern Exports Co. - 3.5 MT (Jun 25)</li>
-                <li style="margin-bottom: 8px;">Dairy International - 2.8 MT (Jul 2)</li>
-                <li>Pure Milk Traders - 1.5 MT (Jul 8)</li>
+              <span class="action-priority priority-high">High Priority</span>
+            </div>
+            <div class="action-content">
+              <ul class="action-items">
+                <li class="action-item">
+                  <div class="item-info">
+                    <div class="item-status overdue"></div>
+                    <span>Global Dairy Ltd. - Contract Renewal</span>
+                  </div>
+                  <span class="item-due-date due-today">Due Today</span>
+                </li>
+                <li class="action-item">
+                  <div class="item-info">
+                    <div class="item-status pending"></div>
+                    <span>Milky Way Co. - Price Negotiation</span>
+                  </div>
+                  <span class="item-due-date due-soon">Due in 2 days</span>
+                </li>
+                <li class="action-item">
+                  <div class="item-info">
+                    <div class="item-status in-progress"></div>
+                    <span>Southern Dairy - Legal Review</span>
+                  </div>
+                  <span class="item-due-date">Due Jul 5</span>
+                </li>
               </ul>
-              <div style="text-align: right; margin-top: 10px;">
-                <a href="#" style="color: #388e3c; text-decoration: none; font-size: 13px; font-weight: 500;"> <i class="fas fa-chevron-right" style="font-size: 10px;"></i></a>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 65%;"></div>
               </div>
             </div>
-            
-            <div style="background-color: rgba(255, 152, 0, 0.1); border-radius: 8px; padding: 15px;">
-              <h5 style="margin: 0 0 10px 0; font-size: 16px; color: #f57c00;">
-                <i class="fas fa-clipboard-list" style="margin-right: 5px;"></i> Quality Certifications
-              </h5>
-              <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #333;">
-                <li style="margin-bottom: 8px;">ISO 22000 - Renewal (Aug 15)</li>
-                <li style="margin-bottom: 8px;">HACCP Certification - Annual Audit (Jul 20)</li>
-                <li>EU Export License - Documentation (Jun 30)</li>
-              </ul>
-              <div style="text-align: right; margin-top: 10px;">
-                <a href="#" style="color: #f57c00; text-decoration: none; font-size: 13px; font-weight: 500;"> <i class="fas fa-chevron-right" style="font-size: 10px;"></i></a>
-              </div>
+            <div class="action-buttons">
+              <button class="action-btn btn-danger" onclick="handleUrgentAction('contracts')">
+                <i class="fas fa-exclamation-triangle"></i> Urgent Review
+              </button>
+              <button class="action-btn btn-primary" onclick="openContractManager()">
+                <i class="fas fa-edit"></i> Manage Contracts
+              </button>
+              <button class="action-btn btn-outline" onclick="generateContractReport()">
+                <i class="fas fa-file-pdf"></i> Export Report
+              </button>
             </div>
           </div>
+
+          <!-- Shipment Logistics Section -->
+          <div class="export-action-card priority-medium">
+            <div class="notification-badge">5</div>
+            <div class="action-header">
+              <h5 class="action-title">
+                <i class="fas fa-shipping-fast"></i>
+                Shipment Coordination
+              </h5>
+              <span class="action-priority priority-medium">Medium Priority</span>
+            </div>
+            <div class="action-content">
+              <ul class="action-items">
+                <li class="action-item">
+                  <div class="item-info">
+                    <div class="item-status in-progress"></div>
+                    <span>Eastern Exports Co. - 3.5 MT Container Loading</span>
+                  </div>
+                  <span class="item-due-date due-today">Ships Today</span>
+                </li>
+                <li class="action-item">
+                  <div class="item-info">
+                    <div class="item-status pending"></div>
+                    <span>Dairy International - 2.8 MT Documentation</span>
+                  </div>
+                  <span class="item-due-date due-soon">Ships Jul 2</span>
+                </li>
+                <li class="action-item">
+                  <div class="item-info">
+                    <div class="item-status completed"></div>
+                    <span>Pure Milk Traders - 1.5 MT Quality Check</span>
+                  </div>
+                  <span class="item-due-date">Ships Jul 8</span>
+                </li>
+              </ul>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 80%;"></div>
+              </div>
+            </div>
+            <div class="action-buttons">
+              <button class="action-btn btn-warning" onclick="trackShipments()">
+                <i class="fas fa-map-marker-alt"></i> Track Shipments
+              </button>
+              <button class="action-btn btn-success" onclick="updateShipmentStatus()">
+                <i class="fas fa-check-circle"></i> Update Status
+              </button>
+              <button class="action-btn btn-primary" onclick="schedulePickup()">
+                <i class="fas fa-truck"></i> Schedule Pickup
+              </button>
+              <button class="action-btn btn-outline" onclick="printShippingLabels()">
+                <i class="fas fa-print"></i> Print Labels
+              </button>
+            </div>
+          </div>
+
+          <!-- Quality & Compliance Section -->
+          <div class="export-action-card priority-low">
+            <div class="action-header">
+              <h5 class="action-title">
+                <i class="fas fa-clipboard-check"></i>
+                Quality & Compliance
+              </h5>
+              <span class="action-priority priority-low">Normal Priority</span>
+            </div>
+            <div class="action-content">
+              <ul class="action-items">
+                <li class="action-item">
+                  <div class="item-info">
+                    <div class="item-status pending"></div>
+                    <span>ISO 22000 - Annual Renewal Process</span>
+                  </div>
+                  <span class="item-due-date">Due Aug 15</span>
+                </li>
+                <li class="action-item">
+                  <div class="item-info">
+                    <div class="item-status in-progress"></div>
+                    <span>HACCP Certification - Audit Preparation</span>
+                  </div>
+                  <span class="item-due-date">Due Jul 20</span>
+                </li>
+                <li class="action-item">
+                  <div class="item-info">
+                    <div class="item-status overdue"></div>
+                    <span>EU Export License - Documentation Update</span>
+                  </div>
+                  <span class="item-due-date due-today">Due Today</span>
+                </li>
+              </ul>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 45%;"></div>
+              </div>
+            </div>
+            <div class="action-buttons">
+              <button class="action-btn btn-primary" onclick="manageCompliance()">
+                <i class="fas fa-shield-alt"></i> Compliance Center
+              </button>
+              <button class="action-btn btn-success" onclick="scheduleAudit()">
+                <i class="fas fa-calendar-check"></i> Schedule Audit
+              </button>
+              <button class="action-btn btn-warning" onclick="renewCertifications()">
+                <i class="fas fa-certificate"></i> Renew Certs
+              </button>
+              <button class="action-btn btn-outline" onclick="downloadCertificates()">
+                <i class="fas fa-download"></i> Download
+              </button>
+            </div>
+          </div>
+
+          <!-- Real-time Market Intelligence -->
+          <div class="export-action-card priority-medium">
+            <div class="action-header">
+              <h5 class="action-title">
+                <i class="fas fa-chart-line"></i>
+                Market Intelligence & Opportunities
+              </h5>
+              <span class="action-priority priority-medium">Market Alert</span>
+            </div>
+            <div class="action-content">
+              <ul class="action-items">
+                <li class="action-item">
+                  <div class="item-info">
+                    <div class="item-status pending"></div>
+                    <span>New Zealand Market - Price Surge Opportunity</span>
+                  </div>
+                  <span class="item-due-date due-soon">Act within 24h</span>
+                </li>
+                <li class="action-item">
+                  <div class="item-info">
+                    <div class="item-status in-progress"></div>
+                    <span>EU Market - Regulatory Changes Impact</span>
+                  </div>
+                  <span class="item-due-date">Review by Jul 1</span>
+                </li>
+                <li class="action-item">
+                  <div class="item-info">
+                    <div class="item-status completed"></div>
+                    <span>Asian Markets - Demand Forecast Updated</span>
+                  </div>
+                  <span class="item-due-date">Completed</span>
+                </li>
+              </ul>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 70%;"></div>
+              </div>
+            </div>
+            <div class="action-buttons">
+              <button class="action-btn btn-success" onclick="analyzeOpportunity()">
+                <i class="fas fa-search-dollar"></i> Analyze Opportunity
+              </button>
+              <button class="action-btn btn-primary" onclick="contactBuyers()">
+                <i class="fas fa-handshake"></i> Contact Buyers
+              </button>
+              <button class="action-btn btn-warning" onclick="adjustPricing()">
+                <i class="fas fa-tags"></i> Adjust Pricing
+              </button>
+              <button class="action-btn btn-outline" onclick="generateMarketReport()">
+                <i class="fas fa-chart-bar"></i> Market Report
+              </button>
+            </div>
+          </div>
+          </div> <!-- End of export-actions-content -->
         </div>
       </div>
       </div>
@@ -1627,6 +2293,298 @@ body.dark-mode .chart-toggle-buttons button.active {
                 contentWrapper.classList.toggle('expanded');
             });
         });
+
+        // Enhanced Export Action Functions
+        function handleUrgentAction(type) {
+            showNotification(`Urgent ${type} action initiated!`, 'warning');
+            // Simulate real-time action
+            setTimeout(() => {
+                updateActionStatus(type, 'in-progress');
+                showNotification(`${type} review in progress...`, 'info');
+            }, 1000);
+        }
+
+        function openContractManager() {
+            showNotification('Opening Contract Management System...', 'info');
+            // Simulate opening contract manager
+            setTimeout(() => {
+                window.open('#contract-manager', '_blank');
+            }, 500);
+        }
+
+        function generateContractReport() {
+            showNotification('Generating contract report...', 'info');
+            // Simulate report generation
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.href = 'data:text/plain;charset=utf-8,Contract Report - ' + new Date().toLocaleDateString();
+                link.download = 'contract-report-' + new Date().toISOString().split('T')[0] + '.txt';
+                link.click();
+                showNotification('Contract report downloaded successfully!', 'success');
+            }, 2000);
+        }
+
+        function trackShipments() {
+            showNotification('Loading shipment tracking...', 'info');
+            // Simulate real-time tracking
+            setTimeout(() => {
+                updateShipmentProgress();
+                showNotification('Shipment tracking updated!', 'success');
+            }, 1500);
+        }
+
+        function updateShipmentStatus() {
+            showNotification('Updating shipment status...', 'info');
+            // Simulate status update
+            setTimeout(() => {
+                const statusElements = document.querySelectorAll('.item-status.pending');
+                if (statusElements.length > 0) {
+                    statusElements[0].className = 'item-status in-progress';
+                    showNotification('Shipment status updated to In Progress!', 'success');
+                }
+            }, 1000);
+        }
+
+        function schedulePickup() {
+            showNotification('Opening pickup scheduler...', 'info');
+            // Simulate scheduling interface
+            setTimeout(() => {
+                showNotification('Pickup scheduled for tomorrow 9:00 AM', 'success');
+            }, 1000);
+        }
+
+        function printShippingLabels() {
+            showNotification('Preparing shipping labels...', 'info');
+            // Simulate label printing
+            setTimeout(() => {
+                window.print();
+                showNotification('Shipping labels sent to printer!', 'success');
+            }, 1500);
+        }
+
+        function manageCompliance() {
+            showNotification('Opening Compliance Dashboard...', 'info');
+            // Simulate compliance management
+            setTimeout(() => {
+                window.open('#compliance-dashboard', '_blank');
+            }, 500);
+        }
+
+        function scheduleAudit() {
+            showNotification('Opening audit scheduler...', 'info');
+            // Simulate audit scheduling
+            setTimeout(() => {
+                showNotification('Audit scheduled for next week!', 'success');
+            }, 1000);
+        }
+
+        function renewCertifications() {
+            showNotification('Initiating certification renewal...', 'info');
+            // Simulate renewal process
+            setTimeout(() => {
+                showNotification('Renewal applications submitted!', 'success');
+                updateCertificationProgress();
+            }, 2000);
+        }
+
+        function downloadCertificates() {
+            showNotification('Preparing certificate downloads...', 'info');
+            // Simulate download
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.href = 'data:text/plain;charset=utf-8,Certificates Package - ' + new Date().toLocaleDateString();
+                link.download = 'certificates-' + new Date().toISOString().split('T')[0] + '.zip';
+                link.click();
+                showNotification('Certificates downloaded successfully!', 'success');
+            }, 1500);
+        }
+
+        function analyzeOpportunity() {
+            showNotification('Analyzing market opportunity...', 'info');
+            // Simulate market analysis
+            setTimeout(() => {
+                showNotification('Market analysis complete! 15% profit increase potential identified.', 'success');
+            }, 2000);
+        }
+
+        function contactBuyers() {
+            showNotification('Connecting with potential buyers...', 'info');
+            // Simulate buyer contact
+            setTimeout(() => {
+                showNotification('3 buyers contacted. 2 responses received!', 'success');
+            }, 1500);
+        }
+
+        function adjustPricing() {
+            showNotification('Opening pricing optimization tool...', 'info');
+            // Simulate pricing adjustment
+            setTimeout(() => {
+                showNotification('Pricing strategy updated based on market conditions!', 'success');
+            }, 1000);
+        }
+
+        function generateMarketReport() {
+            showNotification('Generating market intelligence report...', 'info');
+            // Simulate report generation
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.href = 'data:text/plain;charset=utf-8,Market Intelligence Report - ' + new Date().toLocaleDateString();
+                link.download = 'market-report-' + new Date().toISOString().split('T')[0] + '.pdf';
+                link.click();
+                showNotification('Market report generated and downloaded!', 'success');
+            }, 2500);
+        }
+
+        // Utility Functions
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${getNotificationIcon(type)}"></i>
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()" class="notification-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            // Add notification styles if not already present
+            if (!document.querySelector('.notification-styles')) {
+                const styles = document.createElement('style');
+                styles.className = 'notification-styles';
+                styles.textContent = `
+                    .notification {
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: white;
+                        border-radius: 8px;
+                        padding: 15px 20px;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        z-index: 10000;
+                        min-width: 300px;
+                        animation: slideIn 0.3s ease;
+                        border-left: 4px solid #2196f3;
+                    }
+                    .notification-success { border-left-color: #4caf50; color: #2e7d32; }
+                    .notification-warning { border-left-color: #ff9800; color: #ef6c00; }
+                    .notification-error { border-left-color: #f44336; color: #c62828; }
+                    .notification-info { border-left-color: #2196f3; color: #1976d2; }
+                    .notification-close {
+                        background: none;
+                        border: none;
+                        cursor: pointer;
+                        color: #999;
+                        margin-left: auto;
+                    }
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    body.dark-mode .notification {
+                        background: #2d2d2d;
+                        color: #f0f0f0;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                    }
+                `;
+                document.head.appendChild(styles);
+            }
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        function getNotificationIcon(type) {
+            const icons = {
+                success: 'check-circle',
+                warning: 'exclamation-triangle',
+                error: 'times-circle',
+                info: 'info-circle'
+            };
+            return icons[type] || 'info-circle';
+        }
+
+        function updateActionStatus(type, status) {
+            // Simulate real-time status updates
+            const statusElements = document.querySelectorAll('.item-status');
+            if (statusElements.length > 0) {
+                statusElements[0].className = `item-status ${status}`;
+            }
+        }
+
+        function updateShipmentProgress() {
+            // Simulate progress bar updates
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const currentWidth = parseInt(bar.style.width) || 0;
+                const newWidth = Math.min(currentWidth + 10, 100);
+                bar.style.width = newWidth + '%';
+            });
+        }
+
+        function updateCertificationProgress() {
+            // Update certification progress
+            const certificationCard = document.querySelector('.export-action-card:nth-child(4)');
+            if (certificationCard) {
+                const progressBar = certificationCard.querySelector('.progress-fill');
+                if (progressBar) {
+                    progressBar.style.width = '75%';
+                }
+            }
+        }
+
+        // Real-time updates simulation
+        setInterval(() => {
+            // Simulate real-time status changes
+            const statusDots = document.querySelectorAll('.item-status.pending');
+            if (statusDots.length > 0 && Math.random() > 0.8) {
+                statusDots[0].className = 'item-status in-progress';
+            }
+        }, 10000);
+
+        // Update notification badges periodically
+        setInterval(() => {
+            const badges = document.querySelectorAll('.notification-badge');
+            badges.forEach(badge => {
+                const currentCount = parseInt(badge.textContent);
+                if (currentCount > 0 && Math.random() > 0.7) {
+                    badge.textContent = Math.max(0, currentCount - 1);
+                    if (parseInt(badge.textContent) === 0) {
+                        badge.style.display = 'none';
+                    }
+                }
+            });
+        }, 15000);
+
+        // Export Actions Toggle Function
+        function toggleExportActions() {
+            const content = document.getElementById('exportActionsContent');
+            const button = document.querySelector('.export-toggle-btn');
+            const buttonText = button.querySelector('span');
+            const buttonIcon = button.querySelector('i');
+            
+            if (content.classList.contains('show')) {
+                // Hide content
+                content.classList.remove('show');
+                buttonText.textContent = 'Export Operations';
+                button.classList.remove('expanded');
+                buttonIcon.className = 'fas fa-list-alt';
+            } else {
+                // Show content
+                content.classList.add('show');
+                buttonText.textContent = 'Hide Operations';
+                button.classList.add('expanded');
+                buttonIcon.className = 'fas fa-times';
+            }
+        }
 
       </script>
         
